@@ -1,0 +1,36 @@
+﻿@model PROG3050VideoGameStore.Models.AccountInfoViewModel
+
+<head>
+    <link rel="stylesheet" href="~/css/LoginRegister.css" asp-append-version="true" />
+</head>
+
+<div class="mainForm">
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+        <h1>Register</h1>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Username)
+            @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Username)
+        </div>
+
+            <div class="form-group">
+            @Html.LabelFor(model => model.Email)
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password)
+            @Html.TextBoxFor(model => model.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Submit" class="btn btn-primary" />
+        </div>
+}
+</div>
