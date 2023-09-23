@@ -17,6 +17,9 @@ body {
   margin-bottom: 60px;
 }
 
-.navbar{
+.navbar {
+    align-items: end;
+    justify-content: end;
     background-color:#2a2a2a;
+    padding-right: 5vw;
 }

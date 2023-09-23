@@ -18,6 +18,15 @@ namespace PROG3050VideoGameStore.Controllers
             return View();
         }
 
+        [HttpPost] // Handle POST requests
+        public IActionResult Register(AccountInfoViewModel model)
+        {
+            // Your registration logic goes here
+            // For example, you can save the user's information to a database
+
+            // After successful registration, redirect to the home page
+            return RedirectToAction("Index", "Home"); // Adjust the action and controller names as needed
+        }
 
         public IActionResult Login()
         {
