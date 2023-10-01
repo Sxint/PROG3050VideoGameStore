@@ -1,0 +1,66 @@
+﻿body {
+    background-color: rgba(39,47,61,255);
+}
+
+.main_card {
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    width: 80%;
+    height: 100%;
+    background-color: rgba(32,37,46,255);
+}
+
+.header {
+    align-items: center;
+    display: flex;
+    margin: 5%;
+    color: white;
+}
+
+.profilePicture {
+    margin-top: 3.5%;
+    height: 150px;
+    width: 150px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.username {
+    width: 180%;
+    padding-left: 5%;
+}
+
+.accountinfo {
+    display: flex;
+    margin: 5%;
+}
+
+.accountinfo p {
+    margin-right: 5%;
+    color: rgba(117,122,132,255);
+}
+
+.content{
+    margin-top: 5%;
+}
+
+.flex-grid {
+    min-width: 150%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 5%;
+    margin-top: 20px; /* Add space between rows */
+    justify-content: space-evenly;
+}
+
+.miniHeader {
+    color: rgba(117,122,132,255);
+}
+
+.flex-item {
+    flex: 1;
+    color: rgba(117,122,132,255);
+}

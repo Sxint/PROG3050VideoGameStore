@@ -1,9 +1,12 @@
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.InteropServices;
 
 namespace PROG3050VideoGameStore.Models
 {
-    public class AccountInfoViewModel
+    public class UserCredentials : IdentityUser
     {
+        //Vital Account information
         public int Id { get; set; }
 
         [Required]
@@ -17,5 +20,8 @@ namespace PROG3050VideoGameStore.Models
         [Required]
         [StringLength(50)] 
         public string Password { get; set; }
+
+        [Display(Name = "Remember me")]
+        public bool RememberMe { get; set; }
     }
 }
