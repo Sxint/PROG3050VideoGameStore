@@ -18,13 +18,37 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar navbar-collapse collapse">
-                    <ul class="navbar-nav flex-grow-3">
+                    <ul class="navbar-nav flex-grow-4">
+
+
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="LoginRegister" asp-action="Login">Login</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Profile" asp-action="profile">Profile</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="LoginRegister" asp-action="Register">Register</a>
-                        </li>
+
+                        @if (Context.Request.Path.Equals("/Profile/Profile", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="index">Home</a>
+                            </li>
+                        }
+
+
+                        @if (!Context.Request.Path.Equals("/LoginRegister/Login", StringComparison.OrdinalIgnoreCase)
+                        && !Context.Request.Path.Equals("/LoginRegister/Register", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="LoginRegister" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="LoginRegister" asp-action="Register">Register</a>
+                            </li>
+                        }
+                        @if(Context.Request.Path.Equals("/LoginRegister/Login", StringComparison.OrdinalIgnoreCase)
+                        || Context.Request.Path.Equals("/LoginRegister/Register", StringComparison.OrdinalIgnoreCase)){
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="index">Back</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

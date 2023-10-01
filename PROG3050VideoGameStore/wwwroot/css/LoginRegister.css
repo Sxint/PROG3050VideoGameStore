@@ -14,6 +14,10 @@ body {
     color: white;
 }
 
+.mainForm p{
+    text-align: center;
+}
+
 .mainForm {
     width: 30%;
     margin-left: 35%;
