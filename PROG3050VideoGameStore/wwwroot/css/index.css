@@ -1,3 +1,51 @@
-﻿body {
-    background-color:red;
+﻿@keyframes slideInFromBottom {
+    0% {
+        transform: translateY(100%);
+        opacity: 0; /* Start with opacity at 0 */
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1; /* End with opacity at 1 (100%) */
+    }
+}
+
+@keyframes fadeIn {
+    0%{
+        opacity: 0;
+    }
+
+    100%{
+        opacity: 1;
+    }
+}
+
+body {
+    margin: 0; /* Remove default margin */
+    background-image: url("../Images/190327-conestoga-03.jpg");
+}
+
+.content {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center; /* Center the content horizontally */
+    width: 80%; /* Set the width to make it larger */
+    max-width: 600px; /* Optionally, set a maximum width */
+    height: 60%; /* Set the height to make it larger */
+    max-height: 400px; /* Optionally, set a maximum height */
+    background-color: rgba(193, 193, 193, 0.75);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    animation: fadeIn 1s forwards; /* Use forwards to keep the final state */
+}
+
+.title h1 {
+    animation: slideInFromBottom 1s 0.5s ease-out forwards; /* Use forwards to keep the final state */
+    color: white;
+    margin: 0;
+    opacity: 0; /* Set the initial opacity to 0 */
 }

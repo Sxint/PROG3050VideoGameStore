@@ -2,15 +2,38 @@
     background-color: rgba(39,47,61,255);
 }
 
-.main_card {
+.profile_card {
     margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    height: 100%;
+    background-color: rgba(32,37,46,255);
+    border-bottom: 1px solid white;
+}
+
+.games_card {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: auto;
     width: 80%;
     height: 100%;
     background-color: rgba(32,37,46,255);
+    border-bottom: 1px solid white;
+    color: white;
 }
+
+.FriendsandFamily_card {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    width: 80%;
+    height: 100%;
+    background-color: rgba(32,37,46,255);
+    border-bottom: 1px solid white;
+    color: white;
+}
+
 
 .header {
     align-items: center;
@@ -28,9 +51,10 @@
     display: inline-block;
 }
 
-.username {
+.title {
     width: 180%;
     padding-left: 5%;
+    padding-top: 1%;
 }
 
 .accountinfo {
@@ -41,10 +65,6 @@
 .accountinfo p {
     margin-right: 5%;
     color: rgba(117,122,132,255);
-}
-
-.content{
-    margin-top: 5%;
 }
 
 .flex-grid {
