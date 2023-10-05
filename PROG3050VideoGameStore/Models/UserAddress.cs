@@ -1,9 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace PROG3050VideoGameStore.Models
 {
-    public class UserAddress
+    public class UserAddress:IdentityUser
     {
+        public int Id { get; set; }
+
         [Required]
         public string FirstName { get; set; }
 
@@ -16,8 +19,8 @@ namespace PROG3050VideoGameStore.Models
         [Required]
         public string StreetAddress { get; set; }
 
-        [Required]
-        public int AptNumber { get; set; }
+
+        public string? AptNumber { get; set; }
 
         [Required]
         public string City { get; set; }
@@ -30,5 +33,8 @@ namespace PROG3050VideoGameStore.Models
 
         [Required]
         public string DeliveryInstructions { get; set; }
+
+        public int ProfileId { get; set; } // Required foreign key property
+        public UserProfile Profile { get; set; } = null!; // Required reference navigation to principal
     }
 }

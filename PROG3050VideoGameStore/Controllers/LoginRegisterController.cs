@@ -32,13 +32,13 @@ namespace PROG3050VideoGameStore.Controllers
         }
 
         [HttpPost] // Handle POST requests
-        public IActionResult Register(UserCredentials model)
+        public IActionResult Register(UserProfile model)
         {
             return RedirectToAction("Address");
         }
 
         [HttpPost] // Handle POST requests
-        public IActionResult Address(UserCredentials model)
+        public IActionResult Address(UserProfile model)
         {
             return RedirectToAction("Index", "Home");
         }
@@ -50,8 +50,9 @@ namespace PROG3050VideoGameStore.Controllers
         //    return RedirectToAction("Index", "Home");
         //}
 
+
         [HttpPost]
-        public async Task<IActionResult> Login(UserCredentials model)
+        public async Task<IActionResult> Login(PROG3050VideoGameStore.Models.UserProfile model)
         {
             // Validate user credentials
             if (ModelState.IsValid)
