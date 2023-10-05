@@ -1,4 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using PROG3050VideoGameStore.Models;
+
 var builder = WebApplication.CreateBuilder(args);
+
+//
+var connStr = builder.Configuration.GetConnectionString("GamesDb");
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connStr));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
