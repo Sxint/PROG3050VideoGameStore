@@ -1,0 +1,50 @@
+﻿/* CSS for the tabs */
+.tabs {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+}
+
+.tab-navigation {
+    list-style: none;
+    padding: 0;
+}
+
+    .tab-navigation li {
+        display: inline;
+        margin-right: 10px;
+    }
+
+    .tab-navigation a {
+        text-decoration: none;
+        padding: 5px 10px;
+        background-color: #eee;
+        border: 1px solid #ccc;
+        color: #333;
+    }
+
+        .tab-navigation a:hover {
+            background-color: #ddd;
+        }
+
+.tab-content {
+    display: none;
+}
+
+    /* Style for the active tab */
+    .tab-content.active {
+        display: block;
+    }
+
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* Define styles for table cells (td) */
+td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}

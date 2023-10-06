@@ -20,22 +20,25 @@
                 <div class="navbar navbar-collapse collapse">
                     <ul class="navbar-nav flex-grow-4">
 
-
+                        @{
+                            bool isHomePage = Context.Request.Path.Equals("/", StringComparison.OrdinalIgnoreCase);
+                            bool isProfilePage = Context.Request.Path.Equals("/Profile/Profile", StringComparison.OrdinalIgnoreCase);
+                            bool isLoginPage = Context.Request.Path.Equals("/LoginRegister/Login", StringComparison.OrdinalIgnoreCase);
+                            bool isRegisterPage = Context.Request.Path.Equals("/LoginRegister/Register", StringComparison.OrdinalIgnoreCase);
+                        }
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Profile" asp-action="profile">Profile</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Admin" asp-action="Panel">Admin</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="index">Back</a>
                         </li>
 
-                        @if (Context.Request.Path.Equals("/Profile/Profile", StringComparison.OrdinalIgnoreCase))
+
+                        @if (isHomePage)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="index">Home</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Profile" asp-action="profile">Profile</a>
                             </li>
-                        }
-
-
-                        @if (!Context.Request.Path.Equals("/LoginRegister/Login", StringComparison.OrdinalIgnoreCase)
-                        && !Context.Request.Path.Equals("/LoginRegister/Register", StringComparison.OrdinalIgnoreCase))
-                        {
                             <li class="nav-item">
                                 <a class="nav-link text-light" asp-area="" asp-controller="LoginRegister" asp-action="Login">Login</a>
                             </li>
@@ -43,8 +46,19 @@
                                 <a class="nav-link text-light" asp-area="" asp-controller="LoginRegister" asp-action="Register">Register</a>
                             </li>
                         }
-                        @if(Context.Request.Path.Equals("/LoginRegister/Login", StringComparison.OrdinalIgnoreCase)
-                        || Context.Request.Path.Equals("/LoginRegister/Register", StringComparison.OrdinalIgnoreCase)){
+
+                        @if (isProfilePage)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="index">Home</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="index">Logout</a>
+                            </li>
+                        }
+
+                        @if (isLoginPage || isRegisterPage)
+                        {
                             <li class="nav-item">
                                 <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="index">Back</a>
                             </li>

@@ -21,7 +21,7 @@ body {
 .mainForm {
     width: 30%;
     margin-left: 35%;
-    margin-top: 15%;
+    margin-top: 10%;
     background-color: #afaeaed9;
 }
 
@@ -36,7 +36,6 @@ body {
 .button:active, .button:hover, .button:focus {
     background-color: #e4e4e4d9;
 }
-
 
 h1 {
     width: 50%;
