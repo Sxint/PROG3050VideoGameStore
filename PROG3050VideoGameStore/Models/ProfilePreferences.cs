@@ -1,22 +1,21 @@
-﻿namespace PROG3050VideoGameStore.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.Reflection.Metadata;
+
+namespace PROG3050VideoGameStore.Models
 {
     public class ProfilePreferences
     {
-        public string? Name { get; set; }
+        public int Id { get; set; }
 
-        public string? Gender { get; set; }
-
-        public DateOnly? Birthday { get; set; }
-
-        public DateOnly AccountCreationDate { get; set; }
-
-        public bool? ReceiveEmails { get; set; }
-
-        public string? Platforms { get; set; } //set this to list later
-
-        public string? Genres { get; set; } //set this to list later
-
-        public string? Language { get; set; } //set this to list later
+        [Required]
+        public string FavCategory { get; set; }
+        [Required]
+        public string FavPlatform { get; set; }
+        [Required]
+        public string Language { get; set; }
+ 
+        public int ProfileId { get; set; } // Required foreign key property
+        public UserProfile Profile { get; set; } = null!; // Required reference navigation to principal
 
     }
 }
