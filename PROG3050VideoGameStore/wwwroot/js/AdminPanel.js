@@ -29,4 +29,9 @@
 
         return false; // Prevent default anchor behavior
     });
+
+    $(".menu-icon").click(function () {
+        var contextMenu = $(this).find('.context-menu');
+        contextMenu.toggle(); // Toggle the display of the context menu
+    });
 });

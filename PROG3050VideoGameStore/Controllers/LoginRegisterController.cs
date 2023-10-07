@@ -52,19 +52,20 @@ namespace PROG3050VideoGameStore.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Login(PROG3050VideoGameStore.Models.UserProfile model)
+        public async Task<IActionResult> Login(UserProfile model)
         {
             // Validate user credentials
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                //this is just a placeholder. i have no idea how to actually use this -Ethan Tai
 
-                if (result.Succeeded)
-                {
-                    // User is successfully authenticated
-                    // The authentication middleware sets User.Identity.IsAuthenticated to true.
+                //var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+
+                //if (result.Succeeded)
+                //{
                     return RedirectToAction("Index", "Home");
-                }
+                //}
+
                 // Handle failed login
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             }
