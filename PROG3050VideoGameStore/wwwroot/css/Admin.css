@@ -1,0 +1,90 @@
+﻿/* CSS for the tabs */
+.tabs {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+}
+
+.tab-navigation {
+    list-style: none;
+    padding: 0;
+}
+
+    .tab-navigation li {
+        display: inline;
+        margin-right: 10px;
+    }
+
+    .tab-navigation a {
+        text-decoration: none;
+        padding: 5px 10px;
+        background-color: #eee;
+        border: 1px solid #ccc;
+        color: #333;
+    }
+
+        .tab-navigation a:hover {
+            background-color: #ddd;
+        }
+
+.tab-content {
+    display: none;
+}
+
+    /* Style for the active tab */
+    .tab-content.active {
+        display: block;
+    }
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ddd;
+    table-layout: fixed;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    width: 20%;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.menu-icon {
+    cursor: pointer;
+    position: relative;
+}
+
+.context-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: none;
+    padding: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.context-menu-button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 1px solid #ddd;
+    padding: 5px; /* Add padding to space the buttons */
+    white-space: nowrap; /* Prevent wrapping to a new line */
+    text-decoration: none;
+    color: black; /* Change font color to black */
+}
+
+.context-menu-button:last-child {
+    border-bottom: none;
+}

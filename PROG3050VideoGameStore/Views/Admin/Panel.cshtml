@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["Title"] = "Panel";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="~/css/Admin.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="tabs">
+        <ul class="tab-navigation">
+            <li><a href="#tab1">Games</a></li>
+            <li><a href="#tab2">Events</a></li>
+            <li><a href="#tab3">Tab 3</a></li>
+        </ul>
+
+        <!-- Tab Content for Tab 1 -->
+        <div id="tab1" class="tab-content">
+            <h2>Tab 1 Content</h2>
+            <p>This is the content for Tab 1.</p>
+            <table>
+                <tr>
+                    <th>Menu</th>
+                    <th>Title</th>
+                    <th>Added By</th>
+                    <th>Date</th>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="menu-icon" onclick="toggleContextMenu(this)">
+                            ☰
+                            <div class="context-menu">
+                                <a asp-area="" asp-controller="Admin" asp-action="EditGame" class="context-menu-button">Edit Game</a>
+                                <a asp-area="" asp-controller="Admin" asp-action="ViewDetails" class="context-menu-button">View Details</a>
+                            </div>
+
+                        </span>
+                    </td>
+                    <td>Title 1</td>
+                    <td>Name 1</td>
+                    <td>01/01/2023 (hard coded)</td>
+                </tr>
+                <tr>
+                    <td>item</td>
+                    <td>item</td>
+                    <td>item</td>
+                    <td>item</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Tab Content for Tab 2 -->
+        <div id="tab2" class="tab-content">
+            <h2>Tab 2 Content</h2>
+            <p>This is the content for Tab 2.</p>
+        </div>
+
+        <!-- Tab Content for Tab 3 -->
+        <div id="tab3" class="tab-content">
+            <h2>Tab 3 Content</h2>
+            <p>This is the content for Tab 3.</p>
+        </div>
+    </div>
+
+    <!-- JavaScript for Tab Functionality -->
+    <script src="~/js/AdminPanel.js"></script>
+</body>
+</html>
