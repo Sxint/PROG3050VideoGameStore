@@ -60,7 +60,8 @@ namespace PROG3050VideoGameStore.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EmailValidate = table.Column<bool>(type: "bit", nullable: false),
                     IsEmployee = table.Column<bool>(type: "bit", nullable: false),
-                    RememberMe = table.Column<bool>(type: "bit", nullable: true)
+                    RememberMe = table.Column<bool>(type: "bit", nullable: true),
+                    RepeatedInvalidCreds = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -252,6 +252,9 @@ namespace PROG3050VideoGameStore.Migrations
                     b.Property<bool?>("RememberMe")
                         .HasColumnType("bit");
 
+                    b.Property<int>("RepeatedInvalidCreds")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Profiles");

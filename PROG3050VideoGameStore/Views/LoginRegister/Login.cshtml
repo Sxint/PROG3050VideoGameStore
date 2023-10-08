@@ -1,4 +1,4 @@
-﻿@model PROG3050VideoGameStore.Models.UserProfile
+﻿@model PROG3050VideoGameStore.ViewModels.LoginVM
 
 <head>
     <link rel="stylesheet" href="~/css/LoginRegister.css" asp-append-version="true" />
@@ -12,9 +12,14 @@
         <h1>Login</h1>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DisplayName)
-            @Html.TextBoxFor(model => model.DisplayName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.DisplayName)
+
+            <p> @ViewData["Message"]</p>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Username)
+            @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Username)
         </div>
 
         <div class="form-group">

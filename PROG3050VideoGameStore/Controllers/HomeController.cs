@@ -13,6 +13,9 @@ namespace PROG3050VideoGameStore.Controllers
             _logger = logger;
         }
 
+       
+
+        [HttpGet]
         public IActionResult Index()
         {
             return View();

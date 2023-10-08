@@ -12,7 +12,7 @@ using PROG3050VideoGameStore.Models;
 namespace PROG3050VideoGameStore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231005161324_initial")]
+    [Migration("20231008003911_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -254,6 +254,9 @@ namespace PROG3050VideoGameStore.Migrations
 
                     b.Property<bool?>("RememberMe")
                         .HasColumnType("bit");
+
+                    b.Property<int>("RepeatedInvalidCreds")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
