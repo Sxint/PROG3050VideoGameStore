@@ -8,14 +8,14 @@ namespace PROG3050VideoGameStore.Models
         public int Id { get; set; }
 
         [Required]
-        public string FavCategory { get; set; }
+        public int FavCategory { get; set; } = 1;
         [Required]
-        public string FavPlatform { get; set; }
+        public int FavPlatform { get; set; } = 1;
         [Required]
-        public string Language { get; set; }
- 
+        public int Language { get; set; } = 1;
+
         public int ProfileId { get; set; } // Required foreign key property
-        public UserProfile Profile { get; set; } = null!; // Required reference navigation to principal
+        public UserProfile? Profile { get; set; } // Required reference navigation to principal
 
     }
 }

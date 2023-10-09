@@ -1,0 +1,67 @@
+﻿@model PROG3050VideoGameStore.Models.UserProfile
+
+<head>
+    <link rel="stylesheet" href="~/css/LoginRegister.css" asp-append-version="true" />
+
+    <style>
+        .footer {
+            position: relative !important;
+        }
+    </style>
+</head>
+
+<div class="mainForm" style="margin-top: 1%;">
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+        @Html.ValidationSummary(true)
+
+        <h1>Update Profile</h1>
+
+        <div class="form-group">
+
+            <p> @ViewData["Message"]</p>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ActualName)
+            @Html.TextBoxFor(model => model.ActualName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ActualName)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Gender)
+            @Html.TextBoxFor(model => model.Gender, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Gender)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BirthDate)
+            <input type="date" id="datePicker" name="BirthDate" asp-for="@Model.BirthDate">
+            @Html.ValidationMessageFor(model => model.BirthDate)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PromotionEmail)
+            <input type="checkbox" name="PromotionEmail" value="true" asp-for="@Model.PromotionEmail">
+            @Html.ValidationMessageFor(model => model.PromotionEmail)
+        </div>
+
+        <div style="display: none;">
+
+            @Html.TextBoxFor(model => model.Id, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.DisplayName, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.Password, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.EmailValidate, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.IsEmployee, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.RememberMe, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.RepeatedInvalidCreds, new { @class = "form-control" })
+
+        </div>
+
+       
+        <div class="form-group">
+            <input type="submit" value="Submit" class="button btn btn-primary" />
+        </div>
+    }
+</div>
