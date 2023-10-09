@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PROG3050VideoGameStore.Models;
 using PROG3050VideoGameStore.ViewModels;
 using System.Diagnostics;
@@ -24,10 +25,41 @@ namespace PROG3050VideoGameStore.Controllers
             return View();
         }
 
-        public IActionResult Address()
+        [HttpGet]
+        public IActionResult Address(int id=0)
         {
-            return View();
+            UserAddress userAddress = new UserAddress();
+            userAddress = _appDbContext.UserAddresses.FirstOrDefault(a=>a.ProfileId==id);
+            return View(userAddress);
         }
+
+
+        [HttpGet]
+        public IActionResult ProfileIndex(int id=0)
+        {
+            UserProfile user = new UserProfile();
+            user = _appDbContext.Profiles.Find(id);
+            return View(user);
+        }
+
+        [HttpGet]
+        public IActionResult UpdateProfile(int id=0)
+        {
+            UserProfile userProfile = new UserProfile();
+            userProfile = _appDbContext.Profiles.Find(id);
+            return View(userProfile);
+        }
+
+        [HttpGet]
+        public IActionResult UpdatePreferences(int id = 0)
+        {
+            ProfilePreferences preference = new ProfilePreferences();
+            preference = _appDbContext.ProfilePreferencesList.Find(id);
+             
+            return View(preference);
+        }
+
+
 
         [HttpGet]
         public IActionResult Login()
@@ -47,6 +79,14 @@ namespace PROG3050VideoGameStore.Controllers
                 {
                     _appDbContext.Profiles.Add(model);
                     _appDbContext.SaveChanges();
+                    UserAddress userAddress = new UserAddress();
+                    userAddress.ProfileId = model.Id;
+                    ProfilePreferences preferences = new ProfilePreferences();
+                    preferences.ProfileId = model.Id;              
+                    _appDbContext.UserAddresses.Add(userAddress);
+                    _appDbContext.ProfilePreferencesList.Add(preferences);
+                    _appDbContext.SaveChanges();
+
                     return RedirectToAction("Login", "LoginRegister");
                 }
 
@@ -66,9 +106,41 @@ namespace PROG3050VideoGameStore.Controllers
         }
 
         [HttpPost] // Handle POST requests
-        public IActionResult Address(UserProfile model)
+        public IActionResult Address(UserAddress model)
         {
-            return RedirectToAction("Index", "Home");
+            if (ModelState.IsValid)
+            {
+                _appDbContext.UserAddresses.Update(model);
+                _appDbContext.SaveChanges();
+                ViewData["Message"] = "Address has been updated successfully";
+                return View(model);
+            }
+
+            else
+            {
+          
+                ViewData["Message"] = "";
+                return View(model);
+            }
+        }
+
+        [HttpPost] // Handle POST requests
+        public IActionResult UpdateProfile(UserProfile model)
+        {
+            if (ModelState.IsValid)
+            {
+                _appDbContext.Profiles.Update(model);
+                _appDbContext.SaveChanges();
+                ViewData["Message"] = "Profile details have been updated successfully";
+                return View(model);
+            }
+
+            else
+            {
+
+                ViewData["Message"] = "";
+                return View(model);
+            }
         }
 
 
@@ -87,7 +159,8 @@ namespace PROG3050VideoGameStore.Controllers
                         {
                             QueriedUserProfile.RepeatedInvalidCreds = 0;
                             _appDbContext.Profiles.Update(QueriedUserProfile);
-                            return RedirectToAction("Index", "Home"); // This needs to be routed with the associated profile
+                            _appDbContext.SaveChanges();
+                            return RedirectToAction("ProfileIndex", "LoginRegister", new {id = QueriedUserProfile.Id});
                         }
 
                         else
@@ -120,6 +193,25 @@ namespace PROG3050VideoGameStore.Controllers
 
             else
             {
+                return View(model);
+            }
+        }
+
+        [HttpPost] // Handle POST requests
+        public IActionResult UpdatePreferences(ProfilePreferences model)
+        {
+            if (ModelState.IsValid)
+            {
+                _appDbContext.ProfilePreferencesList.Update(model);
+                _appDbContext.SaveChanges();
+                ViewData["Message"] = "Preferences have been updated successfully";
+                return View(model);
+            }
+
+            else
+            {
+
+                ViewData["Message"] = "";
                 return View(model);
             }
         }

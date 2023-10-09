@@ -1,0 +1,70 @@
+﻿@model PROG3050VideoGameStore.Models.ProfilePreferences
+
+<head>
+    <link rel="stylesheet" href="~/css/LoginRegister.css" asp-append-version="true" />
+
+    <style>
+        .footer {
+            position: relative !important;
+        }
+    </style>
+</head>
+
+<div class="mainForm" style="margin-top: 1%;">
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+        @Html.ValidationSummary(true)
+
+        <h1>Preferences</h1>
+
+        <div class="form-group">
+
+            <p> @ViewData["Message"]</p>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FavPlatform)
+            <select id="FavPlatform" name="FavPlatform" class="form-control" asp-for="@Model.FavPlatform">
+                <option value="1">None</option>
+                <option value="2">PC</option>
+                <option value="3">PS</option>
+                <option value="4">XBOX</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.FavPlatform)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FavCategory)
+            <select id="FavCategory" name="FavCategory" class="form-control" asp-for="@Model.FavCategory">
+                <option value="1">None</option>
+                <option value="2">Action</option>
+                <option value="3">Sci-Fi</option>
+                <option value="4">Fantasy</option>
+                <option value="5">RPG</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.FavCategory)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Language)
+            <select id="Language" name="Language" class="form-control" asp-for="@Model.Language">
+                <option value="1">None</option>
+                <option value="2">English</option>
+                <option value="3">French</option>
+                <option value="4">Spanish</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.Language)
+        </div>
+
+        <div style="display: none;">
+
+            @Html.TextBoxFor(model => model.Id, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.ProfileId, new { @class = "form-control" })
+
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Submit" class="button btn btn-primary" />
+        </div>
+    }
+</div>
