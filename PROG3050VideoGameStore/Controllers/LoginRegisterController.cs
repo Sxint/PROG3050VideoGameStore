@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using PROG3050VideoGameStore.Models;
 using PROG3050VideoGameStore.ViewModels;
 using System.Diagnostics;
+using System.Net.Mail;
+using System.Net;
+using System;
 
 namespace PROG3050VideoGameStore.Controllers
 {
@@ -24,6 +27,19 @@ namespace PROG3050VideoGameStore.Controllers
         {
             return View();
         }
+
+        [HttpGet()]
+
+        public IActionResult EmailValidationResponse(int id)
+        {
+            UserProfile model = new UserProfile();
+            model = _appDbContext.Profiles.Find(id);
+            model.EmailValidate = true;
+            _appDbContext.Profiles.Update(model);
+            _appDbContext.SaveChanges();
+            return View();
+        }
+
 
         [HttpGet]
         public IActionResult Address(int id=0)
@@ -67,6 +83,13 @@ namespace PROG3050VideoGameStore.Controllers
             return View(); 
         }
 
+        [HttpGet]
+        public IActionResult EmailResetPassword()
+        {
+            EmailResetPasswordVM password = new EmailResetPasswordVM();
+            return View(password);
+        }
+
         [HttpPost] // Handle POST requests
         public IActionResult Register(UserProfile model)
         {
@@ -86,6 +109,29 @@ namespace PROG3050VideoGameStore.Controllers
                     _appDbContext.UserAddresses.Add(userAddress);
                     _appDbContext.ProfilePreferencesList.Add(preferences);
                     _appDbContext.SaveChanges();
+
+                    string fromAddress = "nirmaldeepak96@gmail.com";
+                    string toAddress = model.Email;
+                    string link = Url.Action("EmailValidationResponse", "LoginRegister", new { id = model.Id }, protocol: "https");
+                    var smtpClient = new SmtpClient("smtp.gmail.com")
+                    {
+                        Port = 587,
+                        Credentials = new NetworkCredential(fromAddress, "fwmvsjqvkcddiqcw"),
+                        EnableSsl = true,
+                    };
+
+                    var mailMessage = new MailMessage()
+                    {
+
+                        From = new MailAddress(fromAddress),
+                        Subject = "Validation Required!",
+                        Body = "Your new account has been created. But before you can sign in validation is required. " + $"<a href ={link}>Please click here to validate</a>" + " <br><br>Thanks,<br><br>The Video Game Store team",
+                        IsBodyHtml = true
+                    };
+
+                    mailMessage.To.Add(toAddress);
+
+                    smtpClient.SendAsync(mailMessage, null);
 
                     return RedirectToAction("Login", "LoginRegister");
                 }
@@ -153,30 +199,39 @@ namespace PROG3050VideoGameStore.Controllers
                 QueriedUserProfile = _appDbContext.Profiles.FirstOrDefault(p=>p.DisplayName==model.Username);
                 if (QueriedUserProfile!=null)
                 {
-                    if (QueriedUserProfile.RepeatedInvalidCreds<3)
+                    if (QueriedUserProfile.EmailValidate == true)
                     {
-                        if (QueriedUserProfile.DisplayName == model.Username && QueriedUserProfile.Password == model.Password)
+                        if (QueriedUserProfile.RepeatedInvalidCreds < 3)
                         {
-                            QueriedUserProfile.RepeatedInvalidCreds = 0;
-                            _appDbContext.Profiles.Update(QueriedUserProfile);
-                            _appDbContext.SaveChanges();
-                            return RedirectToAction("ProfileIndex", "LoginRegister", new {id = QueriedUserProfile.Id});
+                            if (QueriedUserProfile.DisplayName == model.Username && QueriedUserProfile.Password == model.Password)
+                            {
+                                QueriedUserProfile.RepeatedInvalidCreds = 0;
+                                _appDbContext.Profiles.Update(QueriedUserProfile);
+                                _appDbContext.SaveChanges();
+                                return RedirectToAction("ProfileIndex", "LoginRegister", new { id = QueriedUserProfile.Id });
+                            }
+
+                            else
+                            {
+                                QueriedUserProfile.RepeatedInvalidCreds += 1;
+                                _appDbContext.Profiles.Update(QueriedUserProfile);
+                                _appDbContext.SaveChanges();
+                                ViewData["Message"] = "Invalid Credentials";
+                                return View(model);
+                            }
+
                         }
 
                         else
                         {
-                            QueriedUserProfile.RepeatedInvalidCreds += 1;
-                            _appDbContext.Profiles.Update(QueriedUserProfile);
-                            _appDbContext.SaveChanges();
-                            ViewData["Message"] = "Invalid Credentials";
+                            ViewData["Message"] = "Account Locked Out. Contact Admin";
                             return View(model);
-                        }
-
+                        } 
                     }
 
                     else
                     {
-                        ViewData["Message"] = "Account Locked Out. Contact Admin";
+                        ViewData["Message"] = "Please Validate your email";
                         return View(model);
                     }
 
@@ -216,9 +271,74 @@ namespace PROG3050VideoGameStore.Controllers
             }
         }
 
+        [HttpPost]
+        public IActionResult EmailResetPassword(EmailResetPasswordVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                UserProfile user = new UserProfile();
+                user = _appDbContext.Profiles.FirstOrDefault(p=>p.DisplayName == model.UserName);
 
+                if (user != null)
+                {
+                    Random random1 = new Random();              
 
+                    int randomNumber1 = random1.Next(1, 9);
+                    int randomNumber2 = random1.Next(1, 9);
+                    int randomNumber3 = random1.Next(1, 9);
+                    char randomAlphabet1 = (char)('a' + random1.Next(26));
+                    char randomAlphabet2 = (char)('A' + random1.Next(26));
+                    string characterSet = "@#$%^&+=";
+                    char randomCharacter = characterSet[random1.Next(characterSet.Length)];
 
+                    string newPassword = randomNumber1.ToString() + randomNumber2.ToString() + randomNumber3.ToString()+randomAlphabet1+randomAlphabet2+randomCharacter;
+                    user.Password = newPassword;
+                    _appDbContext.Profiles.Update(user);
+                    _appDbContext.SaveChanges();
+
+                    string fromAddress = "nirmaldeepak96@gmail.com";
+                    string toAddress = user.Email;
+                    var smtpClient = new SmtpClient("smtp.gmail.com")
+                    {
+                        Port = 587,
+                        Credentials = new NetworkCredential(fromAddress, "fwmvsjqvkcddiqcw"),
+                        EnableSsl = true,
+                    };
+
+                    var mailMessage = new MailMessage()
+                    {
+
+                        From = new MailAddress(fromAddress),
+                        Subject = "New Password",
+                        Body = "Your password has been reset. Your new password is " +user.Password+ " <br><br>Thanks,<br><br>The Video Game Store team",
+                        IsBodyHtml = true
+                    };
+
+                    mailMessage.To.Add(toAddress);
+
+                    smtpClient.SendAsync(mailMessage, null);
+
+                    ViewData["Message"] = "Check your email for new password";
+                    return View();
+                }
+
+                else
+                {
+                    ViewData["Message"] = "User does not exist in the database";
+                    return View(model);
+                }
+               
+            }
+
+            else
+            {
+
+                ViewData["Message"] = "";
+                return View(model);
+            }
+
+           
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

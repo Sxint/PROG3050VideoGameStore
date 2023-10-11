@@ -29,6 +29,14 @@
                             bool isAddressPage = Context.Request.Path.StartsWithSegments("/LoginRegister/Address", StringComparison.OrdinalIgnoreCase);
                             bool isUpdateProfilePage = Context.Request.Path.StartsWithSegments("/LoginRegister/UpdateProfile", StringComparison.OrdinalIgnoreCase);
                             bool isUpdatePreferencePage = Context.Request.Path.StartsWithSegments("/LoginRegister/UpdatePreferences", StringComparison.OrdinalIgnoreCase);
+                            bool isEmailResetPasswordPage = Context.Request.Path.StartsWithSegments("/LoginRegister/EmailResetPassword", StringComparison.OrdinalIgnoreCase);
+                        }
+
+                        @if (isEmailResetPasswordPage)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="@Url.Action("Login", "LoginRegister")">Back</a>
+                            </li>
                         }
 
                           @if (isUpdatePreferencePage)
