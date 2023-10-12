@@ -7,9 +7,11 @@ using System.Diagnostics;
 using System.Net.Mail;
 using System.Net;
 using System;
+using AspNetCore.ReCaptcha;
 
 namespace PROG3050VideoGameStore.Controllers
 {
+  
     public class LoginRegisterController : Controller
     {
         private readonly ILogger<LoginRegisterController> _logger;
