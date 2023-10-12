@@ -5,6 +5,9 @@
     <link rel="stylesheet" href="~/css/LoginRegister.css" asp-append-version="true" />
 </head>
 
+@using AspNetCore.ReCaptcha;
+@Html.ReCaptcha()
+
 <div class="mainForm">
 @using (Html.BeginForm(FormMethod.Post))
 {
