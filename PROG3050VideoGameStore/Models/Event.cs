@@ -10,7 +10,7 @@ namespace PROG3050VideoGameStore.Models
         public string Name { get; set; }
 
         [Required]
-        public DateTime DateOfEvent { get; set; }
+        public DateTime DateOfEvent { get; set; } = DateTime.Now;
 
         [Required]
         public string Description { get; set; }

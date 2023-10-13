@@ -20,8 +20,6 @@ namespace PROG3050VideoGameStore.Models
         [Required]
         public int Year { get; set; }
 
-        public int? Rating { get; set; }
-
-        public string? Review { get; set; }
+        public int Rating { get; set; } = 1;
     }
 }
