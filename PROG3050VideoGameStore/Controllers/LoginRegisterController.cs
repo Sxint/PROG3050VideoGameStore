@@ -92,6 +92,18 @@ namespace PROG3050VideoGameStore.Controllers
             return View(password);
         }
 
+
+        [HttpGet()]
+
+        public IActionResult ChangePassword(int id)
+        {
+            ChangePasswordVM model = new ChangePasswordVM();
+            model.ObtainedOldPassword = _appDbContext.Profiles.Find(id).Password;
+            model.CurrentProfileId = id;
+            return View(model);
+        }
+
+
         [HttpPost] // Handle POST requests
         public IActionResult Register(UserProfile model)
         {
@@ -341,6 +353,50 @@ namespace PROG3050VideoGameStore.Controllers
 
            
         }
+
+        [HttpPost()]
+
+        public IActionResult ChangePassword(ChangePasswordVM model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                if (model.OldPassword == model.ObtainedOldPassword)
+                {
+                    if (model.NewPassword == model.ConfirmNewPassword)
+                    {
+                        UserProfile newProfile = new UserProfile();
+                        newProfile = _appDbContext.Profiles.Find(model.CurrentProfileId);
+                        newProfile.Password = model.NewPassword;
+                        _appDbContext.Profiles.Update(newProfile);
+                        _appDbContext.SaveChanges();
+                        ViewData["Message"] = "Password has been updated successfully";
+                        return RedirectToAction("ProfileIndex", "LoginRegister",new {id = model.CurrentProfileId });
+                    }
+
+                    else
+                    {
+                        ViewData["Message"] = "The new and the confirmed passwords do not match";
+                        return View(model);
+                    }
+
+                }
+                else
+                {
+                    ViewData["Message"] = "The Old password entered doesnt match the password on the file";
+                    return View(model);
+                }
+            }
+
+            else
+            {
+
+                ViewData["Message"] = "";
+                return View(model);
+            }
+        }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

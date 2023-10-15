@@ -1,0 +1,62 @@
+﻿@model PROG3050VideoGameStore.ViewModels.ListVM
+@{
+    ViewData["Title"] = "Panel";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="~/css/Admin.css" asp-append-version="true" />
+</head>
+<body>
+    
+
+       <!-- Tab Content for Tab 1 -->
+        <div id="tab1" class="tab-content">
+            <h2>List of Games</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>Price</th>
+                </tr>
+                </thead>
+
+            <tbody>
+
+                @if (Model.AllGames != null)
+                {
+                    for (int i = 0; i < Model.AllGames.Count; i++)
+                    {
+
+                        <tr>
+                            <td>@Model.AllGames[i].Name</td>
+                            <td>@Model.AllGames[i].Author</td>
+                            <td>@Model.AllGames[i].Price</td>
+
+                            <td>
+                                <a asp-controller="Admin" asp-action="EditGame" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Edit</a>
+                                <span class="mx-1">|</span>
+                                <a asp-controller="Admin" asp-action="DeleteGame" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId ="@Model.ProfileId">Delete</a>
+                            </td>
+
+                        </tr>
+
+
+                    }
+
+                }
+
+            </tbody>
+            </table>
+        </div>
+
+       
+
+<!-- JavaScript for Tab Functionality -->
+<script src="~/js/AdminPanel.js"></script>
+</body>
+</html>

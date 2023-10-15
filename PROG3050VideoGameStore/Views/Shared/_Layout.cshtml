@@ -30,6 +30,55 @@
                             bool isUpdateProfilePage = Context.Request.Path.StartsWithSegments("/LoginRegister/UpdateProfile", StringComparison.OrdinalIgnoreCase);
                             bool isUpdatePreferencePage = Context.Request.Path.StartsWithSegments("/LoginRegister/UpdatePreferences", StringComparison.OrdinalIgnoreCase);
                             bool isEmailResetPasswordPage = Context.Request.Path.StartsWithSegments("/LoginRegister/EmailResetPassword", StringComparison.OrdinalIgnoreCase);
+                            bool isPanelPage = Context.Request.Path.StartsWithSegments("/Admin/Panel", StringComparison.OrdinalIgnoreCase);
+                            bool isGameAddPage = Context.Request.Path.StartsWithSegments("/Admin/AddGame", StringComparison.OrdinalIgnoreCase);
+                            bool isEventAddPage = Context.Request.Path.StartsWithSegments("/Admin/AddEvent", StringComparison.OrdinalIgnoreCase);
+                            bool isListPage = Context.Request.Path.StartsWithSegments("/Admin/List", StringComparison.OrdinalIgnoreCase);
+                            bool isGameEditPage = Context.Request.Path.StartsWithSegments("/Admin/EditGame", StringComparison.OrdinalIgnoreCase);
+                            bool isChangePasswordPage = Context.Request.Path.StartsWithSegments("/LoginRegister/ChangePassword", StringComparison.OrdinalIgnoreCase);
+                    
+                        }
+
+                        @if (isChangePasswordPage)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.CurrentProfileId})">Back</a>
+                            </li>
+                        }
+
+                        @if (isGameEditPage)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="@Url.Action("List", "Admin", new { id = Model.ProfileId})">Back</a>
+                            </li>
+                        }
+
+                        
+
+                        @if (isListPage)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.ProfileId})">Back</a>
+                            </li>
+                        }
+
+                        @if (isEventAddPage)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.ProfileId})">Back</a>
+                            </li>
+                        }
+
+                        @if(isGameAddPage){
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.ProfileId})">Back</a>
+                            </li>
+                        }
+
+                        @if(isPanelPage){
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.Id})">Back</a>
+                            </li>
                         }
 
                         @if (isEmailResetPasswordPage)
@@ -62,13 +111,14 @@
 
                          @if (isProfileIndex)
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Admin" asp-action="Panel">Admin</a>
-                            </li>
+                           @if(Model.IsEmployee == true){
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.Id })">Admin</a>
+                                </li>
+
+                           }
                            
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Profile" asp-action="profile">Profile</a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link text-light" href="@Url.Action("Address", "LoginRegister", new { id = Model.Id })">Address</a>
                             </li>
@@ -79,6 +129,10 @@
 
                             <li class="nav-item">
                                 <a class="nav-link text-light" href="@Url.Action("UpdatePreferences", "LoginRegister", new { id = Model.Id })">Update Preferences</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="@Url.Action("ChangePassword", "LoginRegister", new { id = Model.Id })">Change Password</a>
                             </li>
 
                              <li class="nav-item">

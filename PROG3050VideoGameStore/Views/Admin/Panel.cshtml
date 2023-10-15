@@ -1,4 +1,5 @@
-﻿@{
+﻿@model PROG3050VideoGameStore.Models.UserProfile
+@{
     ViewData["Title"] = "Panel";
 }
 
@@ -12,12 +13,12 @@
 <body>
     <div class="tabs">
         <ul class="tab-navigation">
-            <li><a href="#tab1">Games</a></li>
-            <li><a href="#tab2">Events</a></li>
-            <li><a href="#tab3">Tab 3</a></li>
+            <li><a href="@Url.Action("AddGame", "Admin", new { id = Model.Id })">Add Game</a></li>
+            <li><a href="@Url.Action("AddEvent", "Admin", new { id = Model.Id })">Add Event</a></li>
+            <li><a href="@Url.Action("List", "Admin", new {id = Model.Id})">Game List</a></li>
         </ul>
 
-        <!-- Tab Content for Tab 1 -->
+      @*  <!-- Tab Content for Tab 1 -->
         <div id="tab1" class="tab-content">
             <h2>Tab 1 Content</h2>
             <p>This is the content for Tab 1.</p>
@@ -63,7 +64,7 @@
             <h2>Tab 3 Content</h2>
             <p>This is the content for Tab 3.</p>
         </div>
-    </div>
+    </div>*@
 
     <!-- JavaScript for Tab Functionality -->
     <script src="~/js/AdminPanel.js"></script>
