@@ -76,14 +76,14 @@ namespace PROG3050VideoGameStore.Migrations
                     FavCategory = table.Column<int>(type: "int", nullable: false),
                     FavPlatform = table.Column<int>(type: "int", nullable: false),
                     Language = table.Column<int>(type: "int", nullable: false),
-                    ProfileId = table.Column<int>(type: "int", nullable: false)
+                    UserProfileId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProfilePreferencesList", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProfilePreferencesList_Profiles_ProfileId",
-                        column: x => x.ProfileId,
+                        name: "FK_ProfilePreferencesList_Profiles_UserProfileId",
+                        column: x => x.UserProfileId,
                         principalTable: "Profiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -104,30 +104,36 @@ namespace PROG3050VideoGameStore.Migrations
                     Province = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DeliveryInstructions = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProfileId = table.Column<int>(type: "int", nullable: false)
+                    StreetAddressShipping = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AptNumberShipping = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CityShipping = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProvinceShipping = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PostalCodeShipping = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SameAsShipping = table.Column<bool>(type: "bit", nullable: false),
+                    UserProfileId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserAddresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserAddresses_Profiles_ProfileId",
-                        column: x => x.ProfileId,
+                        name: "FK_UserAddresses_Profiles_UserProfileId",
+                        column: x => x.UserProfileId,
                         principalTable: "Profiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProfilePreferencesList_ProfileId",
+                name: "IX_ProfilePreferencesList_UserProfileId",
                 table: "ProfilePreferencesList",
-                column: "ProfileId",
+                column: "UserProfileId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserAddresses_ProfileId",
+                name: "IX_UserAddresses_UserProfileId",
                 table: "UserAddresses",
-                column: "ProfileId",
-                unique: true);
+                column: "UserProfileId"
+                );
         }
 
         /// <inheritdoc />

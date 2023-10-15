@@ -97,12 +97,12 @@ namespace PROG3050VideoGameStore.Migrations
                     b.Property<int>("Language")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProfileId")
+                    b.Property<int>("UserProfileId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProfileId")
+                    b.HasIndex("UserProfileId")
                         .IsUnique();
 
                     b.ToTable("ProfilePreferencesList");
@@ -119,7 +119,14 @@ namespace PROG3050VideoGameStore.Migrations
                     b.Property<string>("AptNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("AptNumberShipping")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CityShipping")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -143,20 +150,35 @@ namespace PROG3050VideoGameStore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProfileId")
-                        .HasColumnType("int");
+                    b.Property<string>("PostalCodeShipping")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Province")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ProvinceShipping")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("SameAsShipping")
+                        .HasColumnType("bit");
+
                     b.Property<string>("StreetAddress")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("StreetAddressShipping")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserProfileId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ProfileId")
+                    b.HasIndex("UserProfileId")
                         .IsUnique();
 
                     b.ToTable("UserAddresses");
@@ -219,7 +241,7 @@ namespace PROG3050VideoGameStore.Migrations
                 {
                     b.HasOne("PROG3050VideoGameStore.Models.UserProfile", "Profile")
                         .WithOne("Preferences")
-                        .HasForeignKey("PROG3050VideoGameStore.Models.ProfilePreferences", "ProfileId")
+                        .HasForeignKey("PROG3050VideoGameStore.Models.ProfilePreferences", "UserProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -230,7 +252,7 @@ namespace PROG3050VideoGameStore.Migrations
                 {
                     b.HasOne("PROG3050VideoGameStore.Models.UserProfile", "Profile")
                         .WithOne("Address")
-                        .HasForeignKey("PROG3050VideoGameStore.Models.UserAddress", "ProfileId")
+                        .HasForeignKey("PROG3050VideoGameStore.Models.UserAddress", "UserProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

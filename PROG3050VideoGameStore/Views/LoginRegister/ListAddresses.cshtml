@@ -1,0 +1,60 @@
+﻿@model PROG3050VideoGameStore.ViewModels.AddressListVM
+@{
+    ViewData["Title"] = "Panel";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="~/css/Admin.css" asp-append-version="true" />
+</head>
+<body>
+
+
+    <!-- Tab Content for Tab 1 -->
+    <div id="tab1" class="tab-content">
+        <h2>List of Addresses</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Street Address</th>
+                   
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @if (Model != null)
+                {
+                    for (int i = 0; i < Model.AllAddresses.Count; i++)
+                    {
+
+                        <tr>
+                            <td>@Model.AllAddresses[i].StreetAddress</td>
+                            
+
+                            <td>
+                                <a asp-controller="LoginRegister" asp-action="Address" asp-route-id="@Model.AllAddresses[i].Id">Edit</a>
+                                <span class="mx-1">|</span>
+                                <a asp-controller="LoginRegister" asp-action="DeleteAddress" asp-route-id="@Model.AllAddresses[i].Id">Delete</a>
+                            </td>
+
+                        </tr>
+
+
+                    }
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <!-- JavaScript for Tab Functionality -->
+    <script src="~/js/AdminPanel.js"></script>
+</body>
+</html>

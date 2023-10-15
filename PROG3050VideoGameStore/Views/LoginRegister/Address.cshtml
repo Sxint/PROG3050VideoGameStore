@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" href="~/css/LoginRegister.css" asp-append-version="true" />
 
-        <style>
+    <style>
         .footer {
             position: relative !important;
         }
@@ -11,79 +11,143 @@
 </head>
 
 <div class="mainForm" style="margin-top: 1%;">
-@using (Html.BeginForm(FormMethod.Post))
-{
-    @Html.ValidationSummary(true)
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+        @Html.ValidationSummary(true)
 
         <h1>Address</h1>
 
-            <div class="form-group">
+        <div class="form-group">
 
             <p> @ViewData["Message"]</p>
-            </div>
+        </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.FirstName)
-                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.FirstName)
-            </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName)
+            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control",@id = "firstName" })
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.LastName)
-                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.LastName)
-            </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName)
+            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control",@id = "lastName" })
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.PhoneNumber)
-                @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.PhoneNumber)
-            </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneNumber)
+            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control",@id = "phoneNumber" })
+            @Html.ValidationMessageFor(model => model.PhoneNumber)
+        </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.StreetAddress)
-                @Html.TextBoxFor(model => model.StreetAddress, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.StreetAddress)
-            </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.StreetAddress)
+            @Html.TextBoxFor(model => model.StreetAddress, new { @class = "form-control",@id = "streetAddress" })
+            @Html.ValidationMessageFor(model => model.StreetAddress)
+        </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.AptNumber)
-                @Html.TextBoxFor(model => model.AptNumber, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.AptNumber)
-            </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.AptNumber)
+            @Html.TextBoxFor(model => model.AptNumber, new { @class = "form-control",@id = "aptNumber" })
+            @Html.ValidationMessageFor(model => model.AptNumber)
+        </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Province)
-                @Html.TextBoxFor(model => model.Province, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Province)
-            </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Province)
+            @Html.TextBoxFor(model => model.Province, new { @class = "form-control",@id = "province" })
+            @Html.ValidationMessageFor(model => model.Province)
+        </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.City)
-                @Html.TextBoxFor(model => model.City, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.City)
-            </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.City)
+            @Html.TextBoxFor(model => model.City, new { @class = "form-control",@id = "city" })
+            @Html.ValidationMessageFor(model => model.City)
+        </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.PostalCode)
-                @Html.TextBoxFor(model => model.PostalCode, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.PostalCode)
-            </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PostalCode)
+            @Html.TextBoxFor(model => model.PostalCode, new { @class = "form-control",@id = "postalCode" })
+            @Html.ValidationMessageFor(model => model.PostalCode)
+        </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.DeliveryInstructions)
-                @Html.TextBoxFor(model => model.DeliveryInstructions, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.DeliveryInstructions)
-            </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SameAsShipping)
+            <input id="transferCheckbox" type="checkbox" name="SameAsShipping" value="true" asp-for="@Model.SameAsShipping">
+            @Html.ValidationMessageFor(model => model.SameAsShipping)
+        </div>
 
-             <div style="display: none;">
+        <h2> Shipping Address</h2>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StreetAddressShipping)
+            @Html.TextBoxFor(model => model.StreetAddressShipping, new { @class = "form-control",@id = "streetAddressShipping" })
+            @Html.ValidationMessageFor(model => model.StreetAddressShipping)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AptNumberShipping)
+            @Html.TextBoxFor(model => model.AptNumberShipping, new { @class = "form-control",@id = "aptNumberShipping" })
+            @Html.ValidationMessageFor(model => model.AptNumberShipping)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProvinceShipping)
+            @Html.TextBoxFor(model => model.ProvinceShipping, new { @class = "form-control",@id = "provinceShipping" })
+            @Html.ValidationMessageFor(model => model.ProvinceShipping)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CityShipping)
+            @Html.TextBoxFor(model => model.CityShipping, new { @class = "form-control",@id = "cityShipping" })
+            @Html.ValidationMessageFor(model => model.CityShipping)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PostalCodeShipping)
+            @Html.TextBoxFor(model => model.PostalCodeShipping, new { @class = "form-control",@id = "postalCodeShipping" })
+            @Html.ValidationMessageFor(model => model.PostalCodeShipping)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DeliveryInstructions)
+            @Html.TextBoxFor(model => model.DeliveryInstructions, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.DeliveryInstructions)
+        </div>
+
+        <div style="display: none;">
 
             @Html.TextBoxFor(model => model.Id, new { @class = "form-control" })
-            @Html.TextBoxFor(model => model.ProfileId, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.UserProfileId, new { @class = "form-control" })
 
-            </div>
+        </div>
         <div class="form-group">
             <input type="submit" value="Submit" class="button btn btn-primary" />
         </div>
-}
+    }
 </div>
+<script>
+    // Get references to the input elements and the checkbox
+    var streetAddress = document.getElementById('streetAddress');
+    var streetAddressShipping = document.getElementById('streetAddressShipping');
+    var aptNumber = document.getElementById('aptNumber');
+    var aptNumberShipping = document.getElementById('aptNumberShipping');
+    var province = document.getElementById('province');
+    var provinceShipping = document.getElementById('provinceShipping');
+    var city = document.getElementById('city');
+    var cityShipping = document.getElementById('cityShipping');
+    var postalCode = document.getElementById('postalCode');
+    var postalCodeShipping = document.getElementById('postalCodeShipping');
+    var transferCheckbox = document.getElementById('transferCheckbox');
+
+    // Add an event listener to the checkbox
+    transferCheckbox.addEventListener('change', function () {
+        if (transferCheckbox.checked) {
+
+            streetAddressShipping.value = streetAddress.value;
+            aptNumberShipping.value = aptNumber.value;
+            provinceShipping.value = province.value;
+            cityShipping.value = city.value;
+            postalCodeShipping.value = postalCode.value;
+        }
+    });
+</script>

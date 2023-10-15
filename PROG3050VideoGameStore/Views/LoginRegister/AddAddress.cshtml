@@ -1,0 +1,156 @@
+﻿@model PROG3050VideoGameStore.ViewModels.AddAddressVM
+
+<head>
+    <link rel="stylesheet" href="~/css/LoginRegister.css" asp-append-version="true" />
+
+    <style>
+        .footer {
+            position: relative !important;
+        }
+    </style>
+</head>
+
+<div class="mainForm" style="margin-top: 1%;">
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+        @Html.ValidationSummary(true)
+
+        <h1>Address</h1>
+
+        <div class="form-group">
+
+            <p> @ViewData["Message"]</p>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.newUserAddress.FirstName)
+            @Html.TextBoxFor(model => model.newUserAddress.FirstName, new { @class = "form-control",@id = "firstName" })
+            @Html.ValidationMessageFor(model => model.newUserAddress.FirstName)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.newUserAddress.LastName)
+            @Html.TextBoxFor(model => model.newUserAddress.LastName, new { @class = "form-control",@id = "lastName" })
+            @Html.ValidationMessageFor(model => model.newUserAddress.LastName)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.newUserAddress.PhoneNumber)
+            @Html.TextBoxFor(model => model.newUserAddress.PhoneNumber, new { @class = "form-control",@id = "phoneNumber" })
+            @Html.ValidationMessageFor(model => model.newUserAddress.PhoneNumber)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.newUserAddress.StreetAddress)
+            @Html.TextBoxFor(model => model.newUserAddress.StreetAddress, new { @class = "form-control",@id = "streetAddress" })
+            @Html.ValidationMessageFor(model => model.newUserAddress.StreetAddress)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.newUserAddress.AptNumber)
+            @Html.TextBoxFor(model => model.newUserAddress.AptNumber, new { @class = "form-control",@id = "aptNumber" })
+            @Html.ValidationMessageFor(model => model.newUserAddress.AptNumber)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.newUserAddress.Province)
+            @Html.TextBoxFor(model => model.newUserAddress.Province, new { @class = "form-control",@id = "province" })
+            @Html.ValidationMessageFor(model => model.newUserAddress.Province)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.newUserAddress.City)
+            @Html.TextBoxFor(model => model.newUserAddress.City, new { @class = "form-control",@id = "city" })
+            @Html.ValidationMessageFor(model => model.newUserAddress.City)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.newUserAddress.PostalCode)
+            @Html.TextBoxFor(model => model.newUserAddress.PostalCode, new { @class = "form-control",@id = "postalCode" })
+            @Html.ValidationMessageFor(model => model.newUserAddress.PostalCode)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.newUserAddress.SameAsShipping)
+            <input id="transferCheckbox" type="checkbox" name="newUserAddress.SameAsShipping" value="true" asp-for="@Model.newUserAddress.SameAsShipping">
+            @Html.ValidationMessageFor(model => model.newUserAddress.SameAsShipping)
+        </div>
+
+
+
+        <h2> Shipping Address</h2>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.newUserAddress.StreetAddressShipping)
+            @Html.TextBoxFor(model => model.newUserAddress.StreetAddressShipping, new { @class = "form-control",@id = "streetAddressShipping" })
+            @Html.ValidationMessageFor(model => model.newUserAddress.StreetAddressShipping)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.newUserAddress.AptNumberShipping)
+            @Html.TextBoxFor(model => model.newUserAddress.AptNumberShipping, new { @class = "form-control",@id = "aptNumberShipping" })
+            @Html.ValidationMessageFor(model => model.newUserAddress.AptNumberShipping)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.newUserAddress.ProvinceShipping)
+            @Html.TextBoxFor(model => model.newUserAddress.ProvinceShipping, new { @class = "form-control",@id = "provinceShipping" })
+            @Html.ValidationMessageFor(model => model.newUserAddress.ProvinceShipping)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.newUserAddress.CityShipping)
+            @Html.TextBoxFor(model => model.newUserAddress.CityShipping, new { @class = "form-control",@id = "cityShipping" })
+            @Html.ValidationMessageFor(model => model.newUserAddress.CityShipping)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.newUserAddress.PostalCodeShipping)
+            @Html.TextBoxFor(model => model.newUserAddress.PostalCodeShipping, new { @class = "form-control",@id = "postalCodeShipping" })
+            @Html.ValidationMessageFor(model => model.newUserAddress.PostalCodeShipping)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.newUserAddress.DeliveryInstructions)
+            @Html.TextBoxFor(model => model.newUserAddress.DeliveryInstructions, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.newUserAddress.DeliveryInstructions)
+        </div>
+
+        <div style="display: none;">
+
+       
+            @Html.TextBoxFor(model => model.ProfileId, new { @class = "form-control" })
+
+        </div>
+      
+        <div class="form-group">
+            <input type="submit" value="Submit" class="button btn btn-primary" />
+        </div>
+    }
+</div>
+<script>
+    // Get references to the input elements and the checkbox
+    var streetAddress = document.getElementById('streetAddress');
+    var streetAddressShipping = document.getElementById('streetAddressShipping');
+    var aptNumber = document.getElementById('aptNumber');
+    var aptNumberShipping = document.getElementById('aptNumberShipping');
+    var province = document.getElementById('province');
+    var provinceShipping = document.getElementById('provinceShipping');
+    var city = document.getElementById('city');
+    var cityShipping = document.getElementById('cityShipping');
+    var postalCode = document.getElementById('postalCode');
+    var postalCodeShipping = document.getElementById('postalCodeShipping');
+    var transferCheckbox = document.getElementById('transferCheckbox');
+
+    // Add an event listener to the checkbox
+    transferCheckbox.addEventListener('change', function () {
+        if (transferCheckbox.checked) {
+
+            streetAddressShipping.value = streetAddress.value;
+            aptNumberShipping.value = aptNumber.value;
+            provinceShipping.value = province.value;
+            cityShipping.value = city.value;
+            postalCodeShipping.value = postalCode.value;
+        }
+    });
+</script>
