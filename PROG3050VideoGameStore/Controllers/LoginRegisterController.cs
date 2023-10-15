@@ -44,10 +44,20 @@ namespace PROG3050VideoGameStore.Controllers
 
 
         [HttpGet]
-        public IActionResult Address(int id=0)
+        public IActionResult AddAddress(int id = 0)
+        {
+            AddAddressVM model = new AddAddressVM();
+            model.ProfileId = id;
+            
+            return View(model);
+        }
+
+
+        [HttpGet]
+        public IActionResult Address(int id = 0)
         {
             UserAddress userAddress = new UserAddress();
-            userAddress = _appDbContext.UserAddresses.FirstOrDefault(a=>a.ProfileId==id);
+            userAddress = _appDbContext.UserAddresses.Find(id);
             return View(userAddress);
         }
 
@@ -104,6 +114,28 @@ namespace PROG3050VideoGameStore.Controllers
         }
 
 
+        [HttpGet]
+        public IActionResult ListAddresses(int id = 0)
+        {
+            AddressListVM list = new AddressListVM();
+            list.ProfileId = id;
+            list.AllAddresses = _appDbContext.UserAddresses.OrderBy(g => g.StreetAddress).Where(g=>g.UserProfileId==id).ToList();
+            return View(list);
+        }
+
+        public IActionResult DeleteAddress(int id = 0)
+        {
+           
+            
+            UserAddress address = new UserAddress();
+            address = _appDbContext.UserAddresses.Find(id);
+            _appDbContext.UserAddresses.Remove(address);
+            _appDbContext.SaveChanges();
+            return RedirectToAction("ListAddresses",new { id = address.UserProfileId });
+    
+        }
+
+
         [HttpPost] // Handle POST requests
         public IActionResult Register(UserProfile model)
         {
@@ -116,11 +148,8 @@ namespace PROG3050VideoGameStore.Controllers
                 {
                     _appDbContext.Profiles.Add(model);
                     _appDbContext.SaveChanges();
-                    UserAddress userAddress = new UserAddress();
-                    userAddress.ProfileId = model.Id;
                     ProfilePreferences preferences = new ProfilePreferences();
-                    preferences.ProfileId = model.Id;              
-                    _appDbContext.UserAddresses.Add(userAddress);
+                    preferences.UserProfileId = model.Id;              
                     _appDbContext.ProfilePreferencesList.Add(preferences);
                     _appDbContext.SaveChanges();
 
@@ -164,7 +193,6 @@ namespace PROG3050VideoGameStore.Controllers
             }
       
         }
-
         [HttpPost] // Handle POST requests
         public IActionResult Address(UserAddress model)
         {
@@ -172,13 +200,34 @@ namespace PROG3050VideoGameStore.Controllers
             {
                 _appDbContext.UserAddresses.Update(model);
                 _appDbContext.SaveChanges();
-                ViewData["Message"] = "Address has been updated successfully";
+                ViewData["Message"] = "Address has been edited successfully";
                 return View(model);
             }
 
             else
             {
-          
+
+                ViewData["Message"] = "";
+                return View(model);
+            }
+        }
+
+        [HttpPost] // Handle POST requests
+        public IActionResult AddAddress(AddAddressVM model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                _appDbContext.UserAddresses.Add(model.newUserAddress);
+                model.newUserAddress.UserProfileId = model.ProfileId;
+                _appDbContext.SaveChanges();
+                ViewData["Message"] = "Address has been added successfully";
+                return RedirectToAction("ProfileIndex","LoginRegister", new { id = model.ProfileId });
+            }
+
+            else
+            {
+
                 ViewData["Message"] = "";
                 return View(model);
             }

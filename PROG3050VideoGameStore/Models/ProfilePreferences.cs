@@ -14,7 +14,7 @@ namespace PROG3050VideoGameStore.Models
         [Required]
         public int Language { get; set; } = 1;
 
-        public int ProfileId { get; set; } // Required foreign key property
+        public int UserProfileId { get; set; } // Required foreign key property
         public UserProfile? Profile { get; set; } // Required reference navigation to principal
 
     }

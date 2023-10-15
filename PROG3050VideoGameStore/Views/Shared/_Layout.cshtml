@@ -26,7 +26,7 @@
                             bool isLoginPage = Context.Request.Path.Equals("/LoginRegister/Login", StringComparison.OrdinalIgnoreCase);
                             bool isRegisterPage = Context.Request.Path.Equals("/LoginRegister/Register", StringComparison.OrdinalIgnoreCase);
                             bool isProfileIndex = Context.Request.Path.StartsWithSegments("/LoginRegister/ProfileIndex", StringComparison.OrdinalIgnoreCase);
-                            bool isAddressPage = Context.Request.Path.StartsWithSegments("/LoginRegister/Address", StringComparison.OrdinalIgnoreCase);
+                            bool isAddAddressPage = Context.Request.Path.StartsWithSegments("/LoginRegister/AddAddress", StringComparison.OrdinalIgnoreCase);
                             bool isUpdateProfilePage = Context.Request.Path.StartsWithSegments("/LoginRegister/UpdateProfile", StringComparison.OrdinalIgnoreCase);
                             bool isUpdatePreferencePage = Context.Request.Path.StartsWithSegments("/LoginRegister/UpdatePreferences", StringComparison.OrdinalIgnoreCase);
                             bool isEmailResetPasswordPage = Context.Request.Path.StartsWithSegments("/LoginRegister/EmailResetPassword", StringComparison.OrdinalIgnoreCase);
@@ -36,8 +36,25 @@
                             bool isListPage = Context.Request.Path.StartsWithSegments("/Admin/List", StringComparison.OrdinalIgnoreCase);
                             bool isGameEditPage = Context.Request.Path.StartsWithSegments("/Admin/EditGame", StringComparison.OrdinalIgnoreCase);
                             bool isChangePasswordPage = Context.Request.Path.StartsWithSegments("/LoginRegister/ChangePassword", StringComparison.OrdinalIgnoreCase);
-                    
+                            bool isAddressListPage = Context.Request.Path.StartsWithSegments("/LoginRegister/ListAddresses", StringComparison.OrdinalIgnoreCase);
+                            bool isAddressEditPage = Context.Request.Path.StartsWithSegments("/LoginRegister/Address", StringComparison.OrdinalIgnoreCase);
                         }
+
+                        @if (isAddressEditPage)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="@Url.Action("ListAddresses", "LoginRegister", new { id = Model.UserProfileId})">Back</a>
+                            </li>
+                        }
+
+                        @if (isAddressListPage)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                            </li>
+                        }
+
+
 
                         @if (isChangePasswordPage)
                         {
@@ -91,11 +108,11 @@
                           @if (isUpdatePreferencePage)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                                <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.UserProfileId})">Back</a>
                             </li>
                         }
                        
-                        @if (isAddressPage)
+                        @if (isAddAddressPage)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
@@ -111,16 +128,21 @@
 
                          @if (isProfileIndex)
                         {
-                           @if(Model.IsEmployee == true){
 
+                            if(Model.IsEmployee == true){
                                 <li class="nav-item">
                                     <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.Id })">Admin</a>
                                 </li>
 
-                           }
-                           
+                            }
+
+
                             <li class="nav-item">
-                                <a class="nav-link text-light" href="@Url.Action("Address", "LoginRegister", new { id = Model.Id })">Address</a>
+                                <a class="nav-link text-light" href="@Url.Action("AddAddress", "LoginRegister", new { id = Model.Id })">Add Address</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="@Url.Action("ListAddresses", "LoginRegister", new { id = Model.Id })">Address List</a>
                             </li>
 
                             <li class="nav-item">
