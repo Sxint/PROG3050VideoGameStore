@@ -5,8 +5,10 @@ using AspNetCore.ReCaptcha;
 var builder = WebApplication.CreateBuilder(args);
 
 //
-var connStr = builder.Configuration.GetConnectionString("GamesDb");
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connStr));
+string? connStr = builder.Configuration.GetConnectionString("GamesDb");
+var serverVersion = new MySqlServerVersion(new Version(8, 0, 28));
+
+builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connStr, serverVersion));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
