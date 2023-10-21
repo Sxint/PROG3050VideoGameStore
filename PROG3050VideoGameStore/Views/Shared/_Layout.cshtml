@@ -24,7 +24,7 @@
 
                     @{
                         bool isHomePage = Context.Request.Path.Equals("/", StringComparison.OrdinalIgnoreCase);
-                        bool isProfilePage = Context.Request.Path.Equals("/Profile/Profile", StringComparison.OrdinalIgnoreCase);
+                        bool isProfilePage = Context.Request.Path.StartsWithSegments("/profile/Profile", StringComparison.OrdinalIgnoreCase);
                         bool isLoginPage = Context.Request.Path.Equals("/LoginRegister/Login", StringComparison.OrdinalIgnoreCase);
                         bool isRegisterPage = Context.Request.Path.Equals("/LoginRegister/Register", StringComparison.OrdinalIgnoreCase);
                         bool isProfileIndex = Context.Request.Path.StartsWithSegments("/LoginRegister/ProfileIndex", StringComparison.OrdinalIgnoreCase);
@@ -72,7 +72,6 @@
                         </li>
                     }
 
-                        
 
                     @if (isListPage)
                     {
@@ -88,13 +87,15 @@
                         </li>
                     }
 
-                    @if(isGameAddPage){
+                    @if (isGameAddPage)
+                    {
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.ProfileId})">Back</a>
                         </li>
                     }
 
-                    @if(isPanelPage){
+                    @if (isPanelPage)
+                    {
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.Id})">Back</a>
                         </li>
@@ -107,13 +108,13 @@
                         </li>
                     }
 
-                        @if (isUpdatePreferencePage)
+                    @if (isUpdatePreferencePage)
                     {
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.UserProfileId})">Back</a>
                         </li>
                     }
-                       
+
                     @if (isAddAddressPage)
                     {
                         <li class="nav-item">
@@ -128,10 +129,11 @@
                         </li>
                     }
 
-                        @if (isProfileIndex)
+                    @if (isProfileIndex)
                     {
 
-                        if(Model.IsEmployee == true){
+                        if (Model.IsEmployee == true)
+                        {
                             <li class="nav-item">
                                 <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.Id })">Admin</a>
                             </li>
@@ -159,15 +161,20 @@
                             <a class="nav-link text-light" href="@Url.Action("ChangePassword", "LoginRegister", new { id = Model.Id })">Change Password</a>
                         </li>
 
-                            <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="index">Sign Out</a>
+                        <li class="nav-item dropdown" style="margin-bottom: 1rem;">
+                            <a class="nav-link dropdown-toggle bg-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @Model.DisplayName
+                            </a>
+                            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                                <a class="nav-link text-light" href="@Url.Action("Profile", "profile", new { id = Model.Id })">Profile</a>
+                            </div>
                         </li>
                     }
 
 
                     @if (isHomePage)
                     {
-                           
+
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="LoginRegister" asp-action="Login">Login</a>
                         </li>
@@ -179,8 +186,11 @@
                     @if (isProfilePage)
                     {
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="index">Home</a>
+                            @*I'm not sure how to fix it but this back button should return the user to the profileIndex page'*@
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister")">Back</a>
                         </li>
+
+
                         <li>
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="index">Logout</a>
                         </li>

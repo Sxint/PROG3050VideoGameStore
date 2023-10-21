@@ -1,5 +1,6 @@
 ﻿html {
-    height: 100%;
+    margin: 0px !important; /* Remove default margin */
+    height: 100% !important;
 }
 
 body {
@@ -21,7 +22,7 @@ body {
 .mainForm {
     width: 30%;
     margin-left: 35%;
-    margin-top: 0%;
+    margin-top: 5%;
     background-color: #afaeaed9;
 }
 

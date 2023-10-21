@@ -1,4 +1,4 @@
-﻿@model PROG3050VideoGameStore.Models.ProfilePreferences
+﻿@model dynamic
 
 <head>
     <link rel="stylesheet" href="~/css/Profile.css" asp-append-version="true" />
@@ -18,27 +18,27 @@
             <div class="content">
                 <div class="title">
                     <h1 class="display-5">
-                        [username goes here]
+                        @Model.Profile.DisplayName
                     </h1>
                 </div>
                 <div class="accountinfo">
-                    <p>joined on Oct 1 2023</p>
-                    <p>🎂december 31</p>
+                    <p>Birthday</p>
+                    <p>@Model.Profile.BirthDate</p>
                 </div>
 
                 <!-- First Row -->
                 <div class="flex-grid">
                     <div class="flex-item">
                         <p class="miniHeader">Gender</p>
-                        <p>Male</p>
+                        <p>@Model.Profile.Gender</p>
                     </div>
                     <div class="flex-item">
                         <p class="miniHeader">Favourite Genres</p>
-                        <p>Action</p>
+                        <p>@Model.Preferences.FavCategory</p>
                     </div>
                     <div class="flex-item">
                         <p class="miniHeader">Favourite Platforms</p>
-                        <p>PC, Xbox, PlayStation</p>
+                        <p>@Model.Preferences.FavPlatform</p>
                     </div>
                 </div>
             </div>
@@ -54,6 +54,8 @@
             <!-- First Row -->
             <div>
                 make flex grid to display games
+                <h1>add game grid here once we have function to add them</h1>
+
             </div>
         </div>
     </div>
