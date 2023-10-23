@@ -12,7 +12,7 @@ using PROG3050VideoGameStore.Models;
 namespace PROG3050VideoGameStore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231015204524_initial")]
+    [Migration("20231018205555_initial")]
     partial class initial
     {
         /// <inheritdoc />

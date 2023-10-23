@@ -132,8 +132,8 @@ namespace PROG3050VideoGameStore.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_UserAddresses_UserProfileId",
                 table: "UserAddresses",
-                column: "UserProfileId"
-                );
+                column: "UserProfileId",
+                unique: true);
         }
 
         /// <inheritdoc />

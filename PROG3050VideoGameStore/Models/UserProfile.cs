@@ -27,7 +27,7 @@ namespace PROG3050VideoGameStore.Models
         public string Gender { get; set; } = "N/A";
 
         [Required(ErrorMessage ="Birthdate needs to be provided")]
-        public DateTime BirthDate { get; set; } = DateTime.Now;
+        public DateTime BirthDate { get; set; } = DateTime.Now.Date;
 
         
         public Boolean PromotionEmail { get; set; } = false;
