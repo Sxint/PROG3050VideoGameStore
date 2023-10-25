@@ -1,7 +1,12 @@
 ﻿@model PROG3050VideoGameStore.ViewModels.ListVM
+
 @{
+
     ViewData["Title"] = "Panel";
 }
+
+
+
 
 <!DOCTYPE html>
 <html>
@@ -11,19 +16,19 @@
     <link rel="stylesheet" href="~/css/Admin.css" asp-append-version="true" />
 </head>
 <body>
-    
 
-       <!-- Tab Content for Tab 1 -->
-        <div id="tab1" class="tab-content">
-            <h2>List of Games</h2>
-            <table>
-                <thead>
+    <input type="text" id="searchInput" placeholder="Search Games" />
+    <!-- Tab Content for Tab 1 -->
+    <div id="tab1" class="tab-content">
+        <h2>List of Games</h2>
+        <table id="gameTable">
+            <thead>
                 <tr>
                     <th>Name</th>
                     <th>Author</th>
                     <th>Price</th>
                 </tr>
-                </thead>
+            </thead>
 
             <tbody>
 
@@ -40,7 +45,7 @@
                             <td>
                                 <a asp-controller="Admin" asp-action="EditGame" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Edit</a>
                                 <span class="mx-1">|</span>
-                                <a asp-controller="Admin" asp-action="DeleteGame" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId ="@Model.ProfileId">Delete</a>
+                                <a asp-controller="Admin" asp-action="DeleteGame" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Delete</a>
                             </td>
 
                         </tr>
@@ -51,12 +56,41 @@
                 }
 
             </tbody>
-            </table>
-        </div>
+        </table>
 
-       
 
-<!-- JavaScript for Tab Functionality -->
-<script src="~/js/AdminPanel.js"></script>
+    </div>
+
+
+    <!-- JavaScript for Tab Functionality -->
+    <script src="~/js/AdminPanel.js">
+
+
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var searchInput = document.getElementById("searchInput");
+            var gameTable = document.getElementById("gameTable");
+            var games = Array.from(gameTable.querySelectorAll("tbody tr")); // Array of all game rows
+
+            function filterGames(searchTerm) {
+                games.forEach(game => {
+                    var name = game.querySelector("td:first-child").textContent.toLowerCase();
+                    if (name.includes(searchTerm)) {
+                        game.style.display = ""; // Show the row
+                    } else {
+                        game.style.display = "none"; // Hide the row
+                    }
+                });
+            }
+
+            searchInput.addEventListener("input", function () {
+                var searchTerm = searchInput.value.toLowerCase();
+                filterGames(searchTerm);
+            });
+        });
+
+    </script>
 </body>
 </html>
