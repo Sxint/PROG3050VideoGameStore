@@ -95,7 +95,6 @@ img:hover + .details-button, .image-item:hover {
     transform: scale(1.1); /* Scale up the image on hover */
 }
 
-
 .game-title {
     color: rgb(61, 176, 193);
     font-size: 12px;

@@ -1,0 +1,42 @@
+﻿@model PROG3050VideoGameStore.Models.Game;
+
+<head>
+    <link rel="stylesheet" href="~/css/GameDetails.css" asp-append-version="true" />
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="profile_card">
+        <div class="header">
+            <div class="profilePicture">
+                <h1 class="display-6">
+                    [Game image goes here]
+                </h1>
+            </div>
+
+            <div class="content">
+                <div class="title">
+                    <h1 class="display-5">
+                        @Model.Name
+                    </h1>
+                </div>
+                <div class="accountinfo">
+                    <p>@Model.Rating</p>
+                </div>
+                <p>@Model.Author</p>
+                <p>@Model.Description</p>
+                <p>@Model.Price</p>
+            </div>
+        </div>
+    </div>
+    <div class="games_card">
+        <div class="content">
+            <div class="title">
+                <h1 class="display-6">
+                    Games Recommendations
+                </h1>
+            </div>
+        </div>
+    </div>
+</body>

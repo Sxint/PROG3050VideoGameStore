@@ -1,0 +1,75 @@
+﻿html{
+    min-height: 100%;
+}
+
+body {
+    background-color: rgba(39,47,61,255);
+}
+
+.profile_card {
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    height: 100%;
+    background-color: rgba(32,37,46,255);
+    border-bottom: 1px solid white;
+}
+
+.games_card {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10%;
+    width: 50%;
+    height: 100%;
+    background-color: rgba(32,37,46,255);
+    border-bottom: 1px solid white;
+    color: white;
+}
+
+.FriendsandFamily_card {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    width: 80%;
+    height: 100%;
+    background-color: rgba(32,37,46,255);
+    border-bottom: 1px solid white;
+    color: white;
+}
+
+
+.header {
+    display: flex;
+    margin: 5%;
+    color: white;
+}
+
+.profilePicture {
+    margin-top: 3.5%;
+    height:30rem;
+    width: 20rem;
+    background-color: #bbb;
+    display: inline-block;
+}
+
+.title {
+    width: 100%;
+    padding-left: 5%;
+    padding-top: 1%;
+}
+
+    .accountinfo p {
+        margin-right: 5%;
+        color: rgba(117,122,132,255);
+    }
+
+.content{
+    margin-top: 5%;
+    margin-left: 5%;
+}
+
+.content p{
+    width: 100%;
+    border-bottom: solid 1px white;
+}
