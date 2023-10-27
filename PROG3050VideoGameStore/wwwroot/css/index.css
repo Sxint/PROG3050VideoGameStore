@@ -1,4 +1,8 @@
-﻿body {
+﻿html{
+    min-height: 100%;
+}
+
+body {
     margin: 0; /* Remove default margin */
 /*    background-image: url("../Images/image.jpg");
     background-size: cover;*/
@@ -49,4 +53,70 @@
     margin-left: 1em;
     margin-right: 1em;
     justify-content: center;
+}
+
+.image-grid {
+    margin-bottom: 10%;
+    position: relative;
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.image-item {
+    display: inline-block !important;
+    min-height: 15rem;
+    max-width: 10rem;
+    margin: 2%;
+}
+
+    .image-item img {
+        min-height: 15rem;
+        max-width: 10rem;
+    }
+
+    .image-item .info p {
+        margin-left: 5px;
+        margin-bottom: 0.5rem;
+        font-family: Roboto, sans-serif;
+        text-align: left;
+    }
+
+.details-button {
+    position: absolute;
+    transform: translate(-10.5rem, -0.5rem);
+    min-height: 21rem;
+    min-width: 11rem;
+    opacity: 0; /* Initially hide the button */
+}
+
+img:hover + .details-button, .image-item:hover {
+    transform: scale(1.1); /* Scale up the image on hover */
+}
+
+
+.game-title {
+    color: rgb(61, 176, 193);
+    font-size: 12px;
+    font-weight: 700;
+    height: auto;
+    line-height: 16.5px;
+    width: auto;
+}
+
+.game-author {
+    color: rgb(160, 160, 160);
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.game-price {
+    color: rgb(129, 128, 128);
+    font-size: 13px;
+    height: 17px;
+    line-height: 16.5px;
+    margin-bottom: 13px;
+    margin-top: 5px;
+    width: 160px;
 }

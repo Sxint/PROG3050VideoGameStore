@@ -14,9 +14,10 @@ namespace PROG3050VideoGameStore.Controllers
 
         public IActionResult Panel(int id = 0)
         {
-            UserProfile userProfile = new UserProfile();
-            userProfile = _appDbContext.Profiles.Find(id);
-            return View(userProfile);
+            ListVM list = new ListVM();
+            list.ProfileId = id;
+            list.AllGames = _appDbContext.Games.OrderBy(g => g.Name).ToList();
+            return View(list);
         }
 
      
