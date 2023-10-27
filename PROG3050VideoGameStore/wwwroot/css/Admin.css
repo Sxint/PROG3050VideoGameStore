@@ -1,4 +1,8 @@
 ﻿/* CSS for the tabs */
+
+html{
+    height: 100%;
+}
 .tabs {
     border: 1px solid #ccc;
     padding: 10px;

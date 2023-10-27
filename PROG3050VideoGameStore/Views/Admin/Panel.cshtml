@@ -1,4 +1,4 @@
-﻿@model PROG3050VideoGameStore.Models.UserProfile
+﻿@model PROG3050VideoGameStore.ViewModels.ListVM;
 @{
     ViewData["Title"] = "Panel";
 }
@@ -13,43 +13,45 @@
 <body>
     <div class="tabs">
         <ul class="tab-navigation">
-            <li><a href="@Url.Action("AddGame", "Admin", new { id = Model.Id })">Add Game</a></li>
-            <li><a href="@Url.Action("AddEvent", "Admin", new { id = Model.Id })">Add Event</a></li>
-            <li><a href="@Url.Action("List", "Admin", new {id = Model.Id})">Game List</a></li>
+            <li><a href="@Url.Action("AddGame", "Admin")">Add Game</a></li>
+            <li><a href="@Url.Action("AddEvent", "Admin")">Add Event</a></li>
+            <li><a href="@Url.Action("List", "Admin")">Game List</a></li>
         </ul>
 
-      @*  <!-- Tab Content for Tab 1 -->
+       <!-- Tab Content for Tab 1 -->
         <div id="tab1" class="tab-content">
             <h2>Tab 1 Content</h2>
             <p>This is the content for Tab 1.</p>
             <table>
                 <tr>
-                    <th>Menu</th>
                     <th>Title</th>
-                    <th>Added By</th>
-                    <th>Date</th>
+                    <th>Author</th>
+                    <th>Price</th>
+                    <th>Actions</th>
                 </tr>
-                <tr>
-                    <td>
-                        <span class="menu-icon" onclick="toggleContextMenu(this)">
-                            ☰
-                            <div class="context-menu">
-                                <a asp-area="" asp-controller="Admin" asp-action="EditGame" class="context-menu-button">Edit Game</a>
-                                <a asp-area="" asp-controller="Admin" asp-action="ViewDetails" class="context-menu-button">View Details</a>
-                            </div>
+                <tbody>
 
-                        </span>
-                    </td>
-                    <td>Title 1</td>
-                    <td>Name 1</td>
-                    <td>01/01/2023 (hard coded)</td>
-                </tr>
-                <tr>
-                    <td>item</td>
-                    <td>item</td>
-                    <td>item</td>
-                    <td>item</td>
-                </tr>
+                    @if (Model.AllGames != null)
+                    {
+                        for (int i = 0; i < Model.AllGames.Count; i++)
+                        {
+                            <tr>
+                                <td>
+                                    @Model.AllGames[i].Name
+                                </td>
+                                <td>@Model.AllGames[i].Author</td>
+                                <td>@Model.AllGames[i].Price</td>
+
+                                <td>
+                                    <a asp-controller="Admin" asp-action="EditGame" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Edit</a>
+                                    <span class="mx-1">|</span>
+                                    <a asp-controller="Admin" asp-action="DeleteGame" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
             </table>
         </div>
 
@@ -64,7 +66,7 @@
             <h2>Tab 3 Content</h2>
             <p>This is the content for Tab 3.</p>
         </div>
-    </div>*@
+    </div>
 
     <!-- JavaScript for Tab Functionality -->
     <script src="~/js/AdminPanel.js"></script>

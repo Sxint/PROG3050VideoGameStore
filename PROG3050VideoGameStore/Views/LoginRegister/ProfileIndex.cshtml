@@ -1,4 +1,6 @@
 ﻿@model PROG3050VideoGameStore.Models.UserProfile
+@*i have a feeling we need to use a dynamic model here since we will need information from both the user profile model and games model*@
+
 <head>
     <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
 </head>
@@ -59,6 +61,12 @@
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>
+            </div>
+        </div>
+        <div class="image-grid">
+            <h1>add game grid here once we have function to add them</h1>
+            <div class="image-item">
+                <img src="/Images/COD.jpg" alt="Image" />
             </div>
         </div>
     </div>
