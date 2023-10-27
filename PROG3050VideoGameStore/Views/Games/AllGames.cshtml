@@ -1,0 +1,46 @@
+﻿@model PROG3050VideoGameStore.ViewModels.ListVM;
+@{
+    ViewData["Title"] = "Panel";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="~/css/Admin.css" asp-append-version="true" />
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        <tbody>
+
+            @if (Model.AllGames != null)
+            {
+                for (int i = 0; i < Model.AllGames.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            @Model.AllGames[i].Name
+                        </td>
+                        <td>@Model.AllGames[i].Author</td>
+                        <td>@Model.AllGames[i].Price</td>
+
+                        <td>
+                            <a asp-controller="Games" asp-action="Details" asp-route-id="@Model.AllGames[i].Id">Details</a>
+                            <span class="mx-1">|</span>
+                            <a asp-controller="Games" asp-action="DeleteGame" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+</body>
+</html>
