@@ -20,9 +20,10 @@ namespace PROG3050VideoGameStore.Controllers
         // GET: /<controller>/
         public IActionResult Index(int id = 0)
         {
-            ListVM list = new ListVM();
+            AllGamesVM list = new AllGamesVM();
             list.ProfileId = id;
             list.AllGames = _appDbContext.Games.OrderBy(g => g.Name).ToList();
+            list.Ratings = _appDbContext.Rating.ToList();
             return View("AllGames", list);
         }
 
@@ -33,6 +34,75 @@ namespace PROG3050VideoGameStore.Controllers
             return View("Details", activeGame);
         }
 
+        [HttpGet]
+        public IActionResult AddRatings(int id = 0,int profileId = 0)
+        {
+            RatingVM model = new RatingVM();
+            model.ProfileId = profileId;
+            model.NewRating = new Rating();
+            model.GameId = id;
+            model.NewRating.ProfileId = profileId;
+            model.NewRating.GameId = id;
+            model.RatingList = _appDbContext.Rating.ToList();
+            return View(model);
+
+        }
+
+        [HttpPost]
+        public IActionResult AddRatings(RatingVM model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                model.RatingList = _appDbContext.Rating.ToList();
+                Boolean ratingExists=false;
+                int existingRatingId = 0;
+                if (model.RatingList != null)
+                {
+
+                    foreach (Rating r in model.RatingList)
+                    {
+                        if (r.GameId == model.GameId && r.ProfileId == model.ProfileId)
+                        {
+                            ratingExists = true;
+                            existingRatingId = r.Id;
+                            break;
+                        }
+                    }  
+                }
+               
+
+
+                if (ratingExists == true)
+                {
+                    Rating rating = new Rating();
+                    rating = _appDbContext.Rating.Find(existingRatingId);
+                    rating.RatingValue = model.NewRating.RatingValue;
+                    _appDbContext.Rating.Update(rating);
+                    _appDbContext.SaveChanges();
+                    ViewData["Message"] = "Rating has been updated successfully";
+                    return View(model);
+
+                }
+
+                else
+                {
+                    _appDbContext.Rating.Add(model.NewRating);
+                    _appDbContext.SaveChanges();
+                    ViewData["Message"] = "Rating have been added successfully";
+                    return View(model);
+                }
+                
+            }
+
+            else
+            {
+
+                ViewData["Message"] = "";
+                return View(model);
+            }
+
+        }
 
 
         public IActionResult Privacy()

@@ -1,4 +1,4 @@
-﻿@model PROG3050VideoGameStore.ViewModels.ListVM;
+﻿@model PROG3050VideoGameStore.ViewModels.AllGamesVM;
 @{
     ViewData["Title"] = "Panel";
 }
@@ -16,25 +16,68 @@
             <th>Title</th>
             <th>Author</th>
             <th>Price</th>
+            <th>Rating</th>
             <th>Actions</th>
         </tr>
         <tbody>
 
             @if (Model.AllGames != null)
             {
+                
                 for (int i = 0; i < Model.AllGames.Count; i++)
                 {
+                    double totalRating = 0;
+                    double ratingsCount = 0;
                     <tr>
                         <td>
                             @Model.AllGames[i].Name
                         </td>
                         <td>@Model.AllGames[i].Author</td>
                         <td>@Model.AllGames[i].Price</td>
+                        @for (int j = 0; j < Model.Ratings.Count; j++)
+                        {
+
+                            if (Model.AllGames[i].Id == Model.Ratings[j].GameId)
+                            {
+                                totalRating += Model.Ratings[j].RatingValue;
+                                ratingsCount++;
+                            }
+
+
+                        }
+
+                        @{
+                            double average;
+
+                            if (ratingsCount!=0)
+                            {
+                                average = totalRating / ratingsCount;
+                            }
+
+                            else
+                            {
+                                average = 0;
+                            }
+                            
+                        }
+                        @if (average==0)
+                            {
+                               <td>No ratings available</td>
+                            }
+                        else
+                        {
+                            <td>@Math.Round(average, 2)</td>
+
+
+                        }
+                           
 
                         <td>
-                            <a asp-controller="Games" asp-action="Details" asp-route-id="@Model.AllGames[i].Id">Details</a>
+                            <a asp-controller="Games" asp-action="Details" asp-route-id="@Model.AllGames[i].Id">Game Details</a>
                             <span class="mx-1">|</span>
-                            <a asp-controller="Games" asp-action="DeleteGame" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Delete</a>
+                            <a asp-controller="Games" asp-action="AddRatings" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Add Rating</a>
+                            <span class="mx-1">|</span>
+                            <a asp-controller="Games" asp-action="DeleteGame" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Add Review</a>
                         </td>
                     </tr>
                 }

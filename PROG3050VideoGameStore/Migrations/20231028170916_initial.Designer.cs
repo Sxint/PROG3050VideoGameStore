@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PROG3050VideoGameStore.Models;
@@ -11,7 +12,7 @@ using PROG3050VideoGameStore.Models;
 namespace PROG3050VideoGameStore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231025132218_initial")]
+    [Migration("20231028170916_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -20,7 +21,9 @@ namespace PROG3050VideoGameStore.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.11")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("PROG3050VideoGameStore.Models.Event", b =>
                 {
@@ -28,16 +31,18 @@ namespace PROG3050VideoGameStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<DateTime>("DateOfEvent")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -50,17 +55,19 @@ namespace PROG3050VideoGameStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<string>("Author")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
@@ -82,6 +89,8 @@ namespace PROG3050VideoGameStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("FavCategory")
                         .HasColumnType("int");
 
@@ -102,68 +111,127 @@ namespace PROG3050VideoGameStore.Migrations
                     b.ToTable("ProfilePreferencesList");
                 });
 
+            modelBuilder.Entity("PROG3050VideoGameStore.Models.Rating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProfileId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RatingValue")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameId")
+                        .IsUnique();
+
+                    b.HasIndex("ProfileId")
+                        .IsUnique();
+
+                    b.ToTable("Rating");
+                });
+
+            modelBuilder.Entity("PROG3050VideoGameStore.Models.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProfileId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReviewText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameId")
+                        .IsUnique();
+
+                    b.HasIndex("ProfileId")
+                        .IsUnique();
+
+                    b.ToTable("Review");
+                });
+
             modelBuilder.Entity("PROG3050VideoGameStore.Models.UserAddress", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<string>("AptNumber")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AptNumberShipping")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CityShipping")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DeliveryInstructions")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostalCode")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostalCodeShipping")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Province")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProvinceShipping")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("SameAsShipping")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("StreetAddress")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StreetAddressShipping")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserProfileId")
                         .HasColumnType("int");
@@ -182,42 +250,44 @@ namespace PROG3050VideoGameStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<string>("ActualName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DisplayName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("EmailValidate")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("Gender")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsEmployee")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("PromotionEmail")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("RememberMe")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<int>("RepeatedInvalidCreds")
                         .HasColumnType("int");
@@ -238,6 +308,44 @@ namespace PROG3050VideoGameStore.Migrations
                     b.Navigation("Profile");
                 });
 
+            modelBuilder.Entity("PROG3050VideoGameStore.Models.Rating", b =>
+                {
+                    b.HasOne("PROG3050VideoGameStore.Models.Game", "Game")
+                        .WithOne("RatingItem")
+                        .HasForeignKey("PROG3050VideoGameStore.Models.Rating", "GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PROG3050VideoGameStore.Models.UserProfile", "Profile")
+                        .WithOne("RatingItem")
+                        .HasForeignKey("PROG3050VideoGameStore.Models.Rating", "ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Game");
+
+                    b.Navigation("Profile");
+                });
+
+            modelBuilder.Entity("PROG3050VideoGameStore.Models.Review", b =>
+                {
+                    b.HasOne("PROG3050VideoGameStore.Models.Game", "Game")
+                        .WithOne("ReviewItem")
+                        .HasForeignKey("PROG3050VideoGameStore.Models.Review", "GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PROG3050VideoGameStore.Models.UserProfile", "Profile")
+                        .WithOne("ReviewItem")
+                        .HasForeignKey("PROG3050VideoGameStore.Models.Review", "ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Game");
+
+                    b.Navigation("Profile");
+                });
+
             modelBuilder.Entity("PROG3050VideoGameStore.Models.UserAddress", b =>
                 {
                     b.HasOne("PROG3050VideoGameStore.Models.UserProfile", "Profile")
@@ -249,11 +357,22 @@ namespace PROG3050VideoGameStore.Migrations
                     b.Navigation("Profile");
                 });
 
+            modelBuilder.Entity("PROG3050VideoGameStore.Models.Game", b =>
+                {
+                    b.Navigation("RatingItem");
+
+                    b.Navigation("ReviewItem");
+                });
+
             modelBuilder.Entity("PROG3050VideoGameStore.Models.UserProfile", b =>
                 {
                     b.Navigation("Address");
 
                     b.Navigation("Preferences");
+
+                    b.Navigation("RatingItem");
+
+                    b.Navigation("ReviewItem");
                 });
 #pragma warning restore 612, 618
         }
