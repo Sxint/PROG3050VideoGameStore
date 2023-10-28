@@ -19,6 +19,10 @@ namespace PROG3050VideoGameStore.Models
 
         public DbSet<UserAddress> UserAddresses { get; set; }
 
+        public DbSet<Rating> Rating { get; set; }
+
+        public DbSet<Review> Review { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
            

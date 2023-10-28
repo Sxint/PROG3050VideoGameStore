@@ -1,0 +1,51 @@
+﻿@model PROG3050VideoGameStore.ViewModels.RatingVM
+
+<head>
+    <link rel="stylesheet" href="~/css/LoginRegister.css" asp-append-version="true" />
+</head>
+
+<div class="mainForm">
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+        @Html.ValidationSummary(true)
+
+        <h1>Rate the game</h1>
+
+        <div class="form-group">
+
+            <p> @ViewData["Message"]</p>
+        </div>
+
+        <div class="form-group">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NewRating.RatingValue)
+                <select id="RatingValue" name="NewRating.RatingValue" class="form-control" asp-for="@Model.NewRating.RatingValue">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.NewRating.RatingValue)
+            </div>
+        </div>
+
+
+
+        <div style="display: none;">
+
+            @Html.TextBoxFor(model => model.NewRating.ProfileId, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.NewRating.GameId, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.ProfileId, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.GameId, new { @class = "form-control" })
+
+
+        </div>
+
+
+        <div class="form-group">
+            <input type="submit" value="Change" class="button btn btn-primary" />
+        </div>
+    }
+</div>

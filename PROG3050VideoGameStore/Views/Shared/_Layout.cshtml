@@ -40,7 +40,27 @@
                         bool isChangePasswordPage = Context.Request.Path.StartsWithSegments("/LoginRegister/ChangePassword", StringComparison.OrdinalIgnoreCase);
                         bool isAddressListPage = Context.Request.Path.StartsWithSegments("/LoginRegister/ListAddresses", StringComparison.OrdinalIgnoreCase);
                         bool isAddressEditPage = Context.Request.Path.StartsWithSegments("/LoginRegister/Address", StringComparison.OrdinalIgnoreCase);
+                        bool isRatingEditPage = Context.Request.Path.StartsWithSegments("/Games/AddRatings", StringComparison.OrdinalIgnoreCase);
+                        bool isProfileGameListPage = Context.Request.Path.StartsWithSegments("/Games/Index", StringComparison.OrdinalIgnoreCase);
                     }
+
+
+                    @if (isRatingEditPage == true)
+                    {
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("Index", "Games", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+
+                    @if (isProfileGameListPage == true)
+                    {
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+
 
                     @if (isAddressEditPage)
                     {

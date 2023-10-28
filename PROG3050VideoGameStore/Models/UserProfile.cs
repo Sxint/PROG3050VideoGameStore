@@ -49,5 +49,9 @@ namespace PROG3050VideoGameStore.Models
 
         public UserAddress? Address { get; set; } //nav to its child address
 
+        public Rating? RatingItem { get; set; } //nav to its child rating
+
+        public Review? ReviewItem { get; set; } // nav to its review item
+
     }
 }
