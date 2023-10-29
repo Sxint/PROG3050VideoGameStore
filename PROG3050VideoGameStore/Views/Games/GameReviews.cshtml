@@ -1,0 +1,43 @@
+﻿@model PROG3050VideoGameStore.ViewModels.ReviewListVM;
+@{
+    ViewData["Title"] = "Panel";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="~/css/Admin.css" asp-append-version="true" />
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Review By</th>
+            <th>Review</th>
+           
+        </tr>
+        <tbody>
+
+            @if (Model.AllReviews != null)
+            {
+
+                for (int i = 0; i < Model.AllReviews.Count; i++)
+                {
+                  
+                    <tr>
+
+                        @if (Model.AllReviews[i].GameId == Model.GameId && Model.AllReviews[i].IsReviewed == true)
+                        {
+                            <td>@Model.AllReviews[i].ReviewBy</td>
+                            <td>@Model.AllReviews[i].ReviewText</td>
+                        }
+                     
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+</body>
+</html>

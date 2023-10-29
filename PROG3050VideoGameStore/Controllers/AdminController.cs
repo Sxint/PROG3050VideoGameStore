@@ -65,6 +65,43 @@ namespace PROG3050VideoGameStore.Controllers
             return View(list);
         }
 
+        [HttpGet]
+        public IActionResult ReviewApprovalList(int id = 0)
+        {
+            ReviewListVM model = new ReviewListVM();
+            model.AllReviews = _appDbContext.Review.Where(r=>r.IsReviewed==false).ToList();
+            model.ProfileId = id;
+            model.GameId = -1;
+            return View(model);
+        }
+
+      
+        public IActionResult ApproveReview(int id = 0, int profileId = 0)
+        {
+            ReviewListVM model = new ReviewListVM();
+            Review approvedReview = new Review();
+            approvedReview = _appDbContext.Review.Find(id);
+            approvedReview.IsReviewed = true;
+            _appDbContext.Review.Update(approvedReview);
+            _appDbContext.SaveChanges();
+            model.AllReviews = _appDbContext.Review.Where(r => r.IsReviewed == false).ToList();
+            model.ProfileId = profileId;
+            model.GameId = -1;
+            return View("ReviewApprovalList",model);
+        }
+
+        public IActionResult RejectReview(int id = 0, int profileId = 0)
+        {
+            ReviewListVM model = new ReviewListVM();
+            Review rejectReview = new Review();
+            rejectReview = _appDbContext.Review.Find(id);
+            _appDbContext.Review.Remove(rejectReview);
+            _appDbContext.SaveChanges();
+            model.AllReviews = _appDbContext.Review.Where(r => r.IsReviewed == false).ToList();
+            model.ProfileId = profileId;
+            model.GameId = -1;
+            return View("ReviewApprovalList", model);
+        }
 
         [HttpPost] // Handle POST requests
         public IActionResult AddGame(AddGameVM model)

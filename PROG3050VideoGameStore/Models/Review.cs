@@ -9,6 +9,10 @@ namespace PROG3050VideoGameStore.Models
         [Required]
         public string ReviewText { get; set; }
 
+        public bool IsReviewed { get; set; } = false;
+
+        public string ReviewBy { get; set; }
+
         public int ProfileId { get; set; } // Foreign Key
 
         public int GameId { get; set; } // Foreign Key

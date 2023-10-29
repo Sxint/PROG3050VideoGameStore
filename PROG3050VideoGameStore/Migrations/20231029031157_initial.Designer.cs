@@ -12,7 +12,7 @@ using PROG3050VideoGameStore.Models;
 namespace PROG3050VideoGameStore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231028170916_initial")]
+    [Migration("20231029031157_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -150,8 +150,15 @@ namespace PROG3050VideoGameStore.Migrations
                     b.Property<int>("GameId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsReviewed")
+                        .HasColumnType("bit");
+
                     b.Property<int>("ProfileId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ReviewBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ReviewText")
                         .IsRequired()

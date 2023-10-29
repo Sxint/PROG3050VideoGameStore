@@ -34,6 +34,8 @@ namespace PROG3050VideoGameStore.Controllers
             return View("Details", activeGame);
         }
 
+
+
         [HttpGet]
         public IActionResult AddRatings(int id = 0,int profileId = 0)
         {
@@ -70,8 +72,6 @@ namespace PROG3050VideoGameStore.Controllers
                         }
                     }  
                 }
-               
-
 
                 if (ratingExists == true)
                 {
@@ -102,6 +102,48 @@ namespace PROG3050VideoGameStore.Controllers
                 return View(model);
             }
 
+        }
+
+        [HttpGet]
+        public IActionResult AddReview(int id = 0, int profileId = 0)
+        {
+            ReviewVM model = new ReviewVM();
+            model.ProfileId = profileId;
+            model.NewReview = new Review();
+            model.NewReview.ReviewBy = _appDbContext.Profiles.Find(profileId).DisplayName;
+            model.GameId = id;
+            model.NewReview.ProfileId = profileId;
+            model.NewReview.GameId = id;
+            return View(model);
+
+        }
+
+        [HttpPost] // Handle POST requests
+        public IActionResult AddReview(ReviewVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                _appDbContext.Review.Add(model.NewReview);
+                _appDbContext.SaveChanges();
+                ViewData["Message"] = "Review has been added successfully";
+                return RedirectToAction("Index", "Games", new { id = model.ProfileId });
+            }
+
+            else
+            {
+
+                ViewData["Message"] = "";
+                return View(model);
+            }
+        }
+
+        public IActionResult GameReviews(int id=0, int profileId = 0)
+        {
+            ReviewListVM list = new ReviewListVM();
+            list.ProfileId = profileId;
+            list.GameId = id;
+            list.AllReviews = _appDbContext.Review.ToList();
+            return View(list);
         }
 
 
