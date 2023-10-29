@@ -147,8 +147,15 @@ namespace PROG3050VideoGameStore.Migrations
                     b.Property<int>("GameId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsReviewed")
+                        .HasColumnType("bit");
+
                     b.Property<int>("ProfileId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ReviewBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ReviewText")
                         .IsRequired()

@@ -123,6 +123,8 @@ namespace PROG3050VideoGameStore.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ReviewText = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsReviewed = table.Column<bool>(type: "bit", nullable: false),
+                    ReviewBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProfileId = table.Column<int>(type: "int", nullable: false),
                     GameId = table.Column<int>(type: "int", nullable: false)
                 },

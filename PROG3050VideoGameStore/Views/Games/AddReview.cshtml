@@ -1,0 +1,45 @@
+﻿@model PROG3050VideoGameStore.ViewModels.ReviewVM
+
+<head>
+    <link rel="stylesheet" href="~/css/LoginRegister.css" asp-append-version="true" />
+</head>
+
+<div class="mainForm">
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+        @Html.ValidationSummary(true)
+
+        <h1>Rate the game</h1>
+
+        <div class="form-group">
+
+            <p> @ViewData["Message"]</p>
+        </div>
+
+        <div class="form-group">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NewReview.ReviewText)
+                @Html.TextAreaFor(model => model.NewReview.ReviewText, new { @class = "form-control", @id = "reviewtext" })
+                @Html.ValidationMessageFor(model => model.NewReview.ReviewText)
+            </div>
+        </div>
+
+
+
+        <div style="display: none;">
+            @Html.TextBoxFor(model => model.NewReview.ReviewBy, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.NewReview.ProfileId, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.NewReview.GameId, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.ProfileId, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.GameId, new { @class = "form-control" })
+
+
+        </div>
+
+
+        <div class="form-group">
+            <input type="submit" value="Add" class="button btn btn-primary" />
+        </div>
+    }
+</div>

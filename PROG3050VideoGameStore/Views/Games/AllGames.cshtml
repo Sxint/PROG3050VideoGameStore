@@ -77,8 +77,13 @@
                             <span class="mx-1">|</span>
                             <a asp-controller="Games" asp-action="AddRatings" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Add Rating</a>
                             <span class="mx-1">|</span>
-                            <a asp-controller="Games" asp-action="DeleteGame" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Add Review</a>
+                            <a asp-controller="Games" asp-action="AddReview" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Add Review</a>
+                            <span class="mx-1">|</span>
+                            <a asp-controller="Games" asp-action="GameReviews" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">View Reviews</a>
                         </td>
+                           
+
+
                     </tr>
                 }
             }

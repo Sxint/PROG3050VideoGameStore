@@ -42,8 +42,42 @@
                         bool isAddressEditPage = Context.Request.Path.StartsWithSegments("/LoginRegister/Address", StringComparison.OrdinalIgnoreCase);
                         bool isRatingEditPage = Context.Request.Path.StartsWithSegments("/Games/AddRatings", StringComparison.OrdinalIgnoreCase);
                         bool isProfileGameListPage = Context.Request.Path.StartsWithSegments("/Games/Index", StringComparison.OrdinalIgnoreCase);
+                        bool isViewReviewPage = Context.Request.Path.StartsWithSegments("/Games/GameReviews", StringComparison.OrdinalIgnoreCase);
+                        bool isReviewApprovalPage = Context.Request.Path.StartsWithSegments("/Admin/ReviewApprovalList", StringComparison.OrdinalIgnoreCase);
+                        bool isReviewApprovePage = Context.Request.Path.StartsWithSegments("/Admin/ApproveReview", StringComparison.OrdinalIgnoreCase);
+                        bool isReviewRejectPage = Context.Request.Path.StartsWithSegments("/Admin/RejectReview", StringComparison.OrdinalIgnoreCase);
                     }
 
+                     @if (isReviewApprovePage == true)
+                    {
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+                     @if (isReviewRejectPage == true)
+                    {
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+
+                     @if (isReviewApprovalPage == true)
+                    {
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+
+                    @if (isViewReviewPage == true)
+                    {
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("Index", "Games", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
 
                     @if (isRatingEditPage == true)
                     {
