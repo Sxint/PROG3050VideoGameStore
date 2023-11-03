@@ -1,4 +1,4 @@
-﻿@model PROG3050VideoGameStore.ViewModels.ReviewListVM;
+﻿@model PROG3050VideoGameStore.ViewModels.EventListVM;
 @{
     ViewData["Title"] = "Panel";
 }
@@ -12,38 +12,50 @@
 </head>
 <body>
     <br />
-    <input type="text" id="searchInput" placeholder="Search Reviews" />
-    <br />
-    <table id="reviewTable">
+    <input type="text" id="searchInput" placeholder="Search Events" />
+    <div>
+
+        <p> @ViewData["Message"]</p>
+    </div>
+    <table id="eventsTable">
         <thead>
             <tr>
-                <th>Review By</th>
-                <th>Review</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Description</th>
                 <th>Actions</th>
-
             </tr>
         </thead>
-     
+      
         <tbody id="tableBody">
 
-            @if (Model.AllReviews != null)
+            @if (Model.Events != null)
             {
 
-                for (int i = 0; i < Model.AllReviews.Count; i++)
+                for (int i = 0; i < Model.Events.Count; i++)
                 {
-
+                   
                     <tr>
+                        <td>
+                            @Model.Events[i].Name
+                        </td>
+                        <td>@Model.Events[i].DateOfEvent.ToString();</td>
+                        <td>@Model.Events[i].Description</td>
+                    
 
-                        @if ( Model.AllReviews[i].IsReviewed == false)
-                        {
-                            <td>@Model.AllReviews[i].ReviewBy</td>
-                            <td>@Model.AllReviews[i].ReviewText</td>
-                            <td>
-                                <a asp-controller="Admin" asp-action="ApproveReview" asp-route-profileId="@Model.ProfileId" asp-route-id="@Model.AllReviews[i].Id">Approve</a>
-                                <span class="mx-1">|</span>
-                                <a asp-controller="Admin" asp-action="RejectReview" asp-route-profileId="@Model.ProfileId" asp-route-id="@Model.AllReviews[i].Id">Reject</a>
-                            </td>
-                        }
+                      
+
+                  
+
+
+                        <td>
+                            <a asp-controller="Games" asp-action="Register" asp-route-id="@Model.Events[i].Id" asp-route-profileId="@Model.ProfileId">Register</a>
+                            <span class="mx-1">|</span>
+                            <a asp-controller="Games" asp-action="Unregister" asp-route-id="@Model.Events[i].Id" asp-route-profileId="@Model.ProfileId">Unregister</a>
+   
+                        </td>
+
+
 
                     </tr>
                 }
@@ -51,21 +63,20 @@
 
         </tbody>
     </table>
-
     <br />
     <br />
     <ul id="pagination" class="pagination"></ul>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             var searchInput = document.getElementById("searchInput");
-            var reviewTable = document.getElementById("reviewTable");
-            var reviews = Array.from(reviewTable.querySelectorAll("tbody tr")); // Array of all event rows
+            var eventsTable = document.getElementById("eventsTable");
+            var events = Array.from(eventsTable.querySelectorAll("tbody tr")); // Array of all event rows
             var tableBody = document.getElementById("tableBody");
             var itemsPerPage = 5; // Number of items to display per page
             var currentPage = 1; // Current page
-            var filteredReviews = reviews; // Initialize with all events
+            var filteredEvents = events; // Initialize with all events
 
-            function displayReviews(page) {
+            function displayEvents(page) {
                 var startIndex = (page - 1) * itemsPerPage;
                 var endIndex = startIndex + itemsPerPage;
 
@@ -73,13 +84,13 @@
                 tableBody.innerHTML = "";
 
                 // Display event rows for the current page
-                for (var i = startIndex; i < endIndex && i < filteredReviews.length; i++) {
-                    tableBody.appendChild(filteredReviews[i].cloneNode(true));
+                for (var i = startIndex; i < endIndex && i < filteredEvents.length; i++) {
+                    tableBody.appendChild(filteredEvents[i].cloneNode(true));
                 }
             }
 
             function updatePagination() {
-                var pageCount = Math.ceil(filteredReviews.length / itemsPerPage);
+                var pageCount = Math.ceil(filteredEvents.length / itemsPerPage);
                 var pagination = document.getElementById("pagination");
                 pagination.innerHTML = "";
 
@@ -93,7 +104,7 @@
                     link.addEventListener("click", function () {
                         var currentNumber = this.textContent.charAt(2);
                         currentPage = parseInt(currentNumber);
-                        displayReviews(currentPage);
+                        displayEvents(currentPage);
                         updatePagination();
                     });
 
@@ -105,27 +116,28 @@
                 }
             }
 
-            function filterReviews(searchTerm) {
-                filteredReviews = reviews.filter(function (review) {
-                    var name = review.querySelector("td:nth-child(2)").textContent.toLowerCase();
+            function filterEvents(searchTerm) {
+                filteredEvents = events.filter(function (event) {
+                    var name = event.querySelector("td:first-child").textContent.toLowerCase();
                     return name.includes(searchTerm);
                 });
 
                 currentPage = 1; // Reset to the first page when filtering
-                displayReviews(currentPage);
+                displayEvents(currentPage);
                 updatePagination();
             }
 
             searchInput.addEventListener("input", function () {
                 var searchTerm = searchInput.value.trim().toLowerCase();
-                filterReviews(searchTerm);
+                filterEvents(searchTerm);
             });
 
             // Initial setup
-            displayReviews(currentPage);
+            displayEvents(currentPage);
             updatePagination();
         });
 
     </script>
 </body>
 </html>
+

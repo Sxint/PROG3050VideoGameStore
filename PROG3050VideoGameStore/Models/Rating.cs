@@ -9,7 +9,7 @@ namespace PROG3050VideoGameStore.Models
         [Required]
         public int RatingValue { get; set; }
 
-        public int ProfileId { get; set; } // Foreign Key
+        public int UserProfileId { get; set; } // Foreign Key
 
         public int GameId { get; set; } // Foreign Key
 

@@ -46,6 +46,29 @@ namespace PROG3050VideoGameStore.Migrations
                     b.ToTable("Events");
                 });
 
+            modelBuilder.Entity("PROG3050VideoGameStore.Models.EventParticipation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("EventId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserProfileId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventId");
+
+                    b.HasIndex("UserProfileId");
+
+                    b.ToTable("AllParticipations");
+                });
+
             modelBuilder.Entity("PROG3050VideoGameStore.Models.Game", b =>
                 {
                     b.Property<int>("Id")
@@ -119,10 +142,10 @@ namespace PROG3050VideoGameStore.Migrations
                     b.Property<int>("GameId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProfileId")
+                    b.Property<int>("RatingValue")
                         .HasColumnType("int");
 
-                    b.Property<int>("RatingValue")
+                    b.Property<int>("UserProfileId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -130,7 +153,7 @@ namespace PROG3050VideoGameStore.Migrations
                     b.HasIndex("GameId")
                         .IsUnique();
 
-                    b.HasIndex("ProfileId")
+                    b.HasIndex("UserProfileId")
                         .IsUnique();
 
                     b.ToTable("Rating");
@@ -150,9 +173,6 @@ namespace PROG3050VideoGameStore.Migrations
                     b.Property<bool>("IsReviewed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("ProfileId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ReviewBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -161,12 +181,15 @@ namespace PROG3050VideoGameStore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserProfileId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("GameId")
                         .IsUnique();
 
-                    b.HasIndex("ProfileId")
+                    b.HasIndex("UserProfileId")
                         .IsUnique();
 
                     b.ToTable("Review");
@@ -301,6 +324,25 @@ namespace PROG3050VideoGameStore.Migrations
                     b.ToTable("Profiles");
                 });
 
+            modelBuilder.Entity("PROG3050VideoGameStore.Models.EventParticipation", b =>
+                {
+                    b.HasOne("PROG3050VideoGameStore.Models.Event", "Event")
+                        .WithMany()
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PROG3050VideoGameStore.Models.UserProfile", "Profile")
+                        .WithMany()
+                        .HasForeignKey("UserProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Event");
+
+                    b.Navigation("Profile");
+                });
+
             modelBuilder.Entity("PROG3050VideoGameStore.Models.ProfilePreferences", b =>
                 {
                     b.HasOne("PROG3050VideoGameStore.Models.UserProfile", "Profile")
@@ -322,7 +364,7 @@ namespace PROG3050VideoGameStore.Migrations
 
                     b.HasOne("PROG3050VideoGameStore.Models.UserProfile", "Profile")
                         .WithOne("RatingItem")
-                        .HasForeignKey("PROG3050VideoGameStore.Models.Rating", "ProfileId")
+                        .HasForeignKey("PROG3050VideoGameStore.Models.Rating", "UserProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -341,7 +383,7 @@ namespace PROG3050VideoGameStore.Migrations
 
                     b.HasOne("PROG3050VideoGameStore.Models.UserProfile", "Profile")
                         .WithOne("ReviewItem")
-                        .HasForeignKey("PROG3050VideoGameStore.Models.Review", "ProfileId")
+                        .HasForeignKey("PROG3050VideoGameStore.Models.Review", "UserProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

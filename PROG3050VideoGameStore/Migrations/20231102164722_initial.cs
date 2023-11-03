@@ -68,6 +68,32 @@ namespace PROG3050VideoGameStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AllParticipations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EventId = table.Column<int>(type: "int", nullable: false),
+                    UserProfileId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AllParticipations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AllParticipations_Events_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Events",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AllParticipations_Profiles_UserProfileId",
+                        column: x => x.UserProfileId,
+                        principalTable: "Profiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProfilePreferencesList",
                 columns: table => new
                 {
@@ -96,7 +122,7 @@ namespace PROG3050VideoGameStore.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RatingValue = table.Column<int>(type: "int", nullable: false),
-                    ProfileId = table.Column<int>(type: "int", nullable: false),
+                    UserProfileId = table.Column<int>(type: "int", nullable: false),
                     GameId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -109,8 +135,8 @@ namespace PROG3050VideoGameStore.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Rating_Profiles_ProfileId",
-                        column: x => x.ProfileId,
+                        name: "FK_Rating_Profiles_UserProfileId",
+                        column: x => x.UserProfileId,
                         principalTable: "Profiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -125,7 +151,7 @@ namespace PROG3050VideoGameStore.Migrations
                     ReviewText = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsReviewed = table.Column<bool>(type: "bit", nullable: false),
                     ReviewBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProfileId = table.Column<int>(type: "int", nullable: false),
+                    UserProfileId = table.Column<int>(type: "int", nullable: false),
                     GameId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -138,8 +164,8 @@ namespace PROG3050VideoGameStore.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Review_Profiles_ProfileId",
-                        column: x => x.ProfileId,
+                        name: "FK_Review_Profiles_UserProfileId",
+                        column: x => x.UserProfileId,
                         principalTable: "Profiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -180,6 +206,16 @@ namespace PROG3050VideoGameStore.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_AllParticipations_EventId",
+                table: "AllParticipations",
+                column: "EventId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AllParticipations_UserProfileId",
+                table: "AllParticipations",
+                column: "UserProfileId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProfilePreferencesList_UserProfileId",
                 table: "ProfilePreferencesList",
                 column: "UserProfileId",
@@ -192,9 +228,9 @@ namespace PROG3050VideoGameStore.Migrations
                 );
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rating_ProfileId",
+                name: "IX_Rating_UserProfileId",
                 table: "Rating",
-                column: "ProfileId"
+                column: "UserProfileId"
                 );
 
             migrationBuilder.CreateIndex(
@@ -204,9 +240,9 @@ namespace PROG3050VideoGameStore.Migrations
                 );
 
             migrationBuilder.CreateIndex(
-                name: "IX_Review_ProfileId",
+                name: "IX_Review_UserProfileId",
                 table: "Review",
-                column: "ProfileId"
+                column: "UserProfileId"
                 );
 
             migrationBuilder.CreateIndex(
@@ -220,7 +256,7 @@ namespace PROG3050VideoGameStore.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Events");
+                name: "AllParticipations");
 
             migrationBuilder.DropTable(
                 name: "ProfilePreferencesList");
@@ -233,6 +269,9 @@ namespace PROG3050VideoGameStore.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserAddresses");
+
+            migrationBuilder.DropTable(
+                name: "Events");
 
             migrationBuilder.DropTable(
                 name: "Games");
