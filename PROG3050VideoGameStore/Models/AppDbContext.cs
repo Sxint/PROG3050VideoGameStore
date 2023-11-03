@@ -17,6 +17,8 @@ namespace PROG3050VideoGameStore.Models
         public DbSet<UserProfile> Profiles { get; set; }
         public DbSet<ProfilePreferences> ProfilePreferencesList { get; set; }
 
+        public DbSet<EventParticipation> AllParticipations { get; set; }
+
         public DbSet<UserAddress> UserAddresses { get; set; }
 
         public DbSet<Rating> Rating { get; set; }

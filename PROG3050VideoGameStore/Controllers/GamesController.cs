@@ -43,7 +43,7 @@ namespace PROG3050VideoGameStore.Controllers
             model.ProfileId = profileId;
             model.NewRating = new Rating();
             model.GameId = id;
-            model.NewRating.ProfileId = profileId;
+            model.NewRating.UserProfileId = profileId;
             model.NewRating.GameId = id;
             model.RatingList = _appDbContext.Rating.ToList();
             return View(model);
@@ -64,7 +64,7 @@ namespace PROG3050VideoGameStore.Controllers
 
                     foreach (Rating r in model.RatingList)
                     {
-                        if (r.GameId == model.GameId && r.ProfileId == model.ProfileId)
+                        if (r.GameId == model.GameId && r.UserProfileId == model.ProfileId)
                         {
                             ratingExists = true;
                             existingRatingId = r.Id;
@@ -112,7 +112,7 @@ namespace PROG3050VideoGameStore.Controllers
             model.NewReview = new Review();
             model.NewReview.ReviewBy = _appDbContext.Profiles.Find(profileId).DisplayName;
             model.GameId = id;
-            model.NewReview.ProfileId = profileId;
+            model.NewReview.UserProfileId = profileId;
             model.NewReview.GameId = id;
             return View(model);
 
@@ -144,6 +144,106 @@ namespace PROG3050VideoGameStore.Controllers
             list.GameId = id;
             list.AllReviews = _appDbContext.Review.ToList();
             return View(list);
+        }
+
+
+        public IActionResult EventRegister(int id=0)
+        {
+            EventListVM model = new EventListVM();
+
+            model.ProfileId = id;
+            model.Events = _appDbContext.Events.ToList();
+
+            return View(model);
+        }
+
+        public IActionResult Register(int id =0, int profileId =0)
+        {
+            List<EventParticipation> allParticipations = new List<EventParticipation>();
+            allParticipations = _appDbContext.AllParticipations.ToList();
+
+            bool alreadyParticipating = false;
+            foreach (EventParticipation item in allParticipations)
+            {
+                if (item.UserProfileId == profileId && item.EventId == id)
+                {
+                    ViewData["Message"] = "You are already registered for this event";
+                    alreadyParticipating = true;
+                    break;
+                }
+            }
+
+            if (alreadyParticipating==false)
+            {
+                EventParticipation newParticipation = new EventParticipation();
+                newParticipation.EventId = id;
+                newParticipation.UserProfileId = profileId;
+                _appDbContext.AllParticipations.Add(newParticipation);
+                _appDbContext.SaveChanges();
+                Event currentEvent = new Event();
+                currentEvent = _appDbContext.Events.Find(id);
+                ViewData["Message"] = "You have been registered for the "+currentEvent.Name+" Event";
+                EventListVM model = new EventListVM();
+                model.ProfileId = profileId;
+                model.Events = _appDbContext.Events.ToList();
+                return View("EventRegister",model);
+            }
+
+            else
+            {
+                ViewData["Message"] = "You are already registered for this event";
+                EventListVM model = new EventListVM();
+                model.ProfileId = profileId;
+                model.Events = _appDbContext.Events.ToList();
+                return View("EventRegister", model);
+    
+            }
+
+        }
+
+        public IActionResult Unregister(int id = 0, int profileId = 0)
+        {
+            List<EventParticipation> allParticipations = new List<EventParticipation>();
+            allParticipations = _appDbContext.AllParticipations.ToList();
+            int currentEventParticipationId = 0;
+
+            bool alreadyParticipating = false;
+            foreach (EventParticipation item in allParticipations)
+            {
+                if (item.UserProfileId == profileId && item.EventId == id)
+                {
+                    ViewData["Message"] = "You are already registered for this event";
+                    alreadyParticipating = true;
+                    currentEventParticipationId = item.Id;
+                    break;
+                }
+            }
+
+            if (alreadyParticipating == false)
+            {
+                ViewData["Message"] = "You are not registered for this event";
+                EventListVM model = new EventListVM();
+                model.ProfileId = profileId;
+                model.Events = _appDbContext.Events.ToList();
+                return View("EventRegister", model);
+
+            }
+
+            else
+            {
+                EventParticipation newParticipation = new EventParticipation();
+                newParticipation = _appDbContext.AllParticipations.Find(currentEventParticipationId);
+                _appDbContext.AllParticipations.Remove(newParticipation);
+                _appDbContext.SaveChanges();
+                Event currentEvent = new Event();
+                currentEvent = _appDbContext.Events.Find(id);
+                ViewData["Message"] = "You have been Unregistered from the " + currentEvent.Name + " Event";
+                EventListVM model = new EventListVM();
+                model.ProfileId = profileId;
+                model.Events = _appDbContext.Events.ToList();
+                return View("EventRegister", model);
+            }
+
         }
 
 

@@ -46,6 +46,30 @@
                         bool isReviewApprovalPage = Context.Request.Path.StartsWithSegments("/Admin/ReviewApprovalList", StringComparison.OrdinalIgnoreCase);
                         bool isReviewApprovePage = Context.Request.Path.StartsWithSegments("/Admin/ApproveReview", StringComparison.OrdinalIgnoreCase);
                         bool isReviewRejectPage = Context.Request.Path.StartsWithSegments("/Admin/RejectReview", StringComparison.OrdinalIgnoreCase);
+                        bool isEventRegisterPage = Context.Request.Path.StartsWithSegments("/Games/EventRegister", StringComparison.OrdinalIgnoreCase);
+                        bool isEveRegisterPage = Context.Request.Path.StartsWithSegments("/Games/Register", StringComparison.OrdinalIgnoreCase);
+                        bool isUnregisterPage = Context.Request.Path.StartsWithSegments("/Games/Unregister", StringComparison.OrdinalIgnoreCase);
+                    }
+                     @if (isEveRegisterPage == true)
+                    {
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+                     @if (isUnregisterPage == true)
+                    {
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+                     @if (isEventRegisterPage == true)
+                    {
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
                     }
 
                      @if (isReviewApprovePage == true)

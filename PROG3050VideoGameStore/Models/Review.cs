@@ -13,7 +13,7 @@ namespace PROG3050VideoGameStore.Models
 
         public string ReviewBy { get; set; }
 
-        public int ProfileId { get; set; } // Foreign Key
+        public int UserProfileId { get; set; } // Foreign Key
 
         public int GameId { get; set; } // Foreign Key
 
