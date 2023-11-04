@@ -78,7 +78,7 @@
                            
 
                         <td>
-                            <a asp-controller="Games" asp-action="Details" asp-route-id="@Model.AllGames[i].Id">Game Details</a>
+                            <a asp-controller="Games" asp-action="Details" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Game Details</a>
                             <span class="mx-1">|</span>
                             <a asp-controller="Games" asp-action="AddRatings" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Add Rating</a>
                             <span class="mx-1">|</span>
