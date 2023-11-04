@@ -15,12 +15,15 @@ namespace PROG3050VideoGameStore.Models
         public string Description { get; set; }
 
         [Required]
-        public int Price { get; set; }
+        public double Price { get; set; }
 
         [Required]
         public int Year { get; set; }
 
-        public int Rating { get; set; } = 1;
+        [Required]
+        public string Category { get; set; } = "None";
+        [Required]
+        public string Platform { get; set; } = "None";
 
         public Rating? RatingItem { get; set; } //nav to its child rating
 

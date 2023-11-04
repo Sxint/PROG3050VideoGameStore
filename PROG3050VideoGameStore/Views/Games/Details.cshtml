@@ -1,4 +1,4 @@
-﻿@model PROG3050VideoGameStore.Models.Game;
+﻿@model PROG3050VideoGameStore.ViewModels.GameDetailsVM;
 
 <head>
     <link rel="stylesheet" href="~/css/GameDetails.css" asp-append-version="true" />
@@ -9,24 +9,24 @@
 <body>
     <div class="profile_card">
         <div class="header">
-            <div class="profilePicture">
+           @* <div class="profilePicture">
                 <h1 class="display-6">
                     [Game image goes here]
                 </h1>
-            </div>
+            </div>*@
 
             <div class="content">
                 <div class="title">
                     <h1 class="display-5">
-                        @Model.Name
+                        @Model.ActiveGame.Name
                     </h1>
                 </div>
                 <div class="accountinfo">
-                    <p>@Model.Rating</p>
+                    <p></p>
                 </div>
-                <p>@Model.Author</p>
-                <p>@Model.Description</p>
-                <p>@Model.Price</p>
+                <p>@Model.ActiveGame.Author</p>
+                <p>@Model.ActiveGame.Description</p>
+                <p>@Model.ActiveGame.Price</p>
             </div>
         </div>
     </div>
@@ -36,6 +36,42 @@
                 <h1 class="display-6">
                     Games Recommendations
                 </h1>
+
+                <table id="gameTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Author</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tableBody">
+
+                        @if (Model.GameRecommendations != null)
+                        {
+                            for (int i = 0; i < Model.GameRecommendations.Count; i++)
+                            {
+
+                                <tr>
+                                    <td>@Model.GameRecommendations[i].Name</td>
+                                    <td>@Model.GameRecommendations[i].Author</td>
+                                    <td>@Model.GameRecommendations[i].Price</td>
+
+                                    <td>
+                                        <a asp-controller="Games" asp-action="Details" asp-route-id="@Model.GameRecommendations[i].Id" asp-route-profileId="@Model.ProfileId">View Details</a>
+                                    </td>
+
+                                </tr>
+
+
+                            }
+
+                        }
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -35,9 +35,10 @@ namespace PROG3050VideoGameStore.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Author = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
                     Year = table.Column<int>(type: "int", nullable: false),
-                    Rating = table.Column<int>(type: "int", nullable: false)
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Platform = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -99,9 +100,9 @@ namespace PROG3050VideoGameStore.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FavCategory = table.Column<int>(type: "int", nullable: false),
-                    FavPlatform = table.Column<int>(type: "int", nullable: false),
-                    Language = table.Column<int>(type: "int", nullable: false),
+                    FavCategory = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FavPlatform = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Language = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserProfileId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

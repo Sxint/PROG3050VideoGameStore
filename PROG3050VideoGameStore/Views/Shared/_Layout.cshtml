@@ -49,7 +49,18 @@
                         bool isEventRegisterPage = Context.Request.Path.StartsWithSegments("/Games/EventRegister", StringComparison.OrdinalIgnoreCase);
                         bool isEveRegisterPage = Context.Request.Path.StartsWithSegments("/Games/Register", StringComparison.OrdinalIgnoreCase);
                         bool isUnregisterPage = Context.Request.Path.StartsWithSegments("/Games/Unregister", StringComparison.OrdinalIgnoreCase);
+                        bool isGamesDetailsPage =  Context.Request.Path.StartsWithSegments("/Games/Details", StringComparison.OrdinalIgnoreCase);
                     }
+
+                    
+                     @if (isGamesDetailsPage == true)
+                    {
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+
                      @if (isEveRegisterPage == true)
                     {
 

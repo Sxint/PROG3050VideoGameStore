@@ -28,16 +28,64 @@ namespace PROG3050VideoGameStore.Controllers
         }
 
 
-        public IActionResult Details(int id)
+        public IActionResult Details(int id = 0, int profileId = 0)
         {
-            Game activeGame = _appDbContext.Games.Find(id);
-            return View("Details", activeGame);
+            GameDetailsVM model = new GameDetailsVM();
+            model.ProfileId = profileId;
+            model.ActiveGame = _appDbContext.Games.Find(id);
+            model.CurrentUserPreference = _appDbContext.ProfilePreferencesList.FirstOrDefault(p => p.UserProfileId == profileId);
+            model.GameRecommendations = new List<Game>();
+
+            // Get all games and ratings
+            List<Game> AllGames = _appDbContext.Games.ToList();
+            List<Rating> AllRatings = _appDbContext.Rating.ToList();
+
+            // Calculate average ratings for all games
+            var averageRatings = AllRatings.GroupBy(r => r.GameId).Select(group => new
+            {
+                GameId = group.Key,
+                AverageRatingValue = group.Average(r => r.RatingValue)
+            }).ToList(); // Materialize the query into a list
+
+            // Use a HashSet to track unique GameIds
+            HashSet<int> uniqueGameIds = new HashSet<int>();
+
+            // Filter games based on user preferences and add them to recommendations
+            foreach (var game in AllGames)
+            {
+                if (model.GameRecommendations.Count < 8 &&
+                    (game.Category == model.CurrentUserPreference.FavCategory || game.Platform == model.CurrentUserPreference.FavPlatform) &&
+                    uniqueGameIds.Add(game.Id))
+                {
+                    model.GameRecommendations.Add(game);
+                }
+            }
+
+            // If there are not enough recommendations, add more games
+            if (model.GameRecommendations.Count < 8)
+            {
+                foreach (var game in AllGames)
+                {
+                    if (model.GameRecommendations.Count < 8 && uniqueGameIds.Add(game.Id))
+                    {
+                        model.GameRecommendations.Add(game);
+                    }
+                }
+            }
+
+            // Sort the recommendations by average rating in descending order
+            model.GameRecommendations = model.GameRecommendations
+                .OrderByDescending(gr => averageRatings.FirstOrDefault(ar => ar.GameId == gr.Id)?.AverageRatingValue)
+                .ToList();
+
+            return View("Details", model);
         }
 
 
 
+
         [HttpGet]
-        public IActionResult AddRatings(int id = 0,int profileId = 0)
+        public IActionResult AddRatings(int id = 0, int profileId = 0)
         {
             RatingVM model = new RatingVM();
             model.ProfileId = profileId;
@@ -57,7 +105,7 @@ namespace PROG3050VideoGameStore.Controllers
             if (ModelState.IsValid)
             {
                 model.RatingList = _appDbContext.Rating.ToList();
-                Boolean ratingExists=false;
+                Boolean ratingExists = false;
                 int existingRatingId = 0;
                 if (model.RatingList != null)
                 {
@@ -70,7 +118,7 @@ namespace PROG3050VideoGameStore.Controllers
                             existingRatingId = r.Id;
                             break;
                         }
-                    }  
+                    }
                 }
 
                 if (ratingExists == true)
@@ -92,7 +140,7 @@ namespace PROG3050VideoGameStore.Controllers
                     ViewData["Message"] = "Rating have been added successfully";
                     return View(model);
                 }
-                
+
             }
 
             else
@@ -137,7 +185,7 @@ namespace PROG3050VideoGameStore.Controllers
             }
         }
 
-        public IActionResult GameReviews(int id=0, int profileId = 0)
+        public IActionResult GameReviews(int id = 0, int profileId = 0)
         {
             ReviewListVM list = new ReviewListVM();
             list.ProfileId = profileId;
@@ -147,7 +195,7 @@ namespace PROG3050VideoGameStore.Controllers
         }
 
 
-        public IActionResult EventRegister(int id=0)
+        public IActionResult EventRegister(int id = 0)
         {
             EventListVM model = new EventListVM();
 
@@ -157,7 +205,7 @@ namespace PROG3050VideoGameStore.Controllers
             return View(model);
         }
 
-        public IActionResult Register(int id =0, int profileId =0)
+        public IActionResult Register(int id = 0, int profileId = 0)
         {
             List<EventParticipation> allParticipations = new List<EventParticipation>();
             allParticipations = _appDbContext.AllParticipations.ToList();
@@ -173,7 +221,7 @@ namespace PROG3050VideoGameStore.Controllers
                 }
             }
 
-            if (alreadyParticipating==false)
+            if (alreadyParticipating == false)
             {
                 EventParticipation newParticipation = new EventParticipation();
                 newParticipation.EventId = id;
@@ -182,11 +230,11 @@ namespace PROG3050VideoGameStore.Controllers
                 _appDbContext.SaveChanges();
                 Event currentEvent = new Event();
                 currentEvent = _appDbContext.Events.Find(id);
-                ViewData["Message"] = "You have been registered for the "+currentEvent.Name+" Event";
+                ViewData["Message"] = "You have been registered for the " + currentEvent.Name + " Event";
                 EventListVM model = new EventListVM();
                 model.ProfileId = profileId;
                 model.Events = _appDbContext.Events.ToList();
-                return View("EventRegister",model);
+                return View("EventRegister", model);
             }
 
             else
@@ -196,7 +244,7 @@ namespace PROG3050VideoGameStore.Controllers
                 model.ProfileId = profileId;
                 model.Events = _appDbContext.Events.ToList();
                 return View("EventRegister", model);
-    
+
             }
 
         }
