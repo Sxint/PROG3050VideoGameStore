@@ -17,7 +17,7 @@
 
         <h1>Address</h1>
 
-        <div class="form-group">
+        <div class="form-group message">
 
             <p> @ViewData["Message"]</p>
         </div>
@@ -25,55 +25,70 @@
         <div class="form-group">
             @Html.LabelFor(model => model.newUserAddress.FirstName)
             @Html.TextBoxFor(model => model.newUserAddress.FirstName, new { @class = "form-control",@id = "firstName" })
-            @Html.ValidationMessageFor(model => model.newUserAddress.FirstName)
+            @Html.ValidationMessageFor(model => model.newUserAddress.FirstName, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.newUserAddress.LastName)
             @Html.TextBoxFor(model => model.newUserAddress.LastName, new { @class = "form-control",@id = "lastName" })
-            @Html.ValidationMessageFor(model => model.newUserAddress.LastName)
+            @Html.ValidationMessageFor(model => model.newUserAddress.LastName, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.newUserAddress.PhoneNumber)
             @Html.TextBoxFor(model => model.newUserAddress.PhoneNumber, new { @class = "form-control",@id = "phoneNumber" })
-            @Html.ValidationMessageFor(model => model.newUserAddress.PhoneNumber)
+            @Html.ValidationMessageFor(model => model.newUserAddress.PhoneNumber, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.newUserAddress.StreetAddress)
             @Html.TextBoxFor(model => model.newUserAddress.StreetAddress, new { @class = "form-control",@id = "streetAddress" })
-            @Html.ValidationMessageFor(model => model.newUserAddress.StreetAddress)
+            @Html.ValidationMessageFor(model => model.newUserAddress.StreetAddress, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.newUserAddress.AptNumber)
             @Html.TextBoxFor(model => model.newUserAddress.AptNumber, new { @class = "form-control",@id = "aptNumber" })
-            @Html.ValidationMessageFor(model => model.newUserAddress.AptNumber)
+            @Html.ValidationMessageFor(model => model.newUserAddress.AptNumber, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.newUserAddress.Province)
-            @Html.TextBoxFor(model => model.newUserAddress.Province, new { @class = "form-control",@id = "province" })
-            @Html.ValidationMessageFor(model => model.newUserAddress.Province)
+            <select id="province" name="newUserAddress.Province" class="form-control" asp-for="@Model.newUserAddress.Province">
+                <option value="YT">Yukon</option>
+                <option value="NT">Northwest Territories</option>
+                <option value="NU">Nunavut</option>
+                <option value="NL">Newfoundland and Labrador</option>
+                <option value="PE">Prince Edward Island</option>
+                <option value="NS">Nova Scotia</option>
+                <option value="NB">New Brunswick</option>
+                <option value="QC">Quebec</option>
+                <option value="ON">Ontario</option>
+                <option value="MB">Manitoba</option>
+                <option value="SK">Saskatchewan</option>
+                <option value="AB">Alberta</option>
+                <option value="BC">British Columbia</option>
+            </select>
+
+            @Html.ValidationMessageFor(model => model.newUserAddress.Province, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.newUserAddress.City)
             @Html.TextBoxFor(model => model.newUserAddress.City, new { @class = "form-control",@id = "city" })
-            @Html.ValidationMessageFor(model => model.newUserAddress.City)
+            @Html.ValidationMessageFor(model => model.newUserAddress.City, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.newUserAddress.PostalCode)
             @Html.TextBoxFor(model => model.newUserAddress.PostalCode, new { @class = "form-control",@id = "postalCode" })
-            @Html.ValidationMessageFor(model => model.newUserAddress.PostalCode)
+            @Html.ValidationMessageFor(model => model.newUserAddress.PostalCode, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.newUserAddress.SameAsShipping)
             <input id="transferCheckbox" type="checkbox" name="newUserAddress.SameAsShipping" value="true" asp-for="@Model.newUserAddress.SameAsShipping">
-            @Html.ValidationMessageFor(model => model.newUserAddress.SameAsShipping)
+            @Html.ValidationMessageFor(model => model.newUserAddress.SameAsShipping, "", new { @class = "validation-error" })
         </div>
 
 
@@ -83,37 +98,52 @@
         <div class="form-group">
             @Html.LabelFor(model => model.newUserAddress.StreetAddressShipping)
             @Html.TextBoxFor(model => model.newUserAddress.StreetAddressShipping, new { @class = "form-control",@id = "streetAddressShipping" })
-            @Html.ValidationMessageFor(model => model.newUserAddress.StreetAddressShipping)
+            @Html.ValidationMessageFor(model => model.newUserAddress.StreetAddressShipping, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.newUserAddress.AptNumberShipping)
             @Html.TextBoxFor(model => model.newUserAddress.AptNumberShipping, new { @class = "form-control",@id = "aptNumberShipping" })
-            @Html.ValidationMessageFor(model => model.newUserAddress.AptNumberShipping)
+            @Html.ValidationMessageFor(model => model.newUserAddress.AptNumberShipping, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.newUserAddress.ProvinceShipping)
-            @Html.TextBoxFor(model => model.newUserAddress.ProvinceShipping, new { @class = "form-control",@id = "provinceShipping" })
-            @Html.ValidationMessageFor(model => model.newUserAddress.ProvinceShipping)
+            <select id="provinceShipping" name="newUserAddress.ProvinceShipping" class="form-control" asp-for="@Model.newUserAddress.ProvinceShipping">
+                <option value="YT">Yukon</option>
+                <option value="NT">Northwest Territories</option>
+                <option value="NU">Nunavut</option>
+                <option value="NL">Newfoundland and Labrador</option>
+                <option value="PE">Prince Edward Island</option>
+                <option value="NS">Nova Scotia</option>
+                <option value="NB">New Brunswick</option>
+                <option value="QC">Quebec</option>
+                <option value="ON">Ontario</option>
+                <option value="MB">Manitoba</option>
+                <option value="SK">Saskatchewan</option>
+                <option value="AB">Alberta</option>
+                <option value="BC">British Columbia</option>
+            </select>
+
+            @Html.ValidationMessageFor(model => model.newUserAddress.ProvinceShipping, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.newUserAddress.CityShipping)
             @Html.TextBoxFor(model => model.newUserAddress.CityShipping, new { @class = "form-control",@id = "cityShipping" })
-            @Html.ValidationMessageFor(model => model.newUserAddress.CityShipping)
+            @Html.ValidationMessageFor(model => model.newUserAddress.CityShipping, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.newUserAddress.PostalCodeShipping)
             @Html.TextBoxFor(model => model.newUserAddress.PostalCodeShipping, new { @class = "form-control",@id = "postalCodeShipping" })
-            @Html.ValidationMessageFor(model => model.newUserAddress.PostalCodeShipping)
+            @Html.ValidationMessageFor(model => model.newUserAddress.PostalCodeShipping, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.newUserAddress.DeliveryInstructions)
             @Html.TextBoxFor(model => model.newUserAddress.DeliveryInstructions, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.newUserAddress.DeliveryInstructions)
+            @Html.ValidationMessageFor(model => model.newUserAddress.DeliveryInstructions, "", new { @class = "validation-error" })
         </div>
 
         <div style="display: none;">

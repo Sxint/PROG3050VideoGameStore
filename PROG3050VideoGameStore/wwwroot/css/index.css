@@ -119,3 +119,11 @@ img:hover + .details-button, .image-item:hover {
     margin-top: 5px;
     width: 160px;
 }
+
+.validation-error {
+    color: red;
+}
+
+.message {
+    color: blue;
+}

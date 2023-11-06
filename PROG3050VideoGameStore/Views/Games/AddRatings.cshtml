@@ -11,7 +11,7 @@
 
         <h1>Rate the game</h1>
 
-        <div class="form-group">
+        <div class="form-group message">
 
             <p> @ViewData["Message"]</p>
         </div>
@@ -27,7 +27,7 @@
                     <option value="4">4</option>
                     <option value="5">5</option>
                 </select>
-                @Html.ValidationMessageFor(model => model.NewRating.RatingValue)
+                @Html.ValidationMessageFor(model => model.NewRating.RatingValue, "", new { @class = "validation-error" })
             </div>
         </div>
 

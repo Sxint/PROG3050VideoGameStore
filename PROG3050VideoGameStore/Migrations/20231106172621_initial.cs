@@ -19,6 +19,7 @@ namespace PROG3050VideoGameStore.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateOfEvent = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TimeOfEvent = table.Column<TimeSpan>(type: "time", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -226,31 +227,31 @@ namespace PROG3050VideoGameStore.Migrations
                 name: "IX_Rating_GameId",
                 table: "Rating",
                 column: "GameId"
-                );
+               );
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rating_UserProfileId",
                 table: "Rating",
                 column: "UserProfileId"
-                );
+              );
 
             migrationBuilder.CreateIndex(
                 name: "IX_Review_GameId",
                 table: "Review",
                 column: "GameId"
-                );
+             );
 
             migrationBuilder.CreateIndex(
                 name: "IX_Review_UserProfileId",
                 table: "Review",
                 column: "UserProfileId"
-                );
+             );
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserAddresses_UserProfileId",
                 table: "UserAddresses",
                 column: "UserProfileId"
-                );
+             );
         }
 
         /// <inheritdoc />

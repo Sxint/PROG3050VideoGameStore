@@ -12,7 +12,7 @@ using PROG3050VideoGameStore.Models;
 namespace PROG3050VideoGameStore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231104201150_initial")]
+    [Migration("20231106172621_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -43,6 +43,9 @@ namespace PROG3050VideoGameStore.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<TimeSpan>("TimeOfEvent")
+                        .HasColumnType("time");
 
                     b.HasKey("Id");
 

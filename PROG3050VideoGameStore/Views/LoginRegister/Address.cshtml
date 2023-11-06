@@ -17,7 +17,7 @@
 
         <h1>Address</h1>
 
-        <div class="form-group">
+        <div class="form-group message">
 
             <p> @ViewData["Message"]</p>
         </div>
@@ -25,55 +25,55 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FirstName)
             @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control",@id = "firstName" })
-            @Html.ValidationMessageFor(model => model.FirstName)
+            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.LastName)
             @Html.TextBoxFor(model => model.LastName, new { @class = "form-control",@id = "lastName" })
-            @Html.ValidationMessageFor(model => model.LastName)
+            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.PhoneNumber)
             @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control",@id = "phoneNumber" })
-            @Html.ValidationMessageFor(model => model.PhoneNumber)
+            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.StreetAddress)
             @Html.TextBoxFor(model => model.StreetAddress, new { @class = "form-control",@id = "streetAddress" })
-            @Html.ValidationMessageFor(model => model.StreetAddress)
+            @Html.ValidationMessageFor(model => model.StreetAddress, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.AptNumber)
             @Html.TextBoxFor(model => model.AptNumber, new { @class = "form-control",@id = "aptNumber" })
-            @Html.ValidationMessageFor(model => model.AptNumber)
+            @Html.ValidationMessageFor(model => model.AptNumber, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Province)
             @Html.TextBoxFor(model => model.Province, new { @class = "form-control",@id = "province" })
-            @Html.ValidationMessageFor(model => model.Province)
+            @Html.ValidationMessageFor(model => model.Province, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.City)
             @Html.TextBoxFor(model => model.City, new { @class = "form-control",@id = "city" })
-            @Html.ValidationMessageFor(model => model.City)
+            @Html.ValidationMessageFor(model => model.City, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.PostalCode)
             @Html.TextBoxFor(model => model.PostalCode, new { @class = "form-control",@id = "postalCode" })
-            @Html.ValidationMessageFor(model => model.PostalCode)
+            @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.SameAsShipping)
             <input id="transferCheckbox" type="checkbox" name="SameAsShipping" value="true" asp-for="@Model.SameAsShipping">
-            @Html.ValidationMessageFor(model => model.SameAsShipping)
+            @Html.ValidationMessageFor(model => model.SameAsShipping, "", new { @class = "validation-error" })
         </div>
 
         <h2> Shipping Address</h2>
@@ -81,37 +81,37 @@
         <div class="form-group">
             @Html.LabelFor(model => model.StreetAddressShipping)
             @Html.TextBoxFor(model => model.StreetAddressShipping, new { @class = "form-control",@id = "streetAddressShipping" })
-            @Html.ValidationMessageFor(model => model.StreetAddressShipping)
+            @Html.ValidationMessageFor(model => model.StreetAddressShipping, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.AptNumberShipping)
             @Html.TextBoxFor(model => model.AptNumberShipping, new { @class = "form-control",@id = "aptNumberShipping" })
-            @Html.ValidationMessageFor(model => model.AptNumberShipping)
+            @Html.ValidationMessageFor(model => model.AptNumberShipping, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.ProvinceShipping)
             @Html.TextBoxFor(model => model.ProvinceShipping, new { @class = "form-control",@id = "provinceShipping" })
-            @Html.ValidationMessageFor(model => model.ProvinceShipping)
+            @Html.ValidationMessageFor(model => model.ProvinceShipping, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.CityShipping)
             @Html.TextBoxFor(model => model.CityShipping, new { @class = "form-control",@id = "cityShipping" })
-            @Html.ValidationMessageFor(model => model.CityShipping)
+            @Html.ValidationMessageFor(model => model.CityShipping, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.PostalCodeShipping)
             @Html.TextBoxFor(model => model.PostalCodeShipping, new { @class = "form-control",@id = "postalCodeShipping" })
-            @Html.ValidationMessageFor(model => model.PostalCodeShipping)
+            @Html.ValidationMessageFor(model => model.PostalCodeShipping, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.DeliveryInstructions)
             @Html.TextBoxFor(model => model.DeliveryInstructions, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.DeliveryInstructions)
+            @Html.ValidationMessageFor(model => model.DeliveryInstructions, "", new { @class = "validation-error" })
         </div>
 
         <div style="display: none;">

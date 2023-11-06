@@ -8,8 +8,10 @@ namespace PROG3050VideoGameStore.Models
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Favorite Category")]
         public string FavCategory { get; set; } = "None";
         [Required]
+        [Display(Name = "Favorite Platform")]
         public string FavPlatform { get; set; } = "None";
         [Required]
         public string Language { get; set; } = "None";

@@ -92,3 +92,12 @@ tr:nth-child(even) {
 .context-menu-button:last-child {
     border-bottom: none;
 }
+
+.validation-error {
+    color: red;
+}
+
+
+.message {
+    color: blue;
+}

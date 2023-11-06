@@ -17,13 +17,16 @@ body {
 
 .mainForm p{
     text-align: center;
+    
 }
 
 .mainForm {
     width: 30%;
     margin-left: 35%;
-    margin-top: 5%;
+    margin-top: 2%;
+    margin-bottom: 20px;
     background-color: #afaeaed9;
+    
 }
 
 .button {
@@ -43,4 +46,12 @@ h1 {
     margin: auto;
     text-align: center;
     color: white;
+}
+
+.validation-error {
+    color: red;
+}
+
+.message {
+    color: blue;
 }

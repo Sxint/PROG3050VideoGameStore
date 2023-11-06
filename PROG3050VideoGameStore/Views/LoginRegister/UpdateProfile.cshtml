@@ -11,7 +11,7 @@
 
         <h1>Update Profile</h1>
 
-        <div class="form-group">
+        <div class="form-group message">
 
             <p> @ViewData["Message"]</p>
         </div>
@@ -19,25 +19,30 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ActualName)
             @Html.TextBoxFor(model => model.ActualName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.ActualName)
+            @Html.ValidationMessageFor(model => model.ActualName, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Gender)
-            @Html.TextBoxFor(model => model.Gender, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Gender)
+            <select id="Gender" name="Gender" class="form-control" asp-for="@Model.Gender">
+                <option value="Not yet provided">Not yet provided</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.BirthDate)
             <input type="date" id="datePicker" name="BirthDate" asp-for="@Model.BirthDate">
-            @Html.ValidationMessageFor(model => model.BirthDate)
+            @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.PromotionEmail)
             <input type="checkbox" name="PromotionEmail" value="true" asp-for="@Model.PromotionEmail">
-            @Html.ValidationMessageFor(model => model.PromotionEmail)
+            @Html.ValidationMessageFor(model => model.PromotionEmail, "", new { @class = "validation-error" })
         </div>
 
         <div style="display: none;">

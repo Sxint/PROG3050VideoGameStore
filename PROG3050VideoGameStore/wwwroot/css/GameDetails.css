@@ -73,3 +73,11 @@ body {
     width: 100%;
     border-bottom: solid 1px white;
 }
+
+.validation-error {
+    color: red;
+}
+
+.message {
+    color: blue;
+}

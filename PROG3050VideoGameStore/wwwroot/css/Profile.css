@@ -84,3 +84,11 @@
     flex: 1;
     color: rgba(117,122,132,255);
 }
+
+.validation-error {
+    color: red;
+}
+
+.message {
+    color: blue;
+}

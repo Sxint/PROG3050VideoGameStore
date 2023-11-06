@@ -8,6 +8,7 @@ using System.Net.Mail;
 using System.Net;
 using System;
 using AspNetCore.ReCaptcha;
+using Newtonsoft.Json;
 
 namespace PROG3050VideoGameStore.Controllers
 {
@@ -139,57 +140,71 @@ namespace PROG3050VideoGameStore.Controllers
         [HttpPost] // Handle POST requests
         public IActionResult Register(UserProfile model)
         {
-            if (ModelState.IsValid)
+            
+            var client = new HttpClient();
+            var response = client.GetStringAsync($"https://www.google.com/recaptcha/api/siteverify?secret=6Lc0Vv4oAAAAACNHmft44sWxMp_kCOOCUjOdMV8b&response={Request.Form["g-recaptcha-response"]}").Result;
+            var recaptchaResult = JsonConvert.DeserializeObject<RecaptchaResponse>(response);
+
+            if (!recaptchaResult.Success)
             {
-             
-                UserProfile queriedUser = _appDbContext.Profiles.FirstOrDefault(p => p.DisplayName == model.DisplayName);
-             
-                if (queriedUser == null)
-                {
-                    _appDbContext.Profiles.Add(model);
-                    _appDbContext.SaveChanges();
-                    ProfilePreferences preferences = new ProfilePreferences();
-                    preferences.UserProfileId = model.Id;              
-                    _appDbContext.ProfilePreferencesList.Add(preferences);
-                    _appDbContext.SaveChanges();
-
-                    string fromAddress = "nirmaldeepak96@gmail.com";
-                    string toAddress = model.Email;
-                    string link = Url.Action("EmailValidationResponse", "LoginRegister", new { id = model.Id }, protocol: "https");
-                    var smtpClient = new SmtpClient("smtp.gmail.com")
-                    {
-                        Port = 587,
-                        Credentials = new NetworkCredential(fromAddress, "fwmvsjqvkcddiqcw"),
-                        EnableSsl = true,
-                    };
-
-                    var mailMessage = new MailMessage()
-                    {
-
-                        From = new MailAddress(fromAddress),
-                        Subject = "Validation Required!",
-                        Body = "Your new account has been created. But before you can sign in validation is required. " + $"<a href ={link}>Please click here to validate</a>" + " <br><br>Thanks,<br><br>The Video Game Store team",
-                        IsBodyHtml = true
-                    };
-
-                    mailMessage.To.Add(toAddress);
-
-                    smtpClient.SendAsync(mailMessage, null);
-
-                    return RedirectToAction("Login", "LoginRegister");
-                }
-
-                else
-                {
-                    ViewData["Message"] = "Choose a different Display Name. Name has already been taken";
-                    return View(model);
-                }
+                ModelState.AddModelError("", "reCAPTCHA validation failed. Please prove you are not a robot.");
+                return View(model); // Return the view to display the validation error message.
             }
 
             else
             {
-                ViewData["Message"]="";
-                return View(model);
+                if (ModelState.IsValid)
+                {
+
+                    UserProfile queriedUser = _appDbContext.Profiles.FirstOrDefault(p => p.DisplayName == model.DisplayName);
+
+                    if (queriedUser == null)
+                    {
+                        _appDbContext.Profiles.Add(model);
+                        _appDbContext.SaveChanges();
+                        ProfilePreferences preferences = new ProfilePreferences();
+                        preferences.UserProfileId = model.Id;
+                        _appDbContext.ProfilePreferencesList.Add(preferences);
+                        _appDbContext.SaveChanges();
+
+                        string fromAddress = "nirmaldeepak96@gmail.com";
+                        string toAddress = model.Email;
+                        string link = Url.Action("EmailValidationResponse", "LoginRegister", new { id = model.Id }, protocol: "https");
+                        var smtpClient = new SmtpClient("smtp.gmail.com")
+                        {
+                            Port = 587,
+                            Credentials = new NetworkCredential(fromAddress, "fwmvsjqvkcddiqcw"),
+                            EnableSsl = true,
+                        };
+
+                        var mailMessage = new MailMessage()
+                        {
+
+                            From = new MailAddress(fromAddress),
+                            Subject = "Validation Required!",
+                            Body = "Your new account has been created. But before you can sign in validation is required. " + $"<a href ={link}>Please click here to validate</a>" + " <br><br>Thanks,<br><br>The Video Game Store team",
+                            IsBodyHtml = true
+                        };
+
+                        mailMessage.To.Add(toAddress);
+
+                        smtpClient.SendAsync(mailMessage, null);
+
+                        return RedirectToAction("Login", "LoginRegister");
+                    }
+
+                    else
+                    {
+                        ViewData["Message"] = "Choose a different Display Name. Name has already been taken";
+                        return View(model);
+                    }
+                }
+
+                else
+                {
+                    ViewData["Message"] = "";
+                    return View(model);
+                } 
             }
       
         }

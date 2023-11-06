@@ -41,6 +41,9 @@ namespace PROG3050VideoGameStore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<TimeSpan>("TimeOfEvent")
+                        .HasColumnType("time");
+
                     b.HasKey("Id");
 
                     b.ToTable("Events");

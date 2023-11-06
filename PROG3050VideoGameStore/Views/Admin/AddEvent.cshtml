@@ -17,7 +17,7 @@
 
         <h1>Add Event</h1>
 
-        <div class="form-group">
+        <div class="form-group message">
 
             <p> @ViewData["Message"]</p>
         </div>
@@ -25,19 +25,28 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Event.Name)
             @Html.TextBoxFor(model => model.Event.Name, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Event.Name)
+            @Html.ValidationMessageFor(model => model.Event.Name, "", new { @class = "validation-error" })
+
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Event.DateOfEvent)
             <input type="date" id="datePicker" name="Event.DateOfEvent" asp-for="@Model.Event.DateOfEvent">
-            @Html.ValidationMessageFor(model => model.Event.DateOfEvent)
+            @Html.ValidationMessageFor(model => model.Event.DateOfEvent, "", new { @class = "validation-error" })
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Event.TimeOfEvent)
+            <input type="time" id="timePicker" name="Event.TimeOfEvent" asp-for="@Model.Event.TimeOfEvent" class="form-control">
+            @Html.ValidationMessageFor(model => model.Event.TimeOfEvent, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Event.Description)
             @Html.TextBoxFor(model => model.Event.Description, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Event.Description)
+            @Html.ValidationMessageFor(model => model.Event.Description, "", new { @class = "validation-error" })
+
         </div>
      
 

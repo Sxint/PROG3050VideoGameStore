@@ -13,7 +13,7 @@
 <body>
     <br />
     <input type="text" id="searchInput" placeholder="Search Events" />
-    <div>
+    <div class="message">
 
         <p> @ViewData["Message"]</p>
     </div>
@@ -22,7 +22,8 @@
             <tr>
                 <th>Name</th>
                 <th>Date</th>
-                <th>Description</th>
+                <th>Time of Event</th>
+                <th>Description</th> 
                 <th>Actions</th>
             </tr>
         </thead>
@@ -39,7 +40,9 @@
                         <td>
                             @Model.Events[i].Name
                         </td>
-                        <td>@Model.Events[i].DateOfEvent.ToString();</td>
+                        <td>@Model.Events[i].DateOfEvent.ToShortDateString()</td>
+
+                        <td>@Model.Events[i].TimeOfEvent.ToString();</td>
                         <td>@Model.Events[i].Description</td>
                     
 
