@@ -1,4 +1,4 @@
-﻿@model PROG3050VideoGameStore.ViewModels.AddressListVM
+﻿@model PROG3050VideoGameStore.ViewModels.PreferenceListVM
 @{
     ViewData["Title"] = "Panel";
 }
@@ -14,15 +14,14 @@
 
     <!-- Tab Content for Tab 1 -->
     <div id="tab1" class="tab-content">
-        <h2>List of Addresses</h2>
-        <input type="text" id="searchInput" placeholder="Search Addresses" />
-        <div class="message">
-            <p>@ViewData["Message"]</p>
-        </div>
-        <table id="addressesTable">
+        <h2>List of Preferences</h2>
+        <table>
             <thead>
                 <tr>
-                    <th>Street Address</th>
+                    <th>Preference Number</th>
+                    <th>Category</th>
+                    <th>Platform</th>
+                    <th>Language</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -31,15 +30,20 @@
 
                 @if (Model != null)
                 {
-                    for (int i = 0; i < Model.AllAddresses.Count; i++)
+                    for (int i = 0; i < Model.AllPreferences.Count; i++)
                     {
 
                         <tr>
-                            <td>@Model.AllAddresses[i].StreetAddress</td>
+                            <td>@(i + 1)</td>
+                            <td>@Model.AllPreferences[i].FavCategory</td>
+                            <td>@Model.AllPreferences[i].FavPlatform</td>
+                            <td>@Model.AllPreferences[i].Language</td>
                             <td>
-                                <a asp-controller="LoginRegister" asp-action="Address" asp-route-id="@Model.AllAddresses[i].Id">Edit</a>
+                                <a asp-controller="LoginRegister" asp-action="ChoosePreference" asp-route-profileId="@Model.ProfileId" asp-route-id="@Model.AllPreferences[i].Id">Choose</a>
                                 <span class="mx-1">|</span>
-                                <a asp-controller="LoginRegister" asp-action="DeleteAddress" asp-route-id="@Model.AllAddresses[i].Id">Delete</a>
+                                <a asp-controller="LoginRegister" asp-action="UpdatePreferences" asp-route-id="@Model.AllPreferences[i].Id">Edit</a>
+                                <span class="mx-1">|</span>
+                                <a asp-controller="LoginRegister" asp-action="DeletePreference" asp-route-profileId="@Model.ProfileId" asp-route-id="@Model.AllPreferences[i].Id">Delete</a>
                             </td>
                         </tr>
                     }
@@ -52,27 +56,25 @@
 
         <script>
             document.addEventListener("DOMContentLoaded", function () {
-                var searchInput = document.getElementById("searchInput");
-                var addressesTable = document.getElementById("addressesTable");
-                var addresses = Array.from(addressesTable.querySelectorAll("tbody tr"));
+                var preferencesTable = document.querySelector("#tab1 table");
+                var preferences = Array.from(preferencesTable.querySelectorAll("tbody tr"));
                 var tableBody = document.getElementById("tableBody");
                 var itemsPerPage = 5;
                 var currentPage = 1;
-                var filteredAddresses = addresses;
 
-                function displayAddresses(page) {
+                function displayPreferences(page) {
                     var startIndex = (page - 1) * itemsPerPage;
                     var endIndex = startIndex + itemsPerPage;
 
                     tableBody.innerHTML = "";
 
-                    for (var i = startIndex; i < endIndex && i < filteredAddresses.length; i++) {
-                        tableBody.appendChild(filteredAddresses[i].cloneNode(true));
+                    for (var i = startIndex; i < endIndex && i < preferences.length; i++) {
+                        tableBody.appendChild(preferences[i].cloneNode(true));
                     }
                 }
 
                 function updatePagination() {
-                    var pageCount = Math.ceil(filteredAddresses.length / itemsPerPage);
+                    var pageCount = Math.ceil(preferences.length / itemsPerPage);
                     var pagination = document.getElementById("pagination");
                     pagination.innerHTML = "";
 
@@ -86,7 +88,7 @@
                         link.addEventListener("click", function () {
                             var currentNumber = this.textContent.charAt(2);
                             currentPage = parseInt(currentNumber);
-                            displayAddresses(currentPage);
+                            displayPreferences(currentPage);
                             updatePagination();
                         });
 
@@ -98,24 +100,8 @@
                     }
                 }
 
-                function filterAddresses(searchTerm) {
-                    filteredAddresses = addresses.filter(function (address) {
-                        var streetAddress = address.querySelector("td:first-child").textContent.toLowerCase();
-                        return streetAddress.includes(searchTerm);
-                    });
-
-                    currentPage = 1;
-                    displayAddresses(currentPage);
-                    updatePagination();
-                }
-
-                searchInput.addEventListener("input", function () {
-                    var searchTerm = searchInput.value.trim().toLowerCase();
-                    filterAddresses(searchTerm);
-                });
-
                 // Initial setup
-                displayAddresses(currentPage);
+                displayPreferences(currentPage);
                 updatePagination();
             });
         </script>

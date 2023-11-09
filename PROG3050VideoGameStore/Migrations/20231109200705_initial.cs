@@ -62,6 +62,7 @@ namespace PROG3050VideoGameStore.Migrations
                     EmailValidate = table.Column<bool>(type: "bit", nullable: false),
                     IsEmployee = table.Column<bool>(type: "bit", nullable: false),
                     RememberMe = table.Column<bool>(type: "bit", nullable: true),
+                    CurrentPrefId = table.Column<int>(type: "int", nullable: true),
                     RepeatedInvalidCreds = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -220,14 +221,14 @@ namespace PROG3050VideoGameStore.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ProfilePreferencesList_UserProfileId",
                 table: "ProfilePreferencesList",
-                column: "UserProfileId",
-                unique: true);
+                column: "UserProfileId"
+                );
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rating_GameId",
                 table: "Rating",
                 column: "GameId"
-               );
+                );
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rating_UserProfileId",
@@ -239,19 +240,19 @@ namespace PROG3050VideoGameStore.Migrations
                 name: "IX_Review_GameId",
                 table: "Review",
                 column: "GameId"
-             );
+               );
 
             migrationBuilder.CreateIndex(
                 name: "IX_Review_UserProfileId",
                 table: "Review",
                 column: "UserProfileId"
-             );
+              );
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserAddresses_UserProfileId",
                 table: "UserAddresses",
                 column: "UserProfileId"
-             );
+            );
         }
 
         /// <inheritdoc />

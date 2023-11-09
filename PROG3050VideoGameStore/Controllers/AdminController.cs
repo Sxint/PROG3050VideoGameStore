@@ -20,7 +20,16 @@ namespace PROG3050VideoGameStore.Controllers
             return View(list);
         }
 
-     
+        public IActionResult EventList(int id = 0)
+        {
+            EventListVM model = new EventListVM();
+
+            model.ProfileId = id;
+            model.Events = _appDbContext.Events.ToList();
+
+            return View(model);
+        }
+
 
         [HttpGet]
         public IActionResult AddGame(int id = 0)
@@ -53,6 +62,16 @@ namespace PROG3050VideoGameStore.Controllers
             return View(addEventVM);
         }
 
+        [HttpGet]
+        public IActionResult EditEvent(int id = 0, int profileId = 0)
+        {
+            EventVM editEventVM = new EventVM();
+            Event editableEvent = new Event();
+            editableEvent = _appDbContext.Events.Find(id);
+            editEventVM.Event = editableEvent;
+            editEventVM.ProfileId = profileId;
+            return View(editEventVM);
+        }
 
 
 
@@ -151,6 +170,15 @@ namespace PROG3050VideoGameStore.Controllers
             return RedirectToAction("List", new { id = profileId });
         }
 
+        public IActionResult DeleteEvent(int id = 0, int profileId = 0)
+        {
+            Event eventModel = new Event();
+            eventModel = _appDbContext.Events.Find(id);
+            _appDbContext.Events.Remove(eventModel);
+            _appDbContext.SaveChanges();
+            return RedirectToAction("EventList", new { id = profileId });
+        }
+
         [HttpPost] // Handle POST requests
         public IActionResult AddEvent(EventVM model)
         {
@@ -161,6 +189,27 @@ namespace PROG3050VideoGameStore.Controllers
                 _appDbContext.SaveChanges();
                 ViewData["Message"] = "Event has been added successfully";
                 return RedirectToAction("Panel", new { id = model.ProfileId });
+            }
+
+            else
+            {
+
+                ViewData["Message"] = "";
+                return View(model);
+            }
+        }
+
+
+        [HttpPost] // Handle POST requests
+        public IActionResult EditEvent(EventVM model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                _appDbContext.Events.Update(model.Event);
+                _appDbContext.SaveChanges();
+                ViewData["Message"] = "Event has been edited successfully";
+                return View(model);
             }
 
             else

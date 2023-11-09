@@ -1,0 +1,64 @@
+﻿@model PROG3050VideoGameStore.ViewModels.AddPreference
+
+<head>
+    <link rel="stylesheet" href="~/css/LoginRegister.css" asp-append-version="true" />
+</head>
+
+<div class="mainForm">
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+        @Html.ValidationSummary(true)
+
+        <h1>Preferences</h1>
+
+        <div class="form-group message">
+
+            <p> @ViewData["Message"]</p>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.newPreference.FavPlatform)
+            <select id="FavPlatform" name="newPreference.FavPlatform" class="form-control" asp-for="@Model.newPreference.FavPlatform">
+                <option value="None">None</option>
+                <option value="PC">PC</option>
+                <option value="PS">PS</option>
+                <option value="XBOX">XBOX</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.newPreference.FavPlatform, "", new { @class = "validation-error" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.newPreference.FavCategory)
+            <select id="FavCategory" name="newPreference.FavCategory" class="form-control" asp-for="@Model.newPreference.FavCategory">
+                <option value="None">None</option>
+                <option value="Action">Action</option>
+                <option value="Sci-Fi">Sci-Fi</option>
+                <option value="Fantasy">Fantasy</option>
+                <option value="RPG">RPG</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.newPreference.FavCategory, "", new { @class = "validation-error" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.newPreference.Language)
+            <select id="Language" name="Language" class="form-control" asp-for="@Model.newPreference.Language">
+                <option value="None">None</option>
+                <option value="English">English</option>
+                <option value="French">French</option>
+                <option value="Spanish">Spanish</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.newPreference.Language, "", new { @class = "validation-error" })
+        </div>
+
+        <div style="display: none;">
+
+            
+            @Html.TextBoxFor(model => model.ProfileId, new { @class = "form-control" })
+
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Submit" class="button btn btn-primary" />
+        </div>
+    }
+</div>

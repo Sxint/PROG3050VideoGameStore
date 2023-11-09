@@ -23,7 +23,7 @@ namespace PROG3050VideoGameStore.Models
         [Display(Name = "Street Address")]
         public string StreetAddress { get; set; }
 
-        [Display(Name = "Apartment Number")]
+        [Display(Name = "Apartment Number(Optional)")]
         public string? AptNumber { get; set; }
 
         [Required]
@@ -44,7 +44,7 @@ namespace PROG3050VideoGameStore.Models
         [Display(Name = "Street Address Shipping")]
         public string StreetAddressShipping { get; set; }
 
-        [Display(Name = "Apt Number Shipping")]
+        [Display(Name = "Apt Number Shipping(Optional)")]
         public string? AptNumberShipping { get; set; }
 
         [Required]

@@ -29,6 +29,10 @@
                         bool isRegisterPage = Context.Request.Path.Equals("/LoginRegister/Register", StringComparison.OrdinalIgnoreCase);
                         bool isProfileIndex = Context.Request.Path.StartsWithSegments("/LoginRegister/ProfileIndex", StringComparison.OrdinalIgnoreCase);
                         bool isAddAddressPage = Context.Request.Path.StartsWithSegments("/LoginRegister/AddAddress", StringComparison.OrdinalIgnoreCase);
+                        bool isAddPreferencePage = Context.Request.Path.StartsWithSegments("/LoginRegister/AddPreference", StringComparison.OrdinalIgnoreCase);
+                        bool isPreferencesListPage = Context.Request.Path.StartsWithSegments("/LoginRegister/PreferencesList", StringComparison.OrdinalIgnoreCase);
+                        bool isDeletePreferencePage = Context.Request.Path.StartsWithSegments("/LoginRegister/DeletePreference", StringComparison.OrdinalIgnoreCase);
+                        bool isChoosePreferencePage = Context.Request.Path.StartsWithSegments("/LoginRegister/ChoosePreference", StringComparison.OrdinalIgnoreCase);
                         bool isUpdateProfilePage = Context.Request.Path.StartsWithSegments("/LoginRegister/UpdateProfile", StringComparison.OrdinalIgnoreCase);
                         bool isUpdatePreferencePage = Context.Request.Path.StartsWithSegments("/LoginRegister/UpdatePreferences", StringComparison.OrdinalIgnoreCase);
                         bool isEmailResetPasswordPage = Context.Request.Path.StartsWithSegments("/LoginRegister/EmailResetPassword", StringComparison.OrdinalIgnoreCase);
@@ -37,6 +41,7 @@
                         bool isEventAddPage = Context.Request.Path.StartsWithSegments("/Admin/AddEvent", StringComparison.OrdinalIgnoreCase);
                         bool isListPage = Context.Request.Path.StartsWithSegments("/Admin/List", StringComparison.OrdinalIgnoreCase);
                         bool isGameEditPage = Context.Request.Path.StartsWithSegments("/Admin/EditGame", StringComparison.OrdinalIgnoreCase);
+                        bool isEventEditPage = Context.Request.Path.StartsWithSegments("/Admin/EditEvent", StringComparison.OrdinalIgnoreCase);
                         bool isChangePasswordPage = Context.Request.Path.StartsWithSegments("/LoginRegister/ChangePassword", StringComparison.OrdinalIgnoreCase);
                         bool isAddressListPage = Context.Request.Path.StartsWithSegments("/LoginRegister/ListAddresses", StringComparison.OrdinalIgnoreCase);
                         bool isAddressEditPage = Context.Request.Path.StartsWithSegments("/LoginRegister/Address", StringComparison.OrdinalIgnoreCase);
@@ -50,7 +55,56 @@
                         bool isEveRegisterPage = Context.Request.Path.StartsWithSegments("/Games/Register", StringComparison.OrdinalIgnoreCase);
                         bool isUnregisterPage = Context.Request.Path.StartsWithSegments("/Games/Unregister", StringComparison.OrdinalIgnoreCase);
                         bool isGamesDetailsPage =  Context.Request.Path.StartsWithSegments("/Games/Details", StringComparison.OrdinalIgnoreCase);
+                        bool isEventListPage = Context.Request.Path.StartsWithSegments("/Admin/EventList", StringComparison.OrdinalIgnoreCase);
                     }
+
+                     @if (isEventListPage)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+
+
+                    @if (isEventEditPage == true)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("EventList", "Admin", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+
+                    @if (isDeletePreferencePage == true)
+                    {
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+
+                      @if (isChoosePreferencePage == true)
+                    {
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+
+                      @if (isAddPreferencePage == true)
+                    {
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+
+                      @if (isPreferencesListPage == true)
+                    {
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+
 
                     
                      @if (isGamesDetailsPage == true)
@@ -200,7 +254,7 @@
                     @if (isUpdatePreferencePage)
                     {
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.UserProfileId})">Back</a>
+                            <a class="nav-link text-light" href="@Url.Action("PreferencesList", "LoginRegister", new { id = Model.UserProfileId})">Back</a>
                         </li>
                     }
 
@@ -229,6 +283,14 @@
 
                         }
 
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("AddPreference", "LoginRegister", new { id = Model.Id })">Add Preference</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("PreferencesList", "LoginRegister", new { id = Model.Id })">Preferences List</a>
+                        </li>
+
 
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("AddAddress", "LoginRegister", new { id = Model.Id })">Add Address</a>
@@ -242,9 +304,7 @@
                             <a class="nav-link text-light" href="@Url.Action("UpdateProfile", "LoginRegister", new { id = Model.Id })">Update Profile</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="@Url.Action("UpdatePreferences", "LoginRegister", new { id = Model.Id })">Update Preferences</a>
-                        </li>
+                     
 
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ChangePassword", "LoginRegister", new { id = Model.Id })">Change Password</a>
@@ -254,8 +314,11 @@
                             <a class="nav-link dropdown-toggle bg-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @Model.DisplayName
                             </a>
-                            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                         @*   <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
                                 <a class="nav-link text-light" href="@Url.Action("Profile", "profile", new { id = Model.Id })">Profile</a>
+                            </div>*@
+                            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                                <a class="nav-link text-light" href="@Url.Action("Index", "Home")">Sign Out</a>
                             </div>
                         </li>
                     }

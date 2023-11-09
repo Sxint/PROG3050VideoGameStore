@@ -52,7 +52,28 @@
             @Html.ValidationMessageFor(model => model.Game.Year, "", new { @class = "validation-error" })
         </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.Game.Platform)
+            <select id="FavPlatform" name="Game.Platform" class="form-control" asp-for="@Model.Game.Platform">
+                <option value="None">None</option>
+                <option value="PC">PC</option>
+                <option value="PS">PS</option>
+                <option value="XBOX">XBOX</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.Game.Platform, "", new { @class = "validation-error" })
+        </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.Game.Category)
+            <select id="FavCategory" name="Game.Category" class="form-control" asp-for="@Model.Game.Category">
+                <option value="None">None</option>
+                <option value="Action">Action</option>
+                <option value="Sci-Fi">Sci-Fi</option>
+                <option value="Fantasy">Fantasy</option>
+                <option value="RPG">RPG</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.Game.Category, "", new { @class = "validation-error" })
+        </div>
 
         <div style="display: none;">
 
