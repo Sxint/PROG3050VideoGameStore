@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PROG3050VideoGameStore.ViewModels;
+using System.ComponentModel.DataAnnotations;
 
 namespace PROG3050VideoGameStore.Models
 {
@@ -11,6 +12,7 @@ namespace PROG3050VideoGameStore.Models
 
         [Required]
         [Display(Name = "Date of Event")]
+        [DateNotInPast(ErrorMessage = "Birth Date cannot be in the past")]
         public DateTime DateOfEvent { get; set; } = DateTime.Now;
 
         [Required]

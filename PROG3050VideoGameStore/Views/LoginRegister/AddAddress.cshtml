@@ -93,21 +93,21 @@
 
 
 
-        <h2> Shipping Address</h2>
+        <h2 class="shipping"> Shipping Address</h2>
 
-        <div class="form-group">
+        <div class="form-group shipping">
             @Html.LabelFor(model => model.newUserAddress.StreetAddressShipping)
             @Html.TextBoxFor(model => model.newUserAddress.StreetAddressShipping, new { @class = "form-control",@id = "streetAddressShipping" })
             @Html.ValidationMessageFor(model => model.newUserAddress.StreetAddressShipping, "", new { @class = "validation-error" })
         </div>
 
-        <div class="form-group">
+        <div class="form-group shipping">
             @Html.LabelFor(model => model.newUserAddress.AptNumberShipping)
             @Html.TextBoxFor(model => model.newUserAddress.AptNumberShipping, new { @class = "form-control",@id = "aptNumberShipping" })
             @Html.ValidationMessageFor(model => model.newUserAddress.AptNumberShipping, "", new { @class = "validation-error" })
         </div>
 
-        <div class="form-group">
+        <div class="form-group shipping">
             @Html.LabelFor(model => model.newUserAddress.ProvinceShipping)
             <select id="provinceShipping" name="newUserAddress.ProvinceShipping" class="form-control" asp-for="@Model.newUserAddress.ProvinceShipping">
                 <option value="YT">Yukon</option>
@@ -128,13 +128,13 @@
             @Html.ValidationMessageFor(model => model.newUserAddress.ProvinceShipping, "", new { @class = "validation-error" })
         </div>
 
-        <div class="form-group">
+        <div class="form-group shipping">
             @Html.LabelFor(model => model.newUserAddress.CityShipping)
             @Html.TextBoxFor(model => model.newUserAddress.CityShipping, new { @class = "form-control",@id = "cityShipping" })
             @Html.ValidationMessageFor(model => model.newUserAddress.CityShipping, "", new { @class = "validation-error" })
         </div>
 
-        <div class="form-group">
+        <div class="form-group shipping">
             @Html.LabelFor(model => model.newUserAddress.PostalCodeShipping)
             @Html.TextBoxFor(model => model.newUserAddress.PostalCodeShipping, new { @class = "form-control",@id = "postalCodeShipping" })
             @Html.ValidationMessageFor(model => model.newUserAddress.PostalCodeShipping, "", new { @class = "validation-error" })
@@ -148,7 +148,7 @@
 
         <div style="display: none;">
 
-       
+          
             @Html.TextBoxFor(model => model.ProfileId, new { @class = "form-control" })
 
         </div>
@@ -159,7 +159,7 @@
     }
 </div>
 <script>
-    // Get references to the input elements and the checkbox
+
     var streetAddress = document.getElementById('streetAddress');
     var streetAddressShipping = document.getElementById('streetAddressShipping');
     var aptNumber = document.getElementById('aptNumber');
@@ -171,16 +171,50 @@
     var postalCode = document.getElementById('postalCode');
     var postalCodeShipping = document.getElementById('postalCodeShipping');
     var transferCheckbox = document.getElementById('transferCheckbox');
+    var submitButton = document.querySelector('input[type="submit"]');
+    var messageContainer = document.querySelector('.form-group.message');
+    var shippingSections = document.querySelectorAll('.shipping'); 
 
-    // Add an event listener to the checkbox
+
     transferCheckbox.addEventListener('change', function () {
         if (transferCheckbox.checked) {
+            if (streetAddress.value && province.value && city.value && postalCode.value) {
+                streetAddressShipping.value = streetAddress.value;
+                aptNumberShipping.value = aptNumber.value;
+                provinceShipping.value = province.value;
+                cityShipping.value = city.value;
+                postalCodeShipping.value = postalCode.value;
 
-            streetAddressShipping.value = streetAddress.value;
-            aptNumberShipping.value = aptNumber.value;
-            provinceShipping.value = province.value;
-            cityShipping.value = city.value;
-            postalCodeShipping.value = postalCode.value;
+         
+                shippingSections.forEach(function (shippingSection) {
+                    shippingSection.style.display = 'none';
+                });
+
+                messageContainer.innerHTML = '<p>Address transferred successfully to the shipping section</p>';
+            } else {
+                messageContainer.innerHTML = '<p class="validation-error">Please fill in all required fields in the address section before transferring.</p>';
+                transferCheckbox.checked = false;
+            }
+        } else {
+   
+            shippingSections.forEach(function (shippingSection) {
+                shippingSection.style.display = 'block';
+            });
+
+            messageContainer.innerHTML = '';
         }
     });
+
+
+    if (transferCheckbox.checked) {
+
+        shippingSections.forEach(function (shippingSection) {
+            shippingSection.style.display = 'none';
+        });
+    } else {
+   
+        shippingSections.forEach(function (shippingSection) {
+            shippingSection.style.display = 'block';
+        });
+    }
 </script>

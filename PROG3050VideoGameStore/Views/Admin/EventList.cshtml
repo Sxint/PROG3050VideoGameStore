@@ -1,0 +1,139 @@
+﻿@model PROG3050VideoGameStore.ViewModels.EventListVM;
+@{
+    ViewData["Title"] = "Panel";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="~/css/Admin.css" asp-append-version="true" />
+</head>
+<body>
+    <br />
+    <input type="text" id="searchInput" placeholder="Search Events" />
+    <div class="message">
+
+        <p> @ViewData["Message"]</p>
+    </div>
+    <table id="eventsTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Time of Event</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody id="tableBody">
+
+            @if (Model.Events != null)
+            {
+
+                for (int i = 0; i < Model.Events.Count; i++)
+                {
+
+                    <tr>
+                        <td>
+                            @Model.Events[i].Name
+                        </td>
+                        <td>@Model.Events[i].DateOfEvent.ToShortDateString()</td>
+
+                        <td>@Model.Events[i].TimeOfEvent.ToString();</td>
+                        <td>@Model.Events[i].Description</td>
+                        <td>
+                            <a asp-controller="Admin" asp-action="EditEvent" asp-route-id="@Model.Events[i].Id" asp-route-profileId="@Model.ProfileId">Edit</a>
+                            <span class="mx-1">|</span>
+                            <a asp-controller="Admin" asp-action="DeleteEvent" asp-route-id="@Model.Events[i].Id" asp-route-profileId="@Model.ProfileId">Delete</a>
+
+                        </td>
+
+
+
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+    <br />
+    <br />
+    <ul id="pagination" class="pagination"></ul>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var searchInput = document.getElementById("searchInput");
+            var eventsTable = document.getElementById("eventsTable");
+            var events = Array.from(eventsTable.querySelectorAll("tbody tr")); // Array of all event rows
+            var tableBody = document.getElementById("tableBody");
+            var itemsPerPage = 5; // Number of items to display per page
+            var currentPage = 1; // Current page
+            var filteredEvents = events; // Initialize with all events
+
+            function displayEvents(page) {
+                var startIndex = (page - 1) * itemsPerPage;
+                var endIndex = startIndex + itemsPerPage;
+
+                // Clear the current page's content
+                tableBody.innerHTML = "";
+
+                // Display event rows for the current page
+                for (var i = startIndex; i < endIndex && i < filteredEvents.length; i++) {
+                    tableBody.appendChild(filteredEvents[i].cloneNode(true));
+                }
+            }
+
+            function updatePagination() {
+                var pageCount = Math.ceil(filteredEvents.length / itemsPerPage);
+                var pagination = document.getElementById("pagination");
+                pagination.innerHTML = "";
+
+                for (var i = 1; i <= pageCount; i++) {
+                    var li = document.createElement("li");
+                    var link = document.createElement("a");
+                    link.textContent = "| " + i + " |";
+                    link.href = "#";
+                    li.appendChild(link);
+
+                    link.addEventListener("click", function () {
+                        var currentNumber = this.textContent.charAt(2);
+                        currentPage = parseInt(currentNumber);
+                        displayEvents(currentPage);
+                        updatePagination();
+                    });
+
+                    if (i === currentPage) {
+                        li.classList.add("active");
+                    }
+
+                    pagination.appendChild(li);
+                }
+            }
+
+            function filterEvents(searchTerm) {
+                filteredEvents = events.filter(function (event) {
+                    var name = event.querySelector("td:first-child").textContent.toLowerCase();
+                    return name.includes(searchTerm);
+                });
+
+                currentPage = 1; // Reset to the first page when filtering
+                displayEvents(currentPage);
+                updatePagination();
+            }
+
+            searchInput.addEventListener("input", function () {
+                var searchTerm = searchInput.value.trim().toLowerCase();
+                filterEvents(searchTerm);
+            });
+
+            // Initial setup
+            displayEvents(currentPage);
+            updatePagination();
+        });
+
+    </script>
+</body>
+</html>
+

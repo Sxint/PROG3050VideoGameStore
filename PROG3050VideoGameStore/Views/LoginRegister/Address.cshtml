@@ -24,87 +24,115 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.FirstName)
-            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control",@id = "firstName" })
+            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control",@id = "firstNameEdit" })
             @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.LastName)
-            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control",@id = "lastName" })
+            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control",@id = "lastNameEdit" })
             @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.PhoneNumber)
-            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control",@id = "phoneNumber" })
+            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control",@id = "phoneNumberEdit" })
             @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.StreetAddress)
-            @Html.TextBoxFor(model => model.StreetAddress, new { @class = "form-control",@id = "streetAddress" })
+            @Html.TextBoxFor(model => model.StreetAddress, new { @class = "form-control",@id = "streetAddressEdit" })
             @Html.ValidationMessageFor(model => model.StreetAddress, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.AptNumber)
-            @Html.TextBoxFor(model => model.AptNumber, new { @class = "form-control",@id = "aptNumber" })
+            @Html.TextBoxFor(model => model.AptNumber, new { @class = "form-control",@id = "aptNumberEdit" })
             @Html.ValidationMessageFor(model => model.AptNumber, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Province)
-            @Html.TextBoxFor(model => model.Province, new { @class = "form-control",@id = "province" })
+            <select id="provinceEdit" name="Province" class="form-control" asp-for="@Model.Province">
+                <option value="YT">Yukon</option>
+                <option value="NT">Northwest Territories</option>
+                <option value="NU">Nunavut</option>
+                <option value="NL">Newfoundland and Labrador</option>
+                <option value="PE">Prince Edward Island</option>
+                <option value="NS">Nova Scotia</option>
+                <option value="NB">New Brunswick</option>
+                <option value="QC">Quebec</option>
+                <option value="ON">Ontario</option>
+                <option value="MB">Manitoba</option>
+                <option value="SK">Saskatchewan</option>
+                <option value="AB">Alberta</option>
+                <option value="BC">British Columbia</option>
+            </select>
             @Html.ValidationMessageFor(model => model.Province, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.City)
-            @Html.TextBoxFor(model => model.City, new { @class = "form-control",@id = "city" })
+            @Html.TextBoxFor(model => model.City, new { @class = "form-control",@id = "cityEdit" })
             @Html.ValidationMessageFor(model => model.City, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.PostalCode)
-            @Html.TextBoxFor(model => model.PostalCode, new { @class = "form-control",@id = "postalCode" })
+            @Html.TextBoxFor(model => model.PostalCode, new { @class = "form-control",@id = "postalCodeEdit" })
             @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.SameAsShipping)
-            <input id="transferCheckbox" type="checkbox" name="SameAsShipping" value="true" asp-for="@Model.SameAsShipping">
+            <input id="transferCheckboxEdit" type="checkbox" name="SameAsShipping" value="true" asp-for="@Model.SameAsShipping">
             @Html.ValidationMessageFor(model => model.SameAsShipping, "", new { @class = "validation-error" })
         </div>
 
-        <h2> Shipping Address</h2>
+        <h2 class="shipping"> Shipping Address</h2>
 
-        <div class="form-group">
+        <div class="form-group shipping">
             @Html.LabelFor(model => model.StreetAddressShipping)
-            @Html.TextBoxFor(model => model.StreetAddressShipping, new { @class = "form-control",@id = "streetAddressShipping" })
+            @Html.TextBoxFor(model => model.StreetAddressShipping, new { @class = "form-control",@id = "streetAddressShippingEdit" })
             @Html.ValidationMessageFor(model => model.StreetAddressShipping, "", new { @class = "validation-error" })
         </div>
 
-        <div class="form-group">
+        <div class="form-group shipping">
             @Html.LabelFor(model => model.AptNumberShipping)
-            @Html.TextBoxFor(model => model.AptNumberShipping, new { @class = "form-control",@id = "aptNumberShipping" })
+            @Html.TextBoxFor(model => model.AptNumberShipping, new { @class = "form-control",@id = "aptNumberShippingEdit" })
             @Html.ValidationMessageFor(model => model.AptNumberShipping, "", new { @class = "validation-error" })
         </div>
 
-        <div class="form-group">
+        <div class="form-group shipping">
             @Html.LabelFor(model => model.ProvinceShipping)
-            @Html.TextBoxFor(model => model.ProvinceShipping, new { @class = "form-control",@id = "provinceShipping" })
+            <select id="provinceShippingEdit" name="ProvinceShipping" class="form-control" asp-for="@Model.ProvinceShipping">
+                <option value="YT">Yukon</option>
+                <option value="NT">Northwest Territories</option>
+                <option value="NU">Nunavut</option>
+                <option value="NL">Newfoundland and Labrador</option>
+                <option value="PE">Prince Edward Island</option>
+                <option value="NS">Nova Scotia</option>
+                <option value="NB">New Brunswick</option>
+                <option value="QC">Quebec</option>
+                <option value="ON">Ontario</option>
+                <option value="MB">Manitoba</option>
+                <option value="SK">Saskatchewan</option>
+                <option value="AB">Alberta</option>
+                <option value="BC">British Columbia</option>
+            </select>
             @Html.ValidationMessageFor(model => model.ProvinceShipping, "", new { @class = "validation-error" })
         </div>
 
-        <div class="form-group">
+        <div class="form-group shipping">
             @Html.LabelFor(model => model.CityShipping)
-            @Html.TextBoxFor(model => model.CityShipping, new { @class = "form-control",@id = "cityShipping" })
+            @Html.TextBoxFor(model => model.CityShipping, new { @class = "form-control",@id = "cityShippingEdit" })
             @Html.ValidationMessageFor(model => model.CityShipping, "", new { @class = "validation-error" })
         </div>
 
-        <div class="form-group">
+        <div class="form-group shipping">
             @Html.LabelFor(model => model.PostalCodeShipping)
-            @Html.TextBoxFor(model => model.PostalCodeShipping, new { @class = "form-control",@id = "postalCodeShipping" })
+            @Html.TextBoxFor(model => model.PostalCodeShipping, new { @class = "form-control",@id = "postalCodeShippingEdit" })
             @Html.ValidationMessageFor(model => model.PostalCodeShipping, "", new { @class = "validation-error" })
         </div>
 
@@ -125,29 +153,64 @@
         </div>
     }
 </div>
-<script>
-    // Get references to the input elements and the checkbox
-    var streetAddress = document.getElementById('streetAddress');
-    var streetAddressShipping = document.getElementById('streetAddressShipping');
-    var aptNumber = document.getElementById('aptNumber');
-    var aptNumberShipping = document.getElementById('aptNumberShipping');
-    var province = document.getElementById('province');
-    var provinceShipping = document.getElementById('provinceShipping');
-    var city = document.getElementById('city');
-    var cityShipping = document.getElementById('cityShipping');
-    var postalCode = document.getElementById('postalCode');
-    var postalCodeShipping = document.getElementById('postalCodeShipping');
-    var transferCheckbox = document.getElementById('transferCheckbox');
+<<script>
 
-    // Add an event listener to the checkbox
-    transferCheckbox.addEventListener('change', function () {
-        if (transferCheckbox.checked) {
+     var streetAddress = document.getElementById('streetAddressEdit');
+     var streetAddressShipping = document.getElementById('streetAddressShippingEdit');
+     var aptNumber = document.getElementById('aptNumberEdit');
+     var aptNumberShipping = document.getElementById('aptNumberShippingEdit');
+     var province = document.getElementById('provinceEdit');
+     var provinceShipping = document.getElementById('provinceShippingEdit');
+     var city = document.getElementById('cityEdit');
+     var cityShipping = document.getElementById('cityShippingEdit');
+     var postalCode = document.getElementById('postalCodeEdit');
+     var postalCodeShipping = document.getElementById('postalCodeShippingEdit');
+     var transferCheckbox = document.getElementById('transferCheckboxEdit');
+     var submitButton = document.querySelector('input[type="submit"]');
+     var messageContainer = document.querySelector('.form-group.message');
+     var shippingSections = document.querySelectorAll('.shipping');
 
-            streetAddressShipping.value = streetAddress.value;
-            aptNumberShipping.value = aptNumber.value;
-            provinceShipping.value = province.value;
-            cityShipping.value = city.value;
-            postalCodeShipping.value = postalCode.value;
-        }
-    });
+
+     transferCheckbox.addEventListener('change', function () {
+         if (transferCheckbox.checked) {
+             if (streetAddress.value && province.value && city.value && postalCode.value) {
+                 streetAddressShipping.value = streetAddress.value;
+                 aptNumberShipping.value = aptNumber.value;
+                 provinceShipping.value = province.value;
+                 cityShipping.value = city.value;
+                 postalCodeShipping.value = postalCode.value;
+
+
+                 shippingSections.forEach(function (shippingSection) {
+                     shippingSection.style.display = 'none';
+                 });
+
+                 messageContainer.innerHTML = '<p>Address transferred successfully to the shipping section</p>';
+             } else {
+                 messageContainer.innerHTML = '<p class="validation-error">Please fill in all required fields in the address section before transferring.</p>';
+                 transferCheckbox.checked = false;
+             }
+         } else {
+
+             shippingSections.forEach(function (shippingSection) {
+                 shippingSection.style.display = 'block';
+             });
+
+             messageContainer.innerHTML = '';
+         }
+     });
+
+
+     if (transferCheckbox.checked) {
+
+         shippingSections.forEach(function (shippingSection) {
+             shippingSection.style.display = 'none';
+         });
+     } else {
+
+         shippingSections.forEach(function (shippingSection) {
+             shippingSection.style.display = 'block';
+         });
+     }
 </script>
+

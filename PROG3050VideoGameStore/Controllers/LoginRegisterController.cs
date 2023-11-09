@@ -9,6 +9,7 @@ using System.Net;
 using System;
 using AspNetCore.ReCaptcha;
 using Newtonsoft.Json;
+using AspNetCore;
 
 namespace PROG3050VideoGameStore.Controllers
 {
@@ -53,6 +54,15 @@ namespace PROG3050VideoGameStore.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public IActionResult AddPreference(int id = 0)
+        {
+            AddPreference model = new AddPreference();
+            model.ProfileId = id;          
+
+            return View(model);
+        }
+
 
         [HttpGet]
         public IActionResult Address(int id = 0)
@@ -83,6 +93,7 @@ namespace PROG3050VideoGameStore.Controllers
         public IActionResult UpdatePreferences(int id = 0)
         {
             ProfilePreferences preference = new ProfilePreferences();
+            
             preference = _appDbContext.ProfilePreferencesList.Find(id);
              
             return View(preference);
@@ -166,6 +177,9 @@ namespace PROG3050VideoGameStore.Controllers
                         preferences.UserProfileId = model.Id;
                         _appDbContext.ProfilePreferencesList.Add(preferences);
                         _appDbContext.SaveChanges();
+                        model.CurrentPrefId = preferences.Id;
+                        _appDbContext.Profiles.Update(model);
+                        _appDbContext.SaveChanges();
 
                         string fromAddress = "nirmaldeepak96@gmail.com";
                         string toAddress = model.Email;
@@ -232,9 +246,9 @@ namespace PROG3050VideoGameStore.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                _appDbContext.UserAddresses.Add(model.newUserAddress);
                 model.newUserAddress.UserProfileId = model.ProfileId;
+                _appDbContext.UserAddresses.Add(model.newUserAddress);
+             
                 _appDbContext.SaveChanges();
                 ViewData["Message"] = "Address has been added successfully";
                 return RedirectToAction("ProfileIndex","LoginRegister", new { id = model.ProfileId });
@@ -459,6 +473,86 @@ namespace PROG3050VideoGameStore.Controllers
                 return View(model);
             }
         }
+
+        public IActionResult DeletePreference(int profileId = 0, int id = 0)
+        {
+
+
+            if (_appDbContext.ProfilePreferencesList.Where(p=>p.UserProfileId == profileId).Count()>1)
+            {
+                ProfilePreferences preference = new ProfilePreferences();
+                preference = _appDbContext.ProfilePreferencesList.Find(id);
+                _appDbContext.ProfilePreferencesList.Remove(preference);
+                _appDbContext.SaveChanges();
+
+                UserProfile currentProfile = _appDbContext.Profiles.Find(profileId);
+                if (currentProfile.CurrentPrefId == id)
+                {
+                    currentProfile.CurrentPrefId = _appDbContext.ProfilePreferencesList.Where(p => p.UserProfileId == profileId).First().Id;
+                    _appDbContext.Profiles.Update(currentProfile);
+                    _appDbContext.SaveChanges();
+                }
+                return RedirectToAction("PreferencesList", new { id = preference.UserProfileId }); 
+            }
+
+            else
+            {
+                PreferenceListVM model = new PreferenceListVM();
+                model.ProfileId = profileId;
+                model.AllPreferences = _appDbContext.ProfilePreferencesList.Where(p => p.UserProfileId == profileId).ToList();
+                ViewData["Message"] = "Sorry! A minimum of one preference has to be there per profile";
+                return View("PreferencesList", model);
+            }
+
+        }
+
+        public IActionResult ChoosePreference(int profileId =0, int id = 0)
+        {
+            UserProfile currentProfile = _appDbContext.Profiles.Find(profileId);
+            currentProfile.CurrentPrefId = id;
+            _appDbContext.Profiles.Update(currentProfile);
+            _appDbContext.SaveChanges();
+            PreferenceListVM model = new PreferenceListVM();
+            model.ProfileId= profileId;
+            model.AllPreferences = _appDbContext.ProfilePreferencesList.Where(g => g.UserProfileId == profileId).ToList();
+
+            ViewData["Message"] = "Preference selection updated";
+            return View("PreferencesList", model);
+
+        }
+
+        [HttpGet]
+        public IActionResult PreferencesList(int id = 0)
+        {
+            PreferenceListVM list = new PreferenceListVM();
+            list.ProfileId = id;
+            list.AllPreferences = _appDbContext.ProfilePreferencesList.Where(g => g.UserProfileId == id).ToList();
+            return View(list);
+        }
+
+        [HttpPost] // Handle POST requests
+        public IActionResult AddPreference(AddPreference model)
+        {
+            if (ModelState.IsValid)
+            {
+
+               
+                model.newPreference.UserProfileId = model.ProfileId;
+                _appDbContext.ProfilePreferencesList.Add(model.newPreference);
+                _appDbContext.SaveChanges();
+                ViewData["Message"] = "Preference has been added successfully";
+                return RedirectToAction("ProfileIndex", "LoginRegister", new { id = model.ProfileId });
+            }
+
+            else
+            {
+
+                ViewData["Message"] = "";
+                return View(model);
+            }
+        }
+
+
 
 
 

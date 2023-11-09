@@ -51,6 +51,8 @@ namespace PROG3050VideoGameStore.Models
         [Display(Name = "Remember me")]
         public bool? RememberMe { get; set; } = false;
 
+        public int? CurrentPrefId { get; set; }
+
         public int RepeatedInvalidCreds { get; set; } = 0;
 
         public ProfilePreferences? Preferences { get; set; } // nav to its child preferences

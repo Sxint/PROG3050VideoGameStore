@@ -31,9 +31,10 @@ namespace PROG3050VideoGameStore.Controllers
         public IActionResult Details(int id = 0, int profileId = 0)
         {
             GameDetailsVM model = new GameDetailsVM();
+            UserProfile currentProfile = _appDbContext.Profiles.Find(profileId);
             model.ProfileId = profileId;
             model.ActiveGame = _appDbContext.Games.Find(id);
-            model.CurrentUserPreference = _appDbContext.ProfilePreferencesList.FirstOrDefault(p => p.UserProfileId == profileId);
+            model.CurrentUserPreference = _appDbContext.ProfilePreferencesList.FirstOrDefault(p => p.Id == currentProfile.CurrentPrefId);
             model.GameRecommendations = new List<Game>();
 
             // Get all games and ratings
