@@ -54,11 +54,11 @@
                         bool isEventRegisterPage = Context.Request.Path.StartsWithSegments("/Games/EventRegister", StringComparison.OrdinalIgnoreCase);
                         bool isEveRegisterPage = Context.Request.Path.StartsWithSegments("/Games/Register", StringComparison.OrdinalIgnoreCase);
                         bool isUnregisterPage = Context.Request.Path.StartsWithSegments("/Games/Unregister", StringComparison.OrdinalIgnoreCase);
-                        bool isGamesDetailsPage =  Context.Request.Path.StartsWithSegments("/Games/Details", StringComparison.OrdinalIgnoreCase);
+                        bool isGamesDetailsPage = Context.Request.Path.StartsWithSegments("/Games/Details", StringComparison.OrdinalIgnoreCase);
                         bool isEventListPage = Context.Request.Path.StartsWithSegments("/Admin/EventList", StringComparison.OrdinalIgnoreCase);
                     }
 
-                     @if (isEventListPage)
+                    @if (isEventListPage)
                     {
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.ProfileId})">Back</a>
@@ -81,7 +81,7 @@
                         </li>
                     }
 
-                      @if (isChoosePreferencePage == true)
+                    @if (isChoosePreferencePage == true)
                     {
 
                         <li class="nav-item">
@@ -89,7 +89,7 @@
                         </li>
                     }
 
-                      @if (isAddPreferencePage == true)
+                    @if (isAddPreferencePage == true)
                     {
 
                         <li class="nav-item">
@@ -97,7 +97,7 @@
                         </li>
                     }
 
-                      @if (isPreferencesListPage == true)
+                    @if (isPreferencesListPage == true)
                     {
 
                         <li class="nav-item">
@@ -106,8 +106,8 @@
                     }
 
 
-                    
-                     @if (isGamesDetailsPage == true)
+
+                    @if (isGamesDetailsPage == true)
                     {
 
                         <li class="nav-item">
@@ -115,21 +115,21 @@
                         </li>
                     }
 
-                     @if (isEveRegisterPage == true)
+                    @if (isEveRegisterPage == true)
                     {
 
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
                         </li>
                     }
-                     @if (isUnregisterPage == true)
+                    @if (isUnregisterPage == true)
                     {
 
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
                         </li>
                     }
-                     @if (isEventRegisterPage == true)
+                    @if (isEventRegisterPage == true)
                     {
 
                         <li class="nav-item">
@@ -137,14 +137,14 @@
                         </li>
                     }
 
-                     @if (isReviewApprovePage == true)
+                    @if (isReviewApprovePage == true)
                     {
 
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.ProfileId})">Back</a>
                         </li>
                     }
-                     @if (isReviewRejectPage == true)
+                    @if (isReviewRejectPage == true)
                     {
 
                         <li class="nav-item">
@@ -152,7 +152,7 @@
                         </li>
                     }
 
-                     @if (isReviewApprovalPage == true)
+                    @if (isReviewApprovalPage == true)
                     {
 
                         <li class="nav-item">
@@ -306,6 +306,14 @@
 
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ChangePassword", "LoginRegister", new { id = Model.Id })">Change Password</a>
+                        </li>
+
+                        <li>
+                            <a class="nav-link text-light" href="@Url.Action("WishList", "WishList", new { id = Model.Id })">Add Preference</a>
+                        </li>
+
+                        <li>
+                            <a class="nav-link text-light" href="@Url.Action("FriendsAndFamily", "FriendsAndFamily", new { id = Model.Id })">Add Preference</a>
                         </li>
 
                         <li class="nav-item dropdown" style="margin-bottom: 1rem;">

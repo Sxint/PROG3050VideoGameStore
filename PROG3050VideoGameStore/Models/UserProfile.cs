@@ -63,5 +63,6 @@ namespace PROG3050VideoGameStore.Models
 
         public Review? ReviewItem { get; set; } // nav to its review item
 
+
     }
 }
