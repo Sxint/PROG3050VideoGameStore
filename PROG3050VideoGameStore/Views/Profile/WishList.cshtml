@@ -3,6 +3,8 @@
     ViewData["Title"] = "Panel";
 }
 
+
+@*all that needs to be done here is switch the viewmodel to a list of the user's games'*@
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,23 +74,15 @@
                         else
                         {
                             <td>@Math.Round(average, 2)</td>
-
-
                         }
 
+                    <td>
+                        <a asp-controller="Games" asp-action="Details" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Game Details</a>
+                        <span class="mx-1">|</span>
+                        @*we might want to make a wish list controller*@
+                        <a asp-controller="some_controller" asp-action="removeFromWishlist" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Remove From Wish List</a>
 
-                        <td>
-                            <a asp-controller="Games" asp-action="Details" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Game Details</a>
-                            <span class="mx-1">|</span>
-                            <a asp-controller="Games" asp-action="AddRatings" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Add Rating</a>
-                            <span class="mx-1">|</span>
-                            <a asp-controller="Games" asp-action="AddReview" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Add Review</a>
-                            <span class="mx-1">|</span>
-                            <a asp-controller="Games" asp-action="GameReviews" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">View Reviews</a>
-                        </td>
-
-
-
+                    </td>
                     </tr>
                 }
             }
