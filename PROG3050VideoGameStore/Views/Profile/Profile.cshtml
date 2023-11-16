@@ -2,17 +2,13 @@
 
 <head>
     <link rel="stylesheet" href="~/css/Profile.css" asp-append-version="true" />
-    <style>
-    </style>
+    <script src="~/js/profile.js"></script>
 </head>
 
 <body>
     <div class="profile_card">
         <div class="header">
             <div class="profilePicture">
-                <h1 class="display-6">
-                    [profile image goes here]
-                </h1>
             </div>
 
             <div class="content">
@@ -21,12 +17,11 @@
                         @Model.Profile.DisplayName
                     </h1>
                 </div>
-                <div class="accountinfo">
+                <div class="join_date">
                     <p>Birthday</p>
                     <p>@Model.Profile.BirthDate</p>
                 </div>
 
-                <!-- First Row -->
                 <div class="flex-grid">
                     <div class="flex-item">
                         <p class="miniHeader">Gender</p>
@@ -43,8 +38,10 @@
                 </div>
             </div>
         </div>
+        <button type="button" class="games_card_toggle card_toggle" onclick="displayGameCard()" style="margin-left: 5%;"><h5>Games</h5></button>
+        <button type="button" class="f&f_card_toggle card_toggle" onclick="displayFriendsFamilyCard()"><h5>Friends & Family</h5></button>
     </div>
-    <div class="games_card">
+    <div class="games_card" id="games_card">
         <div class="content">
             <div class="title">
                 <h1 class="display-6">
@@ -58,7 +55,7 @@
             </div>
         </div>
     </div>
-    <div class="FriendsandFamily_card">
+    <div class="FriendsandFamily_card" id="FriendsandFamily_card" style="display: none">
         <div class="content">
             <div class="title">
                 <h1 class="display-6">

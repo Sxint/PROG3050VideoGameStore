@@ -1,0 +1,171 @@
+﻿@model PROG3050VideoGameStore.ViewModels.AllGamesVM;
+@{
+    ViewData["Title"] = "Panel";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="~/css/Admin.css" asp-append-version="true" />
+</head>
+<body>
+    <br />
+    <input type="text" id="searchInput" placeholder="Search Games" />
+    <table id="gameTable">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Price</th>
+                <th>Rating</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody id="tableBody">
+
+            @if (Model.AllGames != null)
+            {
+
+                for (int i = 0; i < Model.AllGames.Count; i++)
+                {
+                    double totalRating = 0;
+                    double ratingsCount = 0;
+                    <tr>
+                        <td>
+                            @Model.AllGames[i].Name
+                        </td>
+                        <td>@Model.AllGames[i].Author</td>
+                        <td>@Model.AllGames[i].Price</td>
+                        @for (int j = 0; j < Model.Ratings.Count; j++)
+                        {
+
+                            if (Model.AllGames[i].Id == Model.Ratings[j].GameId)
+                            {
+                                totalRating += Model.Ratings[j].RatingValue;
+                                ratingsCount++;
+                            }
+
+
+                        }
+
+                        @{
+                            double average;
+
+                            if (ratingsCount != 0)
+                            {
+                                average = totalRating / ratingsCount;
+                            }
+
+                            else
+                            {
+                                average = 0;
+                            }
+
+                        }
+                        @if (average == 0)
+                        {
+                            <td>No ratings available</td>
+                        }
+                        else
+                        {
+                            <td>@Math.Round(average, 2)</td>
+
+
+                        }
+
+
+                        <td>
+                            <a asp-controller="Games" asp-action="Details" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Game Details</a>
+                            <span class="mx-1">|</span>
+                            <a asp-controller="Games" asp-action="AddRatings" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Add Rating</a>
+                            <span class="mx-1">|</span>
+                            <a asp-controller="Games" asp-action="AddReview" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Add Review</a>
+                            <span class="mx-1">|</span>
+                            <a asp-controller="Games" asp-action="GameReviews" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">View Reviews</a>
+                        </td>
+
+
+
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+    <br />
+    <br />
+    <ul id="pagination" class="pagination"></ul>
+    <script>document.addEventListener("DOMContentLoaded", function () {
+            var searchInput = document.getElementById("searchInput");
+            var gameTable = document.getElementById("gameTable");
+            var games = Array.from(gameTable.querySelectorAll("tbody tr")); // Array of all game rows
+            var tableBody = document.getElementById("tableBody");
+            var itemsPerPage = 5; // Number of items to display per page
+            var currentPage = 1; // Current page
+            var filteredGames = games; // Initialize with all games
+
+            function displayGames(page) {
+                var startIndex = (page - 1) * itemsPerPage;
+                var endIndex = startIndex + itemsPerPage;
+
+                // Clear the current page's content
+                tableBody.innerHTML = "";
+
+                // Display game rows for the current page
+                for (var i = startIndex; i < endIndex && i < filteredGames.length; i++) {
+                    tableBody.appendChild(filteredGames[i].cloneNode(true));
+                }
+            }
+
+            function updatePagination() {
+                var pageCount = Math.ceil(filteredGames.length / itemsPerPage);
+                var pagination = document.getElementById("pagination");
+                pagination.innerHTML = "";
+
+                for (var i = 1; i <= pageCount; i++) {
+                    var li = document.createElement("li");
+                    var link = document.createElement("a");
+                    link.textContent = "| " + i + " |";
+                    link.href = "#";
+                    li.appendChild(link);
+
+                    link.addEventListener("click", function () {
+                        var currentNumber = this.textContent.charAt(2);
+                        currentPage = parseInt(currentNumber);
+                        displayGames(currentPage);
+                        updatePagination();
+                    });
+
+                    if (i === currentPage) {
+                        li.classList.add("active");
+                    }
+
+                    pagination.appendChild(li);
+                }
+            }
+
+            function filterGames(searchTerm) {
+                filteredGames = games.filter(function (game) {
+                    var name = game.querySelector("td:first-child").textContent.toLowerCase();
+                    return name.includes(searchTerm);
+                });
+
+                currentPage = 1; // Reset to the first page when filtering
+                displayGames(currentPage);
+                updatePagination();
+            }
+
+            searchInput.addEventListener("input", function () {
+                var searchTerm = searchInput.value.toLowerCase();
+                filterGames(searchTerm);
+            });
+
+            // Initial setup
+            displayGames(currentPage);
+            updatePagination();
+        });</script>
+</body>
+</html>

@@ -1,4 +1,9 @@
-﻿body {
+﻿html {
+    margin: 0px !important; /* Remove default margin */
+    height: 100% !important;
+}
+
+body {
     background-color: rgba(39,47,61,255);
 }
 
@@ -10,6 +15,10 @@
     height: 100%;
     background-color: rgba(32,37,46,255);
     border-bottom: 1px solid white;
+}
+
+.edit_button{
+    background-image: url()
 }
 
 .games_card {
@@ -34,38 +43,54 @@
     color: white;
 }
 
+.profile_card .card_toggle {
+    background-color: rgba(90,133,151,255);
+    border: solid 1px white;
+    border-radius: 15px 15px 0px 0px;
+    width: fit-content;
+    color: white;
+}
 
-.header {
+.profile_card .header {
     align-items: center;
     display: flex;
     margin: 5%;
     color: white;
 }
 
+.footer{
+    position: relative !important;
+}
+
 .profilePicture {
     margin-top: 3.5%;
     height: 150px;
     width: 150px;
-    background-color: #bbb;
+    background-image: url("../Images/profile_picture.jpg");
+    background-size: contain;
     border-radius: 50%;
     display: inline-block;
 }
 
-.title {
+.profile_card .header .content .title {
     width: 180%;
     padding-left: 5%;
     padding-top: 1%;
 }
 
-.accountinfo {
+.content{
+    padding: 5%;
+}
+
+.join_date {
     display: flex;
     margin: 5%;
 }
 
-.accountinfo p {
-    margin-right: 5%;
-    color: rgba(117,122,132,255);
-}
+    .join_date p {
+        margin-right: 5%;
+        color: rgba(117,122,132,255);
+    }
 
 .flex-grid {
     min-width: 150%;
@@ -76,19 +101,13 @@
     justify-content: space-evenly;
 }
 
-.miniHeader {
-    color: rgba(117,122,132,255);
+.flex-grid .flex-item .miniHeader {
+    color: white;
+    font-size: 20px;
 }
 
-.flex-item {
+.header .content .flex-grid .flex-item {
     flex: 1;
     color: rgba(117,122,132,255);
 }
 
-.validation-error {
-    color: red;
-}
-
-.message {
-    color: red;
-}

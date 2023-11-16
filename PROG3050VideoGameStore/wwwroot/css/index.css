@@ -3,9 +3,7 @@
 }
 
 body {
-    margin: 0; /* Remove default margin */
-/*    background-image: url("../Images/image.jpg");
-    background-size: cover;*/
+    margin: 0;
     background-color: gray;
     align-content: center;
     justify-content: center;
@@ -19,16 +17,12 @@ body {
     text-align: right; 
 }
 
-/*.featured-games {
-    border: 5px solid red;
-}*/
 
 .main-content {
     margin-left: auto;
     margin-right: auto;
     text-align: center; 
     width: 80%; 
-/*    border: 5px solid black; */
 }
 
 .carousel-item{

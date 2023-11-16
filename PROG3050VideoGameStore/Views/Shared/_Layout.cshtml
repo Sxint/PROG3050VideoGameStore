@@ -304,8 +304,6 @@
                             <a class="nav-link text-light" href="@Url.Action("UpdateProfile", "LoginRegister", new { id = Model.Id })">Update Profile</a>
                         </li>
 
-                     
-
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ChangePassword", "LoginRegister", new { id = Model.Id })">Change Password</a>
                         </li>
@@ -314,9 +312,9 @@
                             <a class="nav-link dropdown-toggle bg-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @Model.DisplayName
                             </a>
-                         @*   <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
                                 <a class="nav-link text-light" href="@Url.Action("Profile", "profile", new { id = Model.Id })">Profile</a>
-                            </div>*@
+                            </div>
                             <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
                                 <a class="nav-link text-light" href="@Url.Action("Index", "Home")">Sign Out</a>
                             </div>

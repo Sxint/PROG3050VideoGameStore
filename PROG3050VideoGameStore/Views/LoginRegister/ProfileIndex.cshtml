@@ -17,17 +17,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                   @* <li class="nav-item active">
-                        <a class="nav-link bg-dark content-nav-item" href="#">Featured<span class="sr-only">(current)</span></a>
-                    </li>*@
-
-                    @*these are only here for the sake of filling out the the top nav bar  ut they would redirect tot he view all games page since none of these needed to be implemented*@
-                    @*<li class="nav-item">
-                        <a class="nav-link bg-dark content-nav-item" href="#">New Releases</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link bg-dark content-nav-item" href="#">Trending</a>
-                    </li>*@
+  
                 <li class="nav-item">
                         <a class="nav-link text-light" href="@Url.Action("Index", "Games", new { id = Model.Id})">View Games</a>                    
                 </li>
@@ -62,59 +52,6 @@
                 </a>
             </div>
         </div>
-        @*<nav class="navbar-expand-lg navbar-dark bg-dark">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link bg-dark content-nav-item" href="#">Action<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link bg-dark content-nav-item" href="#">Strategy</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link bg-dark content-nav-item" href="#">Puzzle</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link bg-dark content-nav-item" href="#">Arcade</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link bg-dark content-nav-item" href="#">Fighting</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link bg-dark content-nav-item" href="#">Simulation</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link bg-dark content-nav-item" href="#">Role-Playing</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>*@
-        <!--<div class="image-grid">-->
-        @*@for (int i = 0; i < Model.AllGames.Count; i++)
-        {*@
-        <!--<div class="image-item">
-
-        <img src="../Images/COD.jpg" alt="Image" />
-
-        <button class="details-button">-->
-        <!--@*this is just a placeholder link. this link should actually redirect to the game details page for the selected game*@-->
-        @*<a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister")">Back</a>
-        </button>
-
-        <div class="info">
-            <p class="game-title">@Model.AllGames[i].Name</p>
-            <p class="game-author">@Model.AllGames[i].Author</p>
-            <p class="game-price">@Model.AllGames[i].Price</p>*@
-        <!--</div>
-            </div>
-        }
     </div>-->
     </div>
 
