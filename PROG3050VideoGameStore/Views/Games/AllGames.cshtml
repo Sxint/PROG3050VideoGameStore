@@ -13,6 +13,12 @@
 <body>
     <br/>
     <input type="text" id="searchInput" placeholder="Search Games" />
+    <br />
+    <div class="message">
+
+        <p> @ViewData["Message"]</p>
+    </div>
+    <br />
     <table id="gameTable">
         <thead>
             <tr>
@@ -86,8 +92,8 @@
                         <span class="mx-1">|</span>
                         <a asp-controller="Games" asp-action="GameReviews" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">View Reviews</a>
                         <span class="mx-1">|</span>
-                        @*we might want to make a wish list controller*@
-                        <a asp-controller="some_controller" asp-action="addGameToWishList" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Add to Wish List</a>
+                    
+                        <a asp-controller="Games" asp-action="AddGameToWishList" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Add to Wish List</a>
                     </td>
                            
 

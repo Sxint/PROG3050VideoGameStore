@@ -4,7 +4,7 @@
 }
 
 
-@*all that needs to be done here is switch the viewmodel to a list of the user's games'*@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,8 +79,8 @@
                     <td>
                         <a asp-controller="Games" asp-action="Details" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Game Details</a>
                         <span class="mx-1">|</span>
-                        @*we might want to make a wish list controller*@
-                        <a asp-controller="some_controller" asp-action="removeFromWishlist" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Remove From Wish List</a>
+                 
+                        <a asp-controller="Profile" asp-action="RemoveFromWishlist" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Remove From Wish List</a>
 
                     </td>
                     </tr>

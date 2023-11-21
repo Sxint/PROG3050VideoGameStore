@@ -1,4 +1,4 @@
-﻿@model 
+﻿@model PROG3050VideoGameStore.Models.Game;
 
 <head>
     <link rel="stylesheet" href="~/css/LoginRegister.css" asp-append-version="true" />
@@ -23,9 +23,9 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Game.Name)
-            @Html.TextBoxFor(model => model.Game.Name, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Game.Name, "", new { @class = "validation-error" })
+            @Html.LabelFor(model => model.Name)
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "validation-error" })
         </div>
 
         <div class="form-group">

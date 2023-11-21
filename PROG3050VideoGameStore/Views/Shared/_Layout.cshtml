@@ -36,6 +36,7 @@
                         bool isUpdateProfilePage = Context.Request.Path.StartsWithSegments("/LoginRegister/UpdateProfile", StringComparison.OrdinalIgnoreCase);
                         bool isUpdatePreferencePage = Context.Request.Path.StartsWithSegments("/LoginRegister/UpdatePreferences", StringComparison.OrdinalIgnoreCase);
                         bool isEmailResetPasswordPage = Context.Request.Path.StartsWithSegments("/LoginRegister/EmailResetPassword", StringComparison.OrdinalIgnoreCase);
+                        bool isWishListPage = Context.Request.Path.StartsWithSegments("/Profile/WishList", StringComparison.OrdinalIgnoreCase);
                         bool isPanelPage = Context.Request.Path.StartsWithSegments("/Admin/Panel", StringComparison.OrdinalIgnoreCase);
                         bool isGameAddPage = Context.Request.Path.StartsWithSegments("/Admin/AddGame", StringComparison.OrdinalIgnoreCase);
                         bool isEventAddPage = Context.Request.Path.StartsWithSegments("/Admin/AddEvent", StringComparison.OrdinalIgnoreCase);
@@ -46,7 +47,9 @@
                         bool isAddressListPage = Context.Request.Path.StartsWithSegments("/LoginRegister/ListAddresses", StringComparison.OrdinalIgnoreCase);
                         bool isAddressEditPage = Context.Request.Path.StartsWithSegments("/LoginRegister/Address", StringComparison.OrdinalIgnoreCase);
                         bool isRatingEditPage = Context.Request.Path.StartsWithSegments("/Games/AddRatings", StringComparison.OrdinalIgnoreCase);
+                        bool isReviewEditPage = Context.Request.Path.StartsWithSegments("/Games/AddReview", StringComparison.OrdinalIgnoreCase);
                         bool isProfileGameListPage = Context.Request.Path.StartsWithSegments("/Games/Index", StringComparison.OrdinalIgnoreCase);
+                        bool isAddToWishListPage = Context.Request.Path.StartsWithSegments("/Games/AddGameToWishList", StringComparison.OrdinalIgnoreCase);
                         bool isViewReviewPage = Context.Request.Path.StartsWithSegments("/Games/GameReviews", StringComparison.OrdinalIgnoreCase);
                         bool isReviewApprovalPage = Context.Request.Path.StartsWithSegments("/Admin/ReviewApprovalList", StringComparison.OrdinalIgnoreCase);
                         bool isReviewApprovePage = Context.Request.Path.StartsWithSegments("/Admin/ApproveReview", StringComparison.OrdinalIgnoreCase);
@@ -56,6 +59,16 @@
                         bool isUnregisterPage = Context.Request.Path.StartsWithSegments("/Games/Unregister", StringComparison.OrdinalIgnoreCase);
                         bool isGamesDetailsPage = Context.Request.Path.StartsWithSegments("/Games/Details", StringComparison.OrdinalIgnoreCase);
                         bool isEventListPage = Context.Request.Path.StartsWithSegments("/Admin/EventList", StringComparison.OrdinalIgnoreCase);
+                      
+
+                    }
+
+                    
+                    @if (isWishListPage)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
                     }
 
                     @if (isEventListPage)
@@ -176,7 +189,24 @@
                         </li>
                     }
 
+                    
+                    @if (isReviewEditPage == true)
+                    {
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("Index", "Games", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+
                     @if (isProfileGameListPage == true)
+                    {
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+
+                    @if (isAddToWishListPage == true)
                     {
 
                         <li class="nav-item">
@@ -309,11 +339,11 @@
                         </li>
 
                         <li>
-                            <a class="nav-link text-light" href="@Url.Action("WishList", "WishList", new { id = Model.Id })">Add Preference</a>
+                            <a class="nav-link text-light" href="@Url.Action("WishList", "Profile", new { profileId = Model.Id })">Wishlist</a>
                         </li>
 
                         <li>
-                            <a class="nav-link text-light" href="@Url.Action("FriendsAndFamily", "FriendsAndFamily", new { id = Model.Id })">Add Preference</a>
+                            <a class="nav-link text-light" href="@Url.Action("FriendsAndFamily", "FriendsAndFamily", new { id = Model.Id })">Friends</a>
                         </li>
 
                         <li class="nav-item dropdown" style="margin-bottom: 1rem;">

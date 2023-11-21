@@ -25,6 +25,8 @@ namespace PROG3050VideoGameStore.Models
 
         public DbSet<Review> Review { get; set; }
 
+        public DbSet<WishList> WishlistItems { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
            

@@ -1,4 +1,4 @@
-﻿@model PROG3050VideoGameStore.ViewModels.AllFriendsVM;
+﻿@model PROG3050VideoGameStore.ViewModels.AllGamesVM;
 @{
     ViewData["Title"] = "Panel";
 }
@@ -26,14 +26,14 @@
             @if (Model.AllGames != null)
             {
 
-                for (int i = 0; i < Model.AllFriends.Count; i++)
+                for (int i = 0; i < Model.AllGames.Count; i++)
                 {
                     <tr>
                         <td>
-                            @Model.AllFriends[i].Name
+                            @Model.AllGames[i].Name
                         </td>
                         @*we should probably make a wish list controller*@
-                        <a asp-controller="some_controller" asp-action="viewWishList" asp-route-id="@Model.AllFriends[i].ProfileId">View Wish List</a>
+                        <a asp-controller="some_controller" asp-action="viewWishList" asp-route-id="@Model.ProfileId">View Wish List</a>
                         <td>@Model.AllGames[i].Price</td>
 
 
