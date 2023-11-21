@@ -195,6 +195,38 @@ namespace PROG3050VideoGameStore.Controllers
             return View(list);
         }
 
+        public IActionResult AddGameToWishList(int id = 0, int profileId = 0)
+        {
+            WishList alreadyExistingListItem = _appDbContext.WishlistItems.FirstOrDefault(w=>w.GameId==id&&w.UserProfileId == profileId);
+            if (alreadyExistingListItem==null)
+            {
+
+                WishList model = new WishList();
+                model.UserProfileId = profileId;
+                model.GameId = id;
+                _appDbContext.WishlistItems.Add(model);
+                _appDbContext.SaveChanges();
+                ViewData["Message"] = "Game has been added to wishlist";
+
+                AllGamesVM list = new AllGamesVM();
+                list.ProfileId = profileId;
+                list.AllGames = _appDbContext.Games.OrderBy(g => g.Name).ToList();
+                list.Ratings = _appDbContext.Rating.ToList();
+                return View("AllGames", list);
+            }
+
+            else
+            {
+                ViewData["Message"] = "Game is already on the wishlist";
+
+                AllGamesVM list = new AllGamesVM();
+                list.ProfileId = profileId;
+                list.AllGames = _appDbContext.Games.OrderBy(g => g.Name).ToList();
+                list.Ratings = _appDbContext.Rating.ToList();
+                return View("AllGames", list);
+            }
+           
+        }
 
         public IActionResult EventRegister(int id = 0)
         {
