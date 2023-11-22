@@ -91,8 +91,38 @@
     </table>
     <br />
     <br />
+    <button class="btn btn-primary" onclick="shareTableOnTwitter()">Share Table to Twitter</button><br />
+
     <ul id="pagination" class="pagination"></ul>
-    <script>document.addEventListener("DOMContentLoaded", function () {
+    <script>
+
+        function shareTableOnTwitter() {
+            // Get all game details from the table
+            var gameDetails = "";
+            var tableRows = document.querySelectorAll("#tableBody tr");
+
+            tableRows.forEach(function (row,index) {
+                var serialNumber = index + 1;
+                var title = row.querySelector("td:first-child").textContent.trim();
+                var author = row.querySelector("td:nth-child(2)").textContent;
+                var price = row.querySelector("td:nth-child(3)").textContent;
+                var rating = row.querySelector("td:nth-child(4)").textContent;
+                gameDetails += `Game ${serialNumber}:${title}\n`;
+            });
+
+            // Encode the game details for the Twitter share URL
+            var tweetText = encodeURIComponent(`${gameDetails}`);
+
+            // Create the Twitter share URL
+            var twitterShareUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
+
+            // Open a new window or redirect to Twitter
+            window.open(twitterShareUrl, '_blank');
+        }
+        
+        document.addEventListener("DOMContentLoaded", function () {
+            console.log("DOM Loaded!");
+
             var searchInput = document.getElementById("searchInput");
             var gameTable = document.getElementById("gameTable");
             var games = Array.from(gameTable.querySelectorAll("tbody tr")); // Array of all game rows
@@ -156,6 +186,9 @@
                 var searchTerm = searchInput.value.toLowerCase();
                 filterGames(searchTerm);
             });
+
+           
+
 
             // Initial setup
             displayGames(currentPage);
