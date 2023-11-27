@@ -97,6 +97,29 @@ namespace PROG3050VideoGameStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FamilyFriendsList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserProfileId = table.Column<int>(type: "int", nullable: false),
+                    ReceivedBy = table.Column<int>(type: "int", nullable: false),
+                    RecepientName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Relationship = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FamilyFriendsList", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FamilyFriendsList_Profiles_UserProfileId",
+                        column: x => x.UserProfileId,
+                        principalTable: "Profiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProfilePreferencesList",
                 columns: table => new
                 {
@@ -245,6 +268,11 @@ namespace PROG3050VideoGameStore.Migrations
                 column: "UserProfileId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FamilyFriendsList_UserProfileId",
+                table: "FamilyFriendsList",
+                column: "UserProfileId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProfilePreferencesList_UserProfileId",
                 table: "ProfilePreferencesList",
                 column: "UserProfileId"
@@ -254,13 +282,13 @@ namespace PROG3050VideoGameStore.Migrations
                 name: "IX_Rating_GameId",
                 table: "Rating",
                 column: "GameId"
-                );
+               );
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rating_UserProfileId",
                 table: "Rating",
                 column: "UserProfileId"
-               );
+              );
 
             migrationBuilder.CreateIndex(
                 name: "IX_Review_GameId",
@@ -278,7 +306,7 @@ namespace PROG3050VideoGameStore.Migrations
                 name: "IX_UserAddresses_UserProfileId",
                 table: "UserAddresses",
                 column: "UserProfileId"
-              );
+               );
 
             migrationBuilder.CreateIndex(
                 name: "IX_WishlistItems_GameId",
@@ -296,6 +324,9 @@ namespace PROG3050VideoGameStore.Migrations
         {
             migrationBuilder.DropTable(
                 name: "AllParticipations");
+
+            migrationBuilder.DropTable(
+                name: "FamilyFriendsList");
 
             migrationBuilder.DropTable(
                 name: "ProfilePreferencesList");

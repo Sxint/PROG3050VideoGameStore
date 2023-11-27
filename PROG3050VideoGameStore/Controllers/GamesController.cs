@@ -27,6 +27,115 @@ namespace PROG3050VideoGameStore.Controllers
             return View("AllGames", list);
         }
 
+        public IActionResult DetailsForFriendsWishList(int id = 0, int profileId = 0, int friendsId =0)
+        {
+            DetailsForFriendsWishListVM model = new DetailsForFriendsWishListVM();
+            UserProfile currentProfile = _appDbContext.Profiles.Find(profileId);
+            model.ProfileId = profileId;
+            model.ActiveGame = _appDbContext.Games.Find(id);
+            model.CurrentUserPreference = _appDbContext.ProfilePreferencesList.FirstOrDefault(p => p.Id == currentProfile.CurrentPrefId);
+            model.GameRecommendations = new List<Game>();
+            model.FriendId = friendsId;
+
+            // Get all games and ratings
+            List<Game> AllGames = _appDbContext.Games.ToList();
+            List<Rating> AllRatings = _appDbContext.Rating.ToList();
+
+            // Calculate average ratings for all games
+            var averageRatings = AllRatings.GroupBy(r => r.GameId).Select(group => new
+            {
+                GameId = group.Key,
+                AverageRatingValue = group.Average(r => r.RatingValue)
+            }).ToList(); // Materialize the query into a list
+
+            // Use a HashSet to track unique GameIds
+            HashSet<int> uniqueGameIds = new HashSet<int>();
+
+            // Filter games based on user preferences and add them to recommendations
+            foreach (var game in AllGames)
+            {
+                if (model.GameRecommendations.Count < 8 &&
+                    (game.Category == model.CurrentUserPreference.FavCategory || game.Platform == model.CurrentUserPreference.FavPlatform) &&
+                    uniqueGameIds.Add(game.Id))
+                {
+                    model.GameRecommendations.Add(game);
+                }
+            }
+
+            // If there are not enough recommendations, add more games
+            if (model.GameRecommendations.Count < 8)
+            {
+                foreach (var game in AllGames)
+                {
+                    if (model.GameRecommendations.Count < 8 && uniqueGameIds.Add(game.Id))
+                    {
+                        model.GameRecommendations.Add(game);
+                    }
+                }
+            }
+
+            // Sort the recommendations by average rating in descending order
+            model.GameRecommendations = model.GameRecommendations
+                .OrderByDescending(gr => averageRatings.FirstOrDefault(ar => ar.GameId == gr.Id)?.AverageRatingValue)
+                .ToList();
+
+            return View("DetailsForFriendsWishList", model);
+        }
+
+        public IActionResult DetailsForWishList(int id = 0, int profileId = 0)
+        {
+            GameDetailsVM model = new GameDetailsVM();
+            UserProfile currentProfile = _appDbContext.Profiles.Find(profileId);
+            model.ProfileId = profileId;
+            model.ActiveGame = _appDbContext.Games.Find(id);
+            model.CurrentUserPreference = _appDbContext.ProfilePreferencesList.FirstOrDefault(p => p.Id == currentProfile.CurrentPrefId);
+            model.GameRecommendations = new List<Game>();
+         
+
+            // Get all games and ratings
+            List<Game> AllGames = _appDbContext.Games.ToList();
+            List<Rating> AllRatings = _appDbContext.Rating.ToList();
+
+            // Calculate average ratings for all games
+            var averageRatings = AllRatings.GroupBy(r => r.GameId).Select(group => new
+            {
+                GameId = group.Key,
+                AverageRatingValue = group.Average(r => r.RatingValue)
+            }).ToList(); // Materialize the query into a list
+
+            // Use a HashSet to track unique GameIds
+            HashSet<int> uniqueGameIds = new HashSet<int>();
+
+            // Filter games based on user preferences and add them to recommendations
+            foreach (var game in AllGames)
+            {
+                if (model.GameRecommendations.Count < 8 &&
+                    (game.Category == model.CurrentUserPreference.FavCategory || game.Platform == model.CurrentUserPreference.FavPlatform) &&
+                    uniqueGameIds.Add(game.Id))
+                {
+                    model.GameRecommendations.Add(game);
+                }
+            }
+
+            // If there are not enough recommendations, add more games
+            if (model.GameRecommendations.Count < 8)
+            {
+                foreach (var game in AllGames)
+                {
+                    if (model.GameRecommendations.Count < 8 && uniqueGameIds.Add(game.Id))
+                    {
+                        model.GameRecommendations.Add(game);
+                    }
+                }
+            }
+
+            // Sort the recommendations by average rating in descending order
+            model.GameRecommendations = model.GameRecommendations
+                .OrderByDescending(gr => averageRatings.FirstOrDefault(ar => ar.GameId == gr.Id)?.AverageRatingValue)
+                .ToList();
+
+            return View("Details", model);
+        }
 
         public IActionResult Details(int id = 0, int profileId = 0)
         {

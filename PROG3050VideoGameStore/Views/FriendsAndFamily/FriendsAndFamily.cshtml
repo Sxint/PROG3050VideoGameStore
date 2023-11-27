@@ -1,0 +1,168 @@
+﻿@model PROG3050VideoGameStore.ViewModels.AllFriendsFamilyVM;
+@{
+    ViewData["Title"] = "Panel";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="~/css/Admin.css" asp-append-version="true" />
+</head>
+<body>
+    <br />
+    <input type="text" id="searchInput" placeholder="Search by Name" />
+    <table id="friendTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Relationship</th>
+                <th>Wish List Details</th>
+                <th>Remove Friend</th>
+            </tr>
+        </thead>
+
+        <tbody id="tableBody">
+
+            @if (Model.AllFriendsList != null)
+            {
+
+                for (int i = 0; i < Model.AllFriendsList.Count; i++)
+                {
+                    <tr>
+                        @if (Model.AllFriendsList[i].UserProfileId == Model.ProfileId)
+                        {
+                            @for (int j = 0; j < Model.AllProfiles.Count; j++)
+                            {
+                                if (@Model.AllFriendsList[i].ReceivedBy == Model.AllProfiles[j].Id)
+                                {
+                                    <td>
+                                        @Model.AllProfiles[j].DisplayName
+                                      
+                                    </td>
+
+                                    j = j + Model.AllProfiles.Count;
+                                }
+                            }
+                        }
+
+                        else{
+                            @for (int j = 0; j < Model.AllProfiles.Count; j++)
+                            {
+                                if (@Model.AllFriendsList[i].UserProfileId == Model.AllProfiles[j].Id)
+                                {
+                                    <td>
+                                        @Model.AllProfiles[j].DisplayName
+                                        
+                                    </td>
+
+                                    j = j + Model.AllProfiles.Count;
+                                }
+                            }
+                        }
+                       
+                        <td>
+                            @Model.AllFriendsList[i].Relationship
+                        </td>
+
+                        @if (Model.AllFriendsList[i].UserProfileId == Model.ProfileId)
+                        {
+                            <td>  <a asp-controller="WishList" asp-action="WishListForFriends" asp-route-profileId="@Model.AllFriendsList[i].ReceivedBy" asp-route-currentProfileId="@Model.ProfileId">View Wish List</a></td>
+                        }
+
+                        else
+                        {
+                            <td>  <a asp-controller="WishList" asp-action="WishListForFriends" asp-route-profileId="@Model.AllFriendsList[i].UserProfileId" asp-route-currentProfileId="@Model.ProfileId">View Wish List</a></td>
+                        }
+
+                     
+
+
+                    
+                        <td>
+                            <a asp-controller="FriendsAndFamily" asp-action="RemoveFriend" asp-route-id="@Model.AllFriendsList[i].Id" asp-route-profileId="@Model.ProfileId">Remove Friend</a>
+                        </td>
+
+
+
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+    <br />
+    <br />
+    <ul id="pagination" class="pagination"></ul>
+    <script>document.addEventListener("DOMContentLoaded", function () {
+            var searchInput = document.getElementById("searchInput");
+            var friendTable = document.getElementById("friendTable");
+            var friends = Array.from(friendTable.querySelectorAll("tbody tr")); // Array of all game rows
+            var tableBody = document.getElementById("tableBody");
+            var itemsPerPage = 5; // Number of items to display per page
+            var currentPage = 1; // Current page
+            var filteredFriends = friends; // Initialize with all friends
+
+            function displayFriends(page) {
+                var startIndex = (page - 1) * itemsPerPage;
+                var endIndex = startIndex + itemsPerPage;
+
+                // Clear the current page's content
+                tableBody.innerHTML = "";
+
+                // Display game rows for the current page
+                for (var i = startIndex; i < endIndex && i < filteredFriends.length; i++) {
+                    tableBody.appendChild(filteredFriends[i].cloneNode(true));
+                }
+            }
+
+            function updatePagination() {
+                var pageCount = Math.ceil(filteredFriends.length / itemsPerPage);
+                var pagination = document.getElementById("pagination");
+                pagination.innerHTML = "";
+
+                for (var i = 1; i <= pageCount; i++) {
+                    var li = document.createElement("li");
+                    var link = document.createElement("a");
+                    link.textContent = "| " + i + " |";
+                    link.href = "#";
+                    li.appendChild(link);
+
+                    link.addEventListener("click", function () {
+                        var currentNumber = this.textContent.charAt(2);
+                        currentPage = parseInt(currentNumber);
+                        displayFriends(currentPage);
+                        updatePagination();
+                    });
+
+                    if (i === currentPage) {
+                        li.classList.add("active");
+                    }
+
+                    pagination.appendChild(li);
+                }
+            }
+
+            function filterFriends(searchTerm) {
+                filteredFriends = friends.filter(function (friend) {
+                    var name = friend.querySelector("td:first-child").textContent.toLowerCase();
+                    return name.includes(searchTerm);
+                });
+
+                currentPage = 1; // Reset to the first page when filtering
+                displayFriends(currentPage);
+                updatePagination();
+            }
+
+            searchInput.addEventListener("input", function () {
+                var searchTerm = searchInput.value.toLowerCase();
+                filterFriends(searchTerm);
+            });
+
+            // Initial setup
+            displayFriends(currentPage);
+            updatePagination();
+        });</script>
+</body>
+</html>

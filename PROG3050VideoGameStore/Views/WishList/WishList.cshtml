@@ -77,10 +77,10 @@
                         }
 
                     <td>
-                        <a asp-controller="Games" asp-action="Details" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Game Details</a>
+                        <a asp-controller="Games" asp-action="DetailsForWishList" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Game Details</a>
                         <span class="mx-1">|</span>
                  
-                        <a asp-controller="Profile" asp-action="RemoveFromWishlist" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Remove From Wish List</a>
+                        <a asp-controller="WishList" asp-action="RemoveFromWishlist" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Remove From Wish List</a>
 
                     </td>
                     </tr>
@@ -91,7 +91,7 @@
     </table>
     <br />
     <br />
-    <button class="btn btn-primary" onclick="shareTableOnTwitter()">Share Table to Twitter</button><br />
+    <button class="btn btn-primary" onclick="shareTableOnTwitter()">Share link to Twitter</button><br />
 
     <ul id="pagination" class="pagination"></ul>
     <script>
@@ -111,10 +111,17 @@
             });
 
             // Encode the game details for the Twitter share URL
-            var tweetText = encodeURIComponent(`${gameDetails}`);
+            var tweetText1 = encodeURIComponent(`${gameDetails}`);
+
+            // Get the current page URL
+            var currentPageUrl = window.location.href;
+
+
+            // Encode the URL for the Twitter share URL
+            var tweetText2 = encodeURIComponent(`Check out this game list: ${urlLink}`);
 
             // Create the Twitter share URL
-            var twitterShareUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
+            var twitterShareUrl = `https://twitter.com/intent/tweet?text=${tweetText2}`;
 
             // Open a new window or redirect to Twitter
             window.open(twitterShareUrl, '_blank');

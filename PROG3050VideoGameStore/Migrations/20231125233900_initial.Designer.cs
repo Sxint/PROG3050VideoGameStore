@@ -12,7 +12,7 @@ using PROG3050VideoGameStore.Models;
 namespace PROG3050VideoGameStore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231121170155_initial")]
+    [Migration("20231125233900_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -73,6 +73,39 @@ namespace PROG3050VideoGameStore.Migrations
                     b.HasIndex("UserProfileId");
 
                     b.ToTable("AllParticipations");
+                });
+
+            modelBuilder.Entity("PROG3050VideoGameStore.Models.FamilyFriendsList", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ReceivedBy")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RecepientName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Relationship")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserProfileId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserProfileId");
+
+                    b.ToTable("FamilyFriendsList");
                 });
 
             modelBuilder.Entity("PROG3050VideoGameStore.Models.Game", b =>
@@ -379,6 +412,17 @@ namespace PROG3050VideoGameStore.Migrations
                         .IsRequired();
 
                     b.Navigation("Event");
+
+                    b.Navigation("Profile");
+                });
+
+            modelBuilder.Entity("PROG3050VideoGameStore.Models.FamilyFriendsList", b =>
+                {
+                    b.HasOne("PROG3050VideoGameStore.Models.UserProfile", "Profile")
+                        .WithMany()
+                        .HasForeignKey("UserProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Profile");
                 });
