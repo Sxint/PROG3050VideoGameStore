@@ -1,0 +1,52 @@
+﻿@model PROG3050VideoGameStore.ViewModels.AddFriendsVM;
+
+<head>
+    <link rel="stylesheet" href="~/css/LoginRegister.css" asp-append-version="true" />
+
+    <style>
+        .footer {
+            position: relative !important;
+        }
+    </style>
+</head>
+
+<div class="mainForm" style="margin-top: 1%;">
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+        @Html.ValidationSummary(true)
+
+        <h1>Add New Friend</h1>
+
+        <div class="form-group message">
+
+            <p> @ViewData["Message"]</p>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.newFriend.RecepientName)
+            @Html.TextBoxFor(model => model.newFriend.RecepientName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.newFriend.RecepientName, "", new { @class = "validation-error" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.newFriend.Relationship)
+            <select id="Relationship" name="newFriend.Relationship" class="form-control" asp-for="@Model.newFriend.Relationship">
+                <option value="Family">Family</option>
+                <option value="Friend">Friend</option>
+               
+            </select>
+            @Html.ValidationMessageFor(model => model.newFriend.Relationship, "", new { @class = "validation-error" })
+        </div>
+
+        <div style="display: none;">
+
+       
+            @Html.TextBoxFor(model => model.ProfileId, new { @class = "form-control" })
+           
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Send" class="button btn btn-primary" />
+        </div>
+    }
+</div>

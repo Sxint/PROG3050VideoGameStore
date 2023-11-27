@@ -27,6 +27,8 @@ namespace PROG3050VideoGameStore.Models
 
         public DbSet<WishList> WishlistItems { get; set; }
 
+        public DbSet<FamilyFriendsList> FamilyFriendsList { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
            

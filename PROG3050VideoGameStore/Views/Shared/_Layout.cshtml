@@ -59,8 +59,60 @@
                         bool isUnregisterPage = Context.Request.Path.StartsWithSegments("/Games/Unregister", StringComparison.OrdinalIgnoreCase);
                         bool isGamesDetailsPage = Context.Request.Path.StartsWithSegments("/Games/Details", StringComparison.OrdinalIgnoreCase);
                         bool isEventListPage = Context.Request.Path.StartsWithSegments("/Admin/EventList", StringComparison.OrdinalIgnoreCase);
-                      
+                        bool isAddFriendFormPage = Context.Request.Path.StartsWithSegments("/FriendsAndFamily/AddFriendForm", StringComparison.OrdinalIgnoreCase);
+                        bool isFriendRequestsPage = Context.Request.Path.StartsWithSegments("/FriendsAndFamily/FriendRequests", StringComparison.OrdinalIgnoreCase);
+                        bool isFriendsAndFamilyPage = Context.Request.Path.StartsWithSegments("/FriendsAndFamily/FriendsAndFamily", StringComparison.OrdinalIgnoreCase);
+                        bool isWishList = Context.Request.Path.StartsWithSegments("/WishList/WishList", StringComparison.OrdinalIgnoreCase);
+                        bool isDetailsForFriendsWishList = Context.Request.Path.StartsWithSegments("/Games/DetailsForFriendsWishList", StringComparison.OrdinalIgnoreCase);
+                        bool isWishListForFriends = Context.Request.Path.StartsWithSegments("/WishList/WishListForFriends", StringComparison.OrdinalIgnoreCase);
+                        bool isDetailsForWishList = Context.Request.Path.StartsWithSegments("/Games/DetailsForWishList", StringComparison.OrdinalIgnoreCase);
+                    }
+                     @if (isWishListForFriends)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("FriendsAndFamily", "FriendsAndFamily", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+                    @if (isDetailsForFriendsWishList)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("WishListForFriends", "WishList", new { profileId = Model.FriendId, currentProfileId=Model.ProfileId})">Back</a>
+                        </li>
+                    }
 
+                     @if (isDetailsForWishList)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("WishList", "WishList", new { profileId = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+
+                     @if (isWishList)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+
+                     @if (isAddFriendFormPage)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+
+                     @if (isFriendRequestsPage)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+
+                     @if (isFriendsAndFamilyPage)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
                     }
 
                     
@@ -124,7 +176,7 @@
                     {
 
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                            <a class="nav-link text-light" href="@Url.Action("Index", "Games", new { id = Model.ProfileId})">Back</a>
                         </li>
                     }
 
@@ -339,7 +391,7 @@
                         </li>
 
                         <li>
-                            <a class="nav-link text-light" href="@Url.Action("WishList", "Profile", new { profileId = Model.Id })">Wishlist</a>
+                            <a class="nav-link text-light" href="@Url.Action("WishList", "Wishlist", new { profileId = Model.Id })">Wishlist</a>
                         </li>
 
                         <li>
@@ -351,11 +403,18 @@
                                 @Model.DisplayName
                             </a>
                             <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                                <a class="nav-link text-light" href="@Url.Action("AddFriendForm", "FriendsAndFamily", new { id = Model.Id })">Add Friends & Family</a>
+
+                                <a class="nav-link text-light" href="@Url.Action("FriendRequests", "FriendsAndFamily", new { id = Model.Id })">Friend Requests</a>
+
+
                                 <a class="nav-link text-light" href="@Url.Action("Profile", "profile", new { id = Model.Id })">Profile</a>
-                            </div>
-                            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+
                                 <a class="nav-link text-light" href="@Url.Action("Index", "Home")">Sign Out</a>
                             </div>
+                           
+                              
+                         
                         </li>
                     }
 
