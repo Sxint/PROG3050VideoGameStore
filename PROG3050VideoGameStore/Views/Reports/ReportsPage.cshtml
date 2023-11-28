@@ -1,0 +1,23 @@
+﻿@model PROG3050VideoGameStore.ViewModels.ReportsVM;
+@{
+    ViewData["Title"] = "Panel";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="~/css/Admin.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="tabs">
+        <ul class="tab-navigation">
+            <li><a href="@Url.Action("DownloadGamesDetails", "Reports", new { id = Model.ProfileId })">Click here to download games report</a></li>
+            <br />
+        </ul>
+      
+        <!-- JavaScript for Tab Functionality -->
+        <script src="~/js/AdminPanel.js"></script>
+</body>
+</html>

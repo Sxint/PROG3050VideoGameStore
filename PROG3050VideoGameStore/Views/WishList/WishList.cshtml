@@ -91,7 +91,7 @@
     </table>
     <br />
     <br />
-    <button class="btn btn-primary" onclick="shareTableOnTwitter()">Share link to Twitter</button><br />
+    <button class="btn btn-primary" onclick="shareTableOnTwitter()">Share details to Twitter</button><br />
 
     <ul id="pagination" class="pagination"></ul>
     <script>
@@ -107,7 +107,7 @@
                 var author = row.querySelector("td:nth-child(2)").textContent;
                 var price = row.querySelector("td:nth-child(3)").textContent;
                 var rating = row.querySelector("td:nth-child(4)").textContent;
-                gameDetails += `Game ${serialNumber}:${title}\n`;
+                gameDetails += `Game ${serialNumber}:\nTitle: ${title}\nAuthor: ${author}\nPrice: ${price}\nRating: ${rating}\n\n`;
             });
 
             // Encode the game details for the Twitter share URL
@@ -118,10 +118,10 @@
 
 
             // Encode the URL for the Twitter share URL
-            var tweetText2 = encodeURIComponent(`Check out this game list: ${urlLink}`);
+            var tweetText2 = encodeURIComponent(`Check out this game list: ${currentPageUrl}`);
 
             // Create the Twitter share URL
-            var twitterShareUrl = `https://twitter.com/intent/tweet?text=${tweetText2}`;
+            var twitterShareUrl = `https://twitter.com/intent/tweet?text=${tweetText1}`;
 
             // Open a new window or redirect to Twitter
             window.open(twitterShareUrl, '_blank');

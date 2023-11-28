@@ -66,7 +66,15 @@
                         bool isDetailsForFriendsWishList = Context.Request.Path.StartsWithSegments("/Games/DetailsForFriendsWishList", StringComparison.OrdinalIgnoreCase);
                         bool isWishListForFriends = Context.Request.Path.StartsWithSegments("/WishList/WishListForFriends", StringComparison.OrdinalIgnoreCase);
                         bool isDetailsForWishList = Context.Request.Path.StartsWithSegments("/Games/DetailsForWishList", StringComparison.OrdinalIgnoreCase);
+                        bool isReportsPage = Context.Request.Path.StartsWithSegments("/Reports/ReportsPage", StringComparison.OrdinalIgnoreCase);
                     }
+                     @if (isReportsPage)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+
                      @if (isWishListForFriends)
                     {
                         <li class="nav-item">
