@@ -37,6 +37,8 @@
                         <tr>
                             <td>@Model.AllAddresses[i].StreetAddress</td>
                             <td>
+                                <a asp-controller="LoginRegister" asp-action="ChooseAddress" asp-route-profileId="@Model.ProfileId" asp-route-id="@Model.AllAddresses[i].Id">Choose</a>
+                                <span class="mx-1">|</span>
                                 <a asp-controller="LoginRegister" asp-action="Address" asp-route-id="@Model.AllAddresses[i].Id">Edit</a>
                                 <span class="mx-1">|</span>
                                 <a asp-controller="LoginRegister" asp-action="DeleteAddress" asp-route-id="@Model.AllAddresses[i].Id">Delete</a>

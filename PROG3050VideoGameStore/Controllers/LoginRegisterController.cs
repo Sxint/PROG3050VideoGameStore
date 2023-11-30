@@ -177,6 +177,11 @@ namespace PROG3050VideoGameStore.Controllers
                         preferences.UserProfileId = model.Id;
                         _appDbContext.ProfilePreferencesList.Add(preferences);
                         _appDbContext.SaveChanges();
+
+                        Models.Cart cart = new Models.Cart();
+                        cart.UserProfileId = model.Id;
+                        _appDbContext.Carts.Add(cart);
+                        _appDbContext.SaveChanges();
                         model.CurrentPrefId = preferences.Id;
                         _appDbContext.Profiles.Update(model);
                         _appDbContext.SaveChanges();
@@ -518,6 +523,21 @@ namespace PROG3050VideoGameStore.Controllers
 
             ViewData["Message"] = "Preference selection updated";
             return View("PreferencesList", model);
+
+        }
+
+        public IActionResult ChooseAddress(int profileId = 0, int id = 0)
+        {
+            UserProfile currentProfile = _appDbContext.Profiles.Find(profileId);
+            currentProfile.CurrentAddressId = id;
+            _appDbContext.Profiles.Update(currentProfile);
+            _appDbContext.SaveChanges();
+            AddressListVM model = new AddressListVM();
+            model.ProfileId = profileId;
+            model.AllAddresses = _appDbContext.UserAddresses.Where(g => g.UserProfileId == profileId).ToList();
+
+            ViewData["Message"] = "Address selection updated";
+            return View("ListAddresses", model);
 
         }
 

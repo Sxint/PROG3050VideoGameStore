@@ -53,6 +53,8 @@ namespace PROG3050VideoGameStore.Models
 
         public int? CurrentPrefId { get; set; }
 
+        public int? CurrentAddressId { get; set; }
+
         public int RepeatedInvalidCreds { get; set; } = 0;
 
         public ProfilePreferences? Preferences { get; set; } // nav to its child preferences
