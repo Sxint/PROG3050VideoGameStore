@@ -12,7 +12,7 @@ using PROG3050VideoGameStore.Models;
 namespace PROG3050VideoGameStore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231125233900_initial")]
+    [Migration("20231129223027_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -24,6 +24,47 @@ namespace PROG3050VideoGameStore.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("PROG3050VideoGameStore.Models.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("UserProfileId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserProfileId");
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("PROG3050VideoGameStore.Models.CartItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId");
+
+                    b.HasIndex("GameId");
+
+                    b.ToTable("CartItems");
+                });
 
             modelBuilder.Entity("PROG3050VideoGameStore.Models.Event", b =>
                 {
@@ -333,6 +374,9 @@ namespace PROG3050VideoGameStore.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("CurrentAddressId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("CurrentPrefId")
                         .HasColumnType("int");
 
@@ -395,6 +439,36 @@ namespace PROG3050VideoGameStore.Migrations
                     b.HasIndex("UserProfileId");
 
                     b.ToTable("WishlistItems");
+                });
+
+            modelBuilder.Entity("PROG3050VideoGameStore.Models.Cart", b =>
+                {
+                    b.HasOne("PROG3050VideoGameStore.Models.UserProfile", "Profile")
+                        .WithMany()
+                        .HasForeignKey("UserProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Profile");
+                });
+
+            modelBuilder.Entity("PROG3050VideoGameStore.Models.CartItem", b =>
+                {
+                    b.HasOne("PROG3050VideoGameStore.Models.Cart", "Cart")
+                        .WithMany("CartItems")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PROG3050VideoGameStore.Models.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Game");
                 });
 
             modelBuilder.Entity("PROG3050VideoGameStore.Models.EventParticipation", b =>
@@ -504,6 +578,11 @@ namespace PROG3050VideoGameStore.Migrations
                     b.Navigation("Game");
 
                     b.Navigation("Profile");
+                });
+
+            modelBuilder.Entity("PROG3050VideoGameStore.Models.Cart", b =>
+                {
+                    b.Navigation("CartItems");
                 });
 
             modelBuilder.Entity("PROG3050VideoGameStore.Models.Game", b =>

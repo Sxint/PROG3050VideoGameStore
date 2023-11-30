@@ -63,6 +63,7 @@ namespace PROG3050VideoGameStore.Migrations
                     IsEmployee = table.Column<bool>(type: "bit", nullable: false),
                     RememberMe = table.Column<bool>(type: "bit", nullable: true),
                     CurrentPrefId = table.Column<int>(type: "int", nullable: true),
+                    CurrentAddressId = table.Column<int>(type: "int", nullable: true),
                     RepeatedInvalidCreds = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -90,6 +91,25 @@ namespace PROG3050VideoGameStore.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AllParticipations_Profiles_UserProfileId",
+                        column: x => x.UserProfileId,
+                        principalTable: "Profiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Carts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserProfileId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Carts_Profiles_UserProfileId",
                         column: x => x.UserProfileId,
                         principalTable: "Profiles",
                         principalColumn: "Id",
@@ -257,6 +277,32 @@ namespace PROG3050VideoGameStore.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "CartItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GameId = table.Column<int>(type: "int", nullable: false),
+                    CartId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CartItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CartItems_Carts_CartId",
+                        column: x => x.CartId,
+                        principalTable: "Carts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CartItems_Games_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Games",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AllParticipations_EventId",
                 table: "AllParticipations",
@@ -265,6 +311,21 @@ namespace PROG3050VideoGameStore.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_AllParticipations_UserProfileId",
                 table: "AllParticipations",
+                column: "UserProfileId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartItems_CartId",
+                table: "CartItems",
+                column: "CartId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartItems_GameId",
+                table: "CartItems",
+                column: "GameId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Carts_UserProfileId",
+                table: "Carts",
                 column: "UserProfileId");
 
             migrationBuilder.CreateIndex(
@@ -282,13 +343,13 @@ namespace PROG3050VideoGameStore.Migrations
                 name: "IX_Rating_GameId",
                 table: "Rating",
                 column: "GameId"
-               );
+                );
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rating_UserProfileId",
                 table: "Rating",
                 column: "UserProfileId"
-              );
+                );
 
             migrationBuilder.CreateIndex(
                 name: "IX_Review_GameId",
@@ -300,13 +361,13 @@ namespace PROG3050VideoGameStore.Migrations
                 name: "IX_Review_UserProfileId",
                 table: "Review",
                 column: "UserProfileId"
-              );
+                );
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserAddresses_UserProfileId",
                 table: "UserAddresses",
                 column: "UserProfileId"
-               );
+                );
 
             migrationBuilder.CreateIndex(
                 name: "IX_WishlistItems_GameId",
@@ -324,6 +385,9 @@ namespace PROG3050VideoGameStore.Migrations
         {
             migrationBuilder.DropTable(
                 name: "AllParticipations");
+
+            migrationBuilder.DropTable(
+                name: "CartItems");
 
             migrationBuilder.DropTable(
                 name: "FamilyFriendsList");
@@ -345,6 +409,9 @@ namespace PROG3050VideoGameStore.Migrations
 
             migrationBuilder.DropTable(
                 name: "Events");
+
+            migrationBuilder.DropTable(
+                name: "Carts");
 
             migrationBuilder.DropTable(
                 name: "Games");

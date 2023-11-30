@@ -67,6 +67,8 @@
                         bool isWishListForFriends = Context.Request.Path.StartsWithSegments("/WishList/WishListForFriends", StringComparison.OrdinalIgnoreCase);
                         bool isDetailsForWishList = Context.Request.Path.StartsWithSegments("/Games/DetailsForWishList", StringComparison.OrdinalIgnoreCase);
                         bool isReportsPage = Context.Request.Path.StartsWithSegments("/Reports/ReportsPage", StringComparison.OrdinalIgnoreCase);
+                        bool isAddToCart = Context.Request.Path.StartsWithSegments("/Cart/AddGameToCart", StringComparison.OrdinalIgnoreCase);
+                        bool isCartPage = Context.Request.Path.StartsWithSegments("/Cart/CartPage", StringComparison.OrdinalIgnoreCase);
                     }
                      @if (isReportsPage)
                     {
@@ -124,7 +126,7 @@
                     }
 
                     
-                    @if (isWishListPage)
+                    @if (isWishListPage || isAddToCart || isCartPage)
                     {
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
@@ -373,6 +375,10 @@
 
                         }
 
+                         <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("CartPage", "Cart", new { id = Model.Id })">Cart</a>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("AddPreference", "LoginRegister", new { id = Model.Id })">Add Preference</a>
                         </li>
@@ -418,7 +424,7 @@
 
                                 <a class="nav-link text-light" href="@Url.Action("Profile", "profile", new { id = Model.Id })">Profile</a>
 
-                                <a class="nav-link text-light" href="@Url.Action("Index", "Home")">Sign Out</a>
+                                <a class="nav-link text-light" href="@Url.Action("SignOut", "Home", new{id = Model.Id})">Sign Out</a>
                             </div>
                            
                               
