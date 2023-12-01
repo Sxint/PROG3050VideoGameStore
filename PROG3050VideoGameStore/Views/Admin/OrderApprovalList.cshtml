@@ -1,0 +1,131 @@
+﻿@model PROG3050VideoGameStore.ViewModels.OrderListVM;
+@{
+    ViewData["Title"] = "Panel";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="~/css/Admin.css" asp-append-version="true" />
+</head>
+<body>
+    <br />
+    <input type="text" id="searchInput" placeholder="Search Reviews" />
+    <br />
+    <table id="reviewTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+      
+                <th>Actions</th>
+
+            </tr>
+        </thead>
+
+        <tbody id="tableBody">
+
+            @if (Model.Orders != null)
+            {
+
+                for (int i = 0; i < Model.Orders.Count; i++)
+                {
+
+                    <tr>
+
+                        @if (Model.Orders[i].OrderStatus == "Not Confirmed")
+                        {
+                            <td>@Model.Orders[i].Profile.DisplayName</td>
+                           
+                            <td>
+                                <a asp-controller="Admin" asp-action="ApproveOrder" asp-route-profileId="@Model.ProfileId" asp-route-id="@Model.Orders[i].Id">Approve</a>
+                                <span class="mx-1">|</span>
+                                <a asp-controller="Admin" asp-action="RejectOrder" asp-route-profileId="@Model.ProfileId" asp-route-id="@Model.Orders[i].Id">Reject</a>
+                            </td>
+                        }
+
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+
+    <br />
+    <br />
+    <ul id="pagination" class="pagination"></ul>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var searchInput = document.getElementById("searchInput");
+            var reviewTable = document.getElementById("reviewTable");
+            var reviews = Array.from(reviewTable.querySelectorAll("tbody tr")); // Array of all event rows
+            var tableBody = document.getElementById("tableBody");
+            var itemsPerPage = 5; // Number of items to display per page
+            var currentPage = 1; // Current page
+            var filteredReviews = reviews; // Initialize with all events
+
+            function displayReviews(page) {
+                var startIndex = (page - 1) * itemsPerPage;
+                var endIndex = startIndex + itemsPerPage;
+
+                // Clear the current page's content
+                tableBody.innerHTML = "";
+
+                // Display event rows for the current page
+                for (var i = startIndex; i < endIndex && i < filteredReviews.length; i++) {
+                    tableBody.appendChild(filteredReviews[i].cloneNode(true));
+                }
+            }
+
+            function updatePagination() {
+                var pageCount = Math.ceil(filteredReviews.length / itemsPerPage);
+                var pagination = document.getElementById("pagination");
+                pagination.innerHTML = "";
+
+                for (var i = 1; i <= pageCount; i++) {
+                    var li = document.createElement("li");
+                    var link = document.createElement("a");
+                    link.textContent = "| " + i + " |";
+                    link.href = "#";
+                    li.appendChild(link);
+
+                    link.addEventListener("click", function () {
+                        var currentNumber = this.textContent.charAt(2);
+                        currentPage = parseInt(currentNumber);
+                        displayReviews(currentPage);
+                        updatePagination();
+                    });
+
+                    if (i === currentPage) {
+                        li.classList.add("active");
+                    }
+
+                    pagination.appendChild(li);
+                }
+            }
+
+            function filterReviews(searchTerm) {
+                filteredReviews = reviews.filter(function (review) {
+                    var name = review.querySelector("td:nth-child(1)").textContent.toLowerCase();
+                    return name.includes(searchTerm);
+                });
+
+                currentPage = 1; // Reset to the first page when filtering
+                displayReviews(currentPage);
+                updatePagination();
+            }
+
+            searchInput.addEventListener("input", function () {
+                var searchTerm = searchInput.value.trim().toLowerCase();
+                filterReviews(searchTerm);
+            });
+
+            // Initial setup
+            displayReviews(currentPage);
+            updatePagination();
+        });
+
+    </script>
+</body>
+</html>

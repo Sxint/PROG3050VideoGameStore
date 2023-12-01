@@ -140,6 +140,31 @@ namespace PROG3050VideoGameStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CardHolderName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CardNumber = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
+                    ExpiryDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CVCNumber = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
+                    OrderStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TotalCost = table.Column<double>(type: "float", nullable: true),
+                    UserProfileId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_Profiles_UserProfileId",
+                        column: x => x.UserProfileId,
+                        principalTable: "Profiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProfilePreferencesList",
                 columns: table => new
                 {
@@ -303,6 +328,32 @@ namespace PROG3050VideoGameStore.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "OrderItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GameId = table.Column<int>(type: "int", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderItems_Games_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Games",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderItems_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AllParticipations_EventId",
                 table: "AllParticipations",
@@ -331,6 +382,21 @@ namespace PROG3050VideoGameStore.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_FamilyFriendsList_UserProfileId",
                 table: "FamilyFriendsList",
+                column: "UserProfileId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderItems_GameId",
+                table: "OrderItems",
+                column: "GameId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderItems_OrderId",
+                table: "OrderItems",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_UserProfileId",
+                table: "Orders",
                 column: "UserProfileId");
 
             migrationBuilder.CreateIndex(
@@ -393,6 +459,9 @@ namespace PROG3050VideoGameStore.Migrations
                 name: "FamilyFriendsList");
 
             migrationBuilder.DropTable(
+                name: "OrderItems");
+
+            migrationBuilder.DropTable(
                 name: "ProfilePreferencesList");
 
             migrationBuilder.DropTable(
@@ -412,6 +481,9 @@ namespace PROG3050VideoGameStore.Migrations
 
             migrationBuilder.DropTable(
                 name: "Carts");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Games");

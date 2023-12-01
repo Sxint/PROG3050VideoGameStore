@@ -135,18 +135,6 @@ namespace PROG3050VideoGameStore.Controllers
             return View(list);
         }
 
-        public IActionResult DeleteAddress(int id = 0)
-        {
-           
-            
-            UserAddress address = new UserAddress();
-            address = _appDbContext.UserAddresses.Find(id);
-            _appDbContext.UserAddresses.Remove(address);
-            _appDbContext.SaveChanges();
-            return RedirectToAction("ListAddresses",new { id = address.UserProfileId });
-    
-        }
-
 
         [HttpPost] // Handle POST requests
         public IActionResult Register(UserProfile model)
@@ -508,6 +496,26 @@ namespace PROG3050VideoGameStore.Controllers
                 ViewData["Message"] = "Sorry! A minimum of one preference has to be there per profile";
                 return View("PreferencesList", model);
             }
+
+        }
+
+        public IActionResult DeleteAddress(int id = 0)
+        {
+
+
+            UserAddress address = new UserAddress();
+            address = _appDbContext.UserAddresses.Find(id);
+            _appDbContext.UserAddresses.Remove(address);
+            _appDbContext.SaveChanges();
+
+            UserProfile currentProfile = _appDbContext.Profiles.Find(address.UserProfileId);
+            if (currentProfile.CurrentAddressId == address.UserProfileId)
+            {
+                currentProfile.CurrentAddressId = null;
+                _appDbContext.Profiles.Update(currentProfile);
+                _appDbContext.SaveChanges();
+            }
+            return RedirectToAction("ListAddresses", new { id = address.UserProfileId });
 
         }
 

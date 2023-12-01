@@ -1,4 +1,4 @@
-﻿@model PROG3050VideoGameStore.ViewModels.AllGamesVM;
+﻿@model PROG3050VideoGameStore.ViewModels.ListVM;
 @{
     ViewData["Title"] = "Panel";
 }
@@ -7,6 +7,7 @@
 <html>
 <head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <link rel="stylesheet" href="~/css/Admin.css" asp-append-version="true" />
 </head>
 <body>
@@ -14,6 +15,7 @@
     <input type="text" id="searchInput" placeholder="Search Games" />
     <br />
     <div class="message">
+
         <p> @ViewData["Message"]</p>
     </div>
     <br />
@@ -21,106 +23,60 @@
         <thead>
             <tr>
                 <th>Title</th>
-                <th>Author</th>
-                <th>Price</th>
-                <th>Rating</th>
-                <th>Action</th>
+                
+                <th>Actions</th>
             </tr>
         </thead>
 
         <tbody id="tableBody">
+
             @if (Model.AllGames != null)
             {
-                double totalPrice = 0; // Initialize the total price variable outside the loop
 
                 for (int i = 0; i < Model.AllGames.Count; i++)
                 {
-                    double totalRating = 0;
-                    double ratingsCount = 0;
+                   
                     <tr>
-                        <td>@Model.AllGames[i].Name</td>
-                        <td>@Model.AllGames[i].Author</td>
-                        <td>@Model.AllGames[i].Price</td>
-                        @for (int j = 0; j < Model.Ratings.Count; j++)
-                        {
-                            if (Model.AllGames[i].Id == Model.Ratings[j].GameId)
-                            {
-                                totalRating += Model.Ratings[j].RatingValue;
-                                ratingsCount++;
-                            }
-                        }
+                        <td>
+                            @Model.AllGames[i].Name
+                        </td>
+                       
 
-                        @{
-                            double average;
-
-                            if (ratingsCount != 0)
-                            {
-                                average = totalRating / ratingsCount;
-                            }
-                            else
-                            {
-                                average = 0;
-                            }
-                        }
-
-                        @if (average == 0)
-                        {
-                            <td>No ratings available</td>
-                        }
-                        else
-                        {
-                            <td>@Math.Round(average, 2)</td>
-                        }
 
                         <td>
-                            <a asp-controller="Cart" asp-action="RemoveGameFromCart" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Remove Game From Cart</a>
+                            <a asp-controller="Orders" asp-action="DownloadGame" asp-route-id="@Model.AllGames[i].Id" asp-route-profileId="@Model.ProfileId">Download</a>
+                            
                         </td>
 
-                        @{
-                            totalPrice += Model.AllGames[i].Price; // Increment the total price
-                        }
+
+
                     </tr>
                 }
-
-                <tr>
-                    <td colspan="2"></td>
-                    <td><b>Total price : $@totalPrice</b></td>
-                    <td colspan="2"></td>
-                </tr>
             }
+
         </tbody>
     </table>
-
     <br />
-    @if (Model.AllGames == null || Model.AllGames.Count == 0)
-    {
-        <p>The cart is empty</p>
-    }
-    else
-    {
-        <a asp-controller="Cart" asp-action="ProceedToPaymentCheck" asp-route-profileId="@Model.ProfileId">Proceed to payment</a>
-    }
     <br />
     <ul id="pagination" class="pagination"></ul>
-    <br />
-    <br />
-
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             var searchInput = document.getElementById("searchInput");
             var gameTable = document.getElementById("gameTable");
-            var games = Array.from(gameTable.querySelectorAll("tbody tr"));
+            var games = Array.from(gameTable.querySelectorAll("tbody tr")); // Array of all game rows
             var tableBody = document.getElementById("tableBody");
-            var itemsPerPage = 10;
-            var currentPage = 1;
-            var filteredGames = games;
+            var itemsPerPage = 5; // Number of items to display per page
+            var currentPage = 1; // Current page
+            var filteredGames = games; // Initialize with all games
 
             function displayGames(page) {
                 var startIndex = (page - 1) * itemsPerPage;
                 var endIndex = startIndex + itemsPerPage;
 
+                // Clear the current page's content
                 tableBody.innerHTML = "";
 
+                // Display game rows for the current page
                 for (var i = startIndex; i < endIndex && i < filteredGames.length; i++) {
                     tableBody.appendChild(filteredGames[i].cloneNode(true));
                 }
@@ -159,7 +115,7 @@
                     return name.includes(searchTerm);
                 });
 
-                currentPage = 1;
+                currentPage = 1; // Reset to the first page when filtering
                 displayGames(currentPage);
                 updatePagination();
             }
@@ -169,6 +125,7 @@
                 filterGames(searchTerm);
             });
 
+            // Initial setup
             displayGames(currentPage);
             updatePagination();
         });

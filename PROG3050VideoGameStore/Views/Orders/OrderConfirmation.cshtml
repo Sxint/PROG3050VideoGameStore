@@ -1,0 +1,66 @@
+﻿@model PROG3050VideoGameStore.ViewModels.OrderConfirmationVM;
+
+<head>
+    <link rel="stylesheet" href="~/css/GameDetails.css" asp-append-version="true" />
+    <style>
+        .footer {
+            position: relative !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="profile_card">
+        <div class="header">
+
+            <div class="content">
+                <table id="gameTable">
+                    <thead>
+                        <tr>
+                            <th>Purchased Game</th>
+                            
+                            <th>Price</th>
+                            
+                        </tr>
+                    </thead>
+
+                    <tbody id="tableBody">
+
+                        @if (Model.PurchasedGames != null)
+                        {
+
+                            for (int i = 0; i < Model.PurchasedGames.Count; i++)
+                            {
+                                
+                                <tr>
+                                    <td>
+                                        @Model.PurchasedGames[i].Name
+                                    </td>
+                                
+                                    <td>@Model.PurchasedGames[i].Price</td>
+                                  
+
+
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+                <p style="border-top: 1px solid #FFF;"><b>Total price : $@Model.Order.TotalCost</b></p>
+            </div>
+
+            <div class="profile_card" style="margin-left: 20px;">
+                <p>Any physical items will be shipped to the selected address below</p><br />
+                <p class="content">Street Address : @Model.Address.StreetAddressShipping</p><br />
+                <p class="content">City : @Model.Address.CityShipping</p><br />
+                <p class="content">Province : @Model.Address.ProvinceShipping</p><br />
+                <p class="content">Postal Code : @Model.Address.PostalCodeShipping</p><br />
+                <p class="content">Instructions : @Model.Address.DeliveryInstructions</p><br />
+            </div>
+
+
+        </div>
+    </div>
+   
+</body>

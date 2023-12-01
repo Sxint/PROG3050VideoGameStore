@@ -185,6 +185,72 @@ namespace PROG3050VideoGameStore.Migrations
                     b.ToTable("Games");
                 });
 
+            modelBuilder.Entity("PROG3050VideoGameStore.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CVCNumber")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
+
+                    b.Property<string>("CardHolderName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CardNumber")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
+
+                    b.Property<string>("ExpiryDate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("TotalCost")
+                        .HasColumnType("float");
+
+                    b.Property<int>("UserProfileId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserProfileId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("PROG3050VideoGameStore.Models.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderItems");
+                });
+
             modelBuilder.Entity("PROG3050VideoGameStore.Models.ProfilePreferences", b =>
                 {
                     b.Property<int>("Id")
@@ -498,6 +564,36 @@ namespace PROG3050VideoGameStore.Migrations
                     b.Navigation("Profile");
                 });
 
+            modelBuilder.Entity("PROG3050VideoGameStore.Models.Order", b =>
+                {
+                    b.HasOne("PROG3050VideoGameStore.Models.UserProfile", "Profile")
+                        .WithMany()
+                        .HasForeignKey("UserProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Profile");
+                });
+
+            modelBuilder.Entity("PROG3050VideoGameStore.Models.OrderItem", b =>
+                {
+                    b.HasOne("PROG3050VideoGameStore.Models.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PROG3050VideoGameStore.Models.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Game");
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("PROG3050VideoGameStore.Models.ProfilePreferences", b =>
                 {
                     b.HasOne("PROG3050VideoGameStore.Models.UserProfile", "Profile")
@@ -587,6 +683,11 @@ namespace PROG3050VideoGameStore.Migrations
                     b.Navigation("RatingItem");
 
                     b.Navigation("ReviewItem");
+                });
+
+            modelBuilder.Entity("PROG3050VideoGameStore.Models.Order", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("PROG3050VideoGameStore.Models.UserProfile", b =>

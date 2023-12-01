@@ -1,0 +1,58 @@
+﻿@model PROG3050VideoGameStore.ViewModels.OrderVM
+
+<head>
+    <link rel="stylesheet" href="~/css/LoginRegister.css" asp-append-version="true" />
+
+    <style>
+        .footer {
+            position: relative !important;}
+    </style>
+</head>
+
+<div class="mainForm" style="margin-top: 1%;">
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+        @Html.ValidationSummary(true)
+
+        <h1>Place Order</h1>
+
+        <div class="form-group message">
+            <p>@ViewData["Message"]</p>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Order.CardHolderName)
+            @Html.TextBoxFor(model => model.Order.CardHolderName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Order.CardHolderName, "", new { @class = "validation-error" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Order.CardNumber)
+            @Html.TextBoxFor(model => model.Order.CardNumber, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Order.CardNumber, "", new { @class = "validation-error" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Order.ExpiryDate)
+            @Html.TextBoxFor(model => model.Order.ExpiryDate, new { @class = "form-control", placeholder = "MM/YY" })
+            @Html.ValidationMessageFor(model => model.Order.ExpiryDate, "", new { @class = "validation-error" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Order.CVCNumber)
+            @Html.TextBoxFor(model => model.Order.CVCNumber, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Order.CVCNumber, "", new { @class = "validation-error" })
+        </div>
+
+        <div style="display: none;">
+          
+            @Html.TextBoxFor(model => model.ProfileId, new { @class = "form-control" })
+          
+         
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Place Order" class="button btn btn-primary" />
+        </div>
+    }
+</div>

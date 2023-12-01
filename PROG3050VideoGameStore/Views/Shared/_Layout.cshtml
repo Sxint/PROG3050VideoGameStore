@@ -46,6 +46,7 @@
                         bool isChangePasswordPage = Context.Request.Path.StartsWithSegments("/LoginRegister/ChangePassword", StringComparison.OrdinalIgnoreCase);
                         bool isAddressListPage = Context.Request.Path.StartsWithSegments("/LoginRegister/ListAddresses", StringComparison.OrdinalIgnoreCase);
                         bool isAddressEditPage = Context.Request.Path.StartsWithSegments("/LoginRegister/Address", StringComparison.OrdinalIgnoreCase);
+                        bool isChooseAddressPage = Context.Request.Path.StartsWithSegments("/LoginRegister/ChooseAddress", StringComparison.OrdinalIgnoreCase);
                         bool isRatingEditPage = Context.Request.Path.StartsWithSegments("/Games/AddRatings", StringComparison.OrdinalIgnoreCase);
                         bool isReviewEditPage = Context.Request.Path.StartsWithSegments("/Games/AddReview", StringComparison.OrdinalIgnoreCase);
                         bool isProfileGameListPage = Context.Request.Path.StartsWithSegments("/Games/Index", StringComparison.OrdinalIgnoreCase);
@@ -69,7 +70,43 @@
                         bool isReportsPage = Context.Request.Path.StartsWithSegments("/Reports/ReportsPage", StringComparison.OrdinalIgnoreCase);
                         bool isAddToCart = Context.Request.Path.StartsWithSegments("/Cart/AddGameToCart", StringComparison.OrdinalIgnoreCase);
                         bool isCartPage = Context.Request.Path.StartsWithSegments("/Cart/CartPage", StringComparison.OrdinalIgnoreCase);
+                        bool isOrdersPage = Context.Request.Path.StartsWithSegments("/Orders/OrdersPage", StringComparison.OrdinalIgnoreCase);
+                        bool isOrdersConfirmationPage = Context.Request.Path.StartsWithSegments("/Orders/OrderConfirmation", StringComparison.OrdinalIgnoreCase);
+                        bool isOrderApprovalListPage = Context.Request.Path.StartsWithSegments("/Admin/OrderApprovalList", StringComparison.OrdinalIgnoreCase);
+                        bool isAcceptOrderPage = Context.Request.Path.StartsWithSegments("/Admin/ApproveOrder", StringComparison.OrdinalIgnoreCase);
+                        bool isRejectOrderPage = Context.Request.Path.StartsWithSegments("/Admin/RejectOrder", StringComparison.OrdinalIgnoreCase);
+                        bool isPurchasedGamesPage = Context.Request.Path.StartsWithSegments("/Orders/PurchasedGames", StringComparison.OrdinalIgnoreCase);
+                        bool isProceedToPaymentCheckPage = Context.Request.Path.StartsWithSegments("/Cart/ProceedToPaymentCheck", StringComparison.OrdinalIgnoreCase);
                     }
+
+                        @if (isOrderApprovalListPage || isAcceptOrderPage || isRejectOrderPage)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+
+                        @if (isPurchasedGamesPage)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+
+                        @if (isOrdersPage)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("CartPage", "Cart", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                    }
+
+                        @if (isOrdersConfirmationPage)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
+                        </li>
+                    }
+
                      @if (isReportsPage)
                     {
                         <li class="nav-item">
@@ -126,7 +163,7 @@
                     }
 
                     
-                    @if (isWishListPage || isAddToCart || isCartPage)
+                    @if (isWishListPage || isAddToCart || isCartPage || isProceedToPaymentCheckPage)
                     {
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
@@ -277,14 +314,14 @@
                     }
 
 
-                    @if (isAddressEditPage)
+                    @if (isAddressEditPage )
                     {
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ListAddresses", "LoginRegister", new { id = Model.UserProfileId})">Back</a>
                         </li>
                     }
 
-                    @if (isAddressListPage)
+                    @if (isAddressListPage || isChooseAddressPage)
                     {
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
@@ -421,10 +458,12 @@
 
                                 <a class="nav-link text-light" href="@Url.Action("FriendRequests", "FriendsAndFamily", new { id = Model.Id })">Friend Requests</a>
 
+                                <a class="nav-link text-light" href="@Url.Action("PurchasedGames", "Orders", new { id = Model.Id })">Purchased Games</a>
+
 
                                 <a class="nav-link text-light" href="@Url.Action("Profile", "profile", new { id = Model.Id })">Profile</a>
 
-                                <a class="nav-link text-light" href="@Url.Action("SignOut", "Home", new{id = Model.Id})">Sign Out</a>
+                                <a class="nav-link text-light" href="@Url.Action("Index", "Home")">Sign Out</a>
                             </div>
                            
                               

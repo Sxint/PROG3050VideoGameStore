@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using PROG3050VideoGameStore.Models;
 using PROG3050VideoGameStore.ViewModels;
 
@@ -224,6 +225,44 @@ namespace PROG3050VideoGameStore.Controllers
         {
             // Logic to display the edit game form
             return View("../Games/GameDetails");
+        }
+
+        [HttpGet]
+        public IActionResult OrderApprovalList(int id = 0)
+        {
+            OrderListVM model = new OrderListVM();
+            model.Orders = _appDbContext.Orders.Include(o=>o.Profile).Where(o=>o.OrderStatus == "Not Confirmed").ToList();
+            model.ProfileId = id;
+            
+            return View("OrderApprovalList",model);
+        }
+
+        public IActionResult ApproveOrder(int id = 0, int profileId = 0)
+        {
+            OrderListVM model = new OrderListVM();
+            Order approvedOrder = new Order();
+            approvedOrder = _appDbContext.Orders.Find(id);
+            approvedOrder.OrderStatus = "Confirmed";
+            _appDbContext.Orders.Update(approvedOrder);
+            _appDbContext.SaveChanges();
+            model.Orders = _appDbContext.Orders.Include(r=>r.Profile).Where(r => r.OrderStatus == "Not Confirmed").ToList();
+            model.ProfileId = profileId;
+          
+            return View("OrderApprovalList", model);
+        }
+
+        public IActionResult RejectOrder(int id = 0, int profileId = 0)
+        {
+            OrderListVM model = new OrderListVM();
+            Order rejectOrder = new Order();
+            rejectOrder = _appDbContext.Orders.Include(o=>o.OrderItems).FirstOrDefault(o=>o.Id==id);
+            _appDbContext.Orders.Remove(rejectOrder);
+            _appDbContext.SaveChanges();
+
+
+            model.Orders = _appDbContext.Orders.Include(r=>r.Profile).Where(r => r.OrderStatus == "Not Confirmed").ToList();
+            model.ProfileId = profileId;
+            return View("OrderApprovalList", model);
         }
 
         private AppDbContext _appDbContext;
