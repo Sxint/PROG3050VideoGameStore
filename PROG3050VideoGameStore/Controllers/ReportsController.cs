@@ -12,6 +12,7 @@ using iText.Layout.Element;
 using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 using iText.Layout;
 using PROG3050VideoGameStore.ViewModels.Reports;
+using Microsoft.EntityFrameworkCore;
 
 namespace PROG3050VideoGameStore.Controllers
 {
@@ -470,6 +471,63 @@ namespace PROG3050VideoGameStore.Controllers
             {
                 id = id
             });
+        }
+
+        public async Task<IActionResult> DownloadOrdersAndGamesReport()
+        {
+            try
+            {
+                var query = from order in _appDbContext.Orders
+                            join userProfile in _appDbContext.Profiles on order.UserProfileId equals userProfile.Id
+                            join orderItem in _appDbContext.OrderItems on order.Id equals orderItem.OrderId
+                            join game in _appDbContext.Games on orderItem.GameId equals game.Id
+                            select new
+                            {
+                                OrderId = order.Id,
+                                UserProfileId = userProfile.Id,
+                                UserName = userProfile.DisplayName,
+                                OrderStatus = order.OrderStatus,
+                                GameName = game.Name,
+                                TotalCost = order.TotalCost
+                            };
+
+                var records = await query.ToListAsync();
+
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    using (PdfWriter writer = new PdfWriter(memoryStream))
+                    {
+                        using (PdfDocument pdf = new PdfDocument(writer))
+                        {
+                            Document document = new Document(pdf);
+
+                            // Add a title to the PDF
+                            document.Add(new Paragraph($"Order and Order Item"));
+
+                            // Add order and game details to the PDF
+                            foreach (var record in records)
+                            {
+                                document.Add(new Paragraph($"Order ID: {record.OrderId}, " +
+                                                            $"User: {record.UserName}, " +
+                                                            $"Order Status: {record.OrderStatus}, " +
+                                                            $"Game: {record.GameName}, "
+                                                        ));
+                            }
+                        }
+                    }
+
+                    // Convert the PDF document to bytes
+                    byte[] fileContents = memoryStream.ToArray();
+
+                    // Provide the PDF file for download
+                    return File(fileContents, "application/pdf", "OrdersAndOrderItemsReport.pdf");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions
+                return RedirectToAction("ErrorPage", "Error", new { message = ex.Message });
+            }
         }
 
 
