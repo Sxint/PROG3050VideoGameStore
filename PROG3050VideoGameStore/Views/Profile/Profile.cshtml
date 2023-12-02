@@ -1,4 +1,4 @@
-﻿@model dynamic
+﻿@model PROG3050VideoGameStore.ViewModels.ProfileVM
 
 <head>
     <link rel="stylesheet" href="~/css/Profile.css" asp-append-version="true" />
@@ -8,32 +8,32 @@
 <body>
     <div class="profile_card">
         <div class="header">
-            <div class="profilePicture">
-            </div>
+            @*<div class="profilePicture">
+            </div>*@
 
             <div class="content">
                 <div class="title">
                     <h1 class="display-5">
-                        @Model.Profile.DisplayName
+                        @Model.Preference.Profile.DisplayName
                     </h1>
                 </div>
                 <div class="join_date">
                     <p>Birthday</p>
-                    <p>@Model.Profile.BirthDate</p>
+                    <p>@Model.Preference.Profile.BirthDate</p>
                 </div>
 
                 <div class="flex-grid">
                     <div class="flex-item">
                         <p class="miniHeader">Gender</p>
-                        <p>@Model.Profile.Gender</p>
+                        <p>@Model.Preference.Profile.Gender</p>
                     </div>
                     <div class="flex-item">
                         <p class="miniHeader">Favourite Genres</p>
-                        <p>@Model.Preferences.FavCategory</p>
+                        <p>@Model.Preference.FavCategory</p>
                     </div>
                     <div class="flex-item">
                         <p class="miniHeader">Favourite Platforms</p>
-                        <p>@Model.Preferences.FavPlatform</p>
+                        <p>@Model.Preference.FavPlatform</p>
                     </div>
                 </div>
             </div>
@@ -45,13 +45,41 @@
         <div class="content">
             <div class="title">
                 <h1 class="display-6">
-                    Games
+                     Purchased Games
                 </h1>
             </div>
-            <!-- First Row -->
+           
             <div>
-                make flex grid to display games
-                <h1>add game grid here once we have function to add them</h1>
+                <table id="gameTable">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+
+                           
+                        </tr>
+                    </thead>
+
+                    <tbody id="tableBodyGames">
+
+                        @if (Model.AllGames != null)
+                        {
+
+                            for (int i = 0; i < Model.AllGames.Count; i++)
+                            {
+
+                                <tr>
+                                    <td>
+                                        @Model.AllGames[i].Name
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+                <br />
+                <br />
+                <ul id="paginationGames" class="pagination"></ul>
             </div>
         </div>
     </div>
@@ -62,10 +90,182 @@
                     Friends & Family
                 </h1>
             </div>
-            <!-- First Row -->
+
             <div>
-                make flex grid to display friends and family members
+                <table id="friendTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Relationship</th>
+                           
+                        </tr>
+                    </thead>
+
+                    <tbody id="tableBodyFriends">
+
+                        @if (Model.AllFriendsList != null)
+                        {
+
+                            for (int i = 0; i < Model.AllFriendsList.Count; i++)
+                            {
+                                <tr>
+                                    @if (Model.AllFriendsList[i].UserProfileId == Model.ProfileId)
+                                    {
+                                        @for (int j = 0; j < Model.AllProfiles.Count; j++)
+                                        {
+                                            if (@Model.AllFriendsList[i].ReceivedBy == Model.AllProfiles[j].Id)
+                                            {
+                                                <td>
+                                                    @Model.AllProfiles[j].DisplayName
+
+                                                </td>
+
+                                                j = j + Model.AllProfiles.Count;
+                                            }
+                                        }
+                                    }
+
+                                    else
+                                    {
+                                        @for (int j = 0; j < Model.AllProfiles.Count; j++)
+                                        {
+                                            if (@Model.AllFriendsList[i].UserProfileId == Model.AllProfiles[j].Id)
+                                            {
+                                                <td>
+                                                    @Model.AllProfiles[j].DisplayName
+
+                                                </td>
+
+                                                j = j + Model.AllProfiles.Count;
+                                            }
+                                        }
+                                    }
+
+                                    <td>
+                                        @Model.AllFriendsList[i].Relationship
+                                    </td>
+
+
+
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+                <br />
+                <br />
+                <ul id="paginationFriends" class="pagination"></ul>
             </div>
         </div>
     </div>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Games Table
+        var gameTable = document.getElementById("gameTable");
+        var games = Array.from(gameTable.querySelectorAll("tbody tr"));
+        var tableBodyGames = document.getElementById("tableBodyGames");
+        var itemsPerPageGames = 5;
+        var currentPageGames = 1;
+        var filteredGames = games;
+
+        // Friends & Family Table
+        var friendTable = document.getElementById("friendTable");
+        var friends = Array.from(friendTable.querySelectorAll("tbody tr"));
+        var tableBodyFriends = document.getElementById("tableBodyFriends");
+        var itemsPerPageFriends = 5;
+        var currentPageFriends = 1;
+        var filteredFriends = friends;
+
+        // Display Games
+        function displayGames(page) {
+            var startIndex = (page - 1) * itemsPerPageGames;
+            var endIndex = startIndex + itemsPerPageGames;
+
+            tableBodyGames.innerHTML = "";
+
+            for (var i = startIndex; i < endIndex && i < filteredGames.length; i++) {
+                tableBodyGames.appendChild(filteredGames[i].cloneNode(true));
+            }
+        }
+
+        // Update Games Pagination
+        function updatePaginationGames() {
+            var pageCount = Math.ceil(filteredGames.length / itemsPerPageGames);
+            var paginationGames = document.getElementById("paginationGames");
+            paginationGames.innerHTML = "";
+
+            for (var i = 1; i <= pageCount; i++) {
+                var li = document.createElement("li");
+                var link = document.createElement("a");
+                link.textContent = "| " + i + " |";
+                link.href = "#";
+                li.appendChild(link);
+
+                link.addEventListener("click", function () {
+                    var currentNumber = this.textContent.charAt(2);
+                    currentPageGames = parseInt(currentNumber);
+                    displayGames(currentPageGames);
+                    updatePaginationGames();
+                });
+
+                if (i === currentPageGames) {
+                    li.classList.add("active");
+                }
+
+                paginationGames.appendChild(li);
+            }
+        }
+
+        // Display Friends & Family
+        function displayFriends(page) {
+            var startIndex = (page - 1) * itemsPerPageFriends;
+            var endIndex = startIndex + itemsPerPageFriends;
+
+            tableBodyFriends.innerHTML = "";
+
+            for (var i = startIndex; i < endIndex && i < filteredFriends.length; i++) {
+                tableBodyFriends.appendChild(filteredFriends[i].cloneNode(true));
+            }
+        }
+
+        // Update Friends & Family Pagination
+        function updatePaginationFriends() {
+            var pageCount = Math.ceil(filteredFriends.length / itemsPerPageFriends);
+            var paginationFriends = document.getElementById("paginationFriends");
+            paginationFriends.innerHTML = "";
+
+            for (var i = 1; i <= pageCount; i++) {
+                var li = document.createElement("li");
+                var link = document.createElement("a");
+                link.textContent = "| " + i + " |";
+                link.href = "#";
+                li.appendChild(link);
+
+                link.addEventListener("click", function () {
+                    var currentNumber = this.textContent.charAt(2);
+                    currentPageFriends = parseInt(currentNumber);
+                    displayFriends(currentPageFriends);
+                    updatePaginationFriends();
+                });
+
+                if (i === currentPageFriends) {
+                    li.classList.add("active");
+                }
+
+                paginationFriends.appendChild(li);
+            }
+        }
+
+        // Initial setup for Games
+        displayGames(currentPageGames);
+        updatePaginationGames();
+
+        // Initial setup for Friends & Family
+        displayFriends(currentPageFriends);
+        updatePaginationFriends();
+
+       
+    });
+</script>
