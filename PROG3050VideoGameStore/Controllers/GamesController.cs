@@ -27,12 +27,15 @@ namespace PROG3050VideoGameStore.Controllers
             return View("AllGames", list);
         }
 
-        public IActionResult DetailsForFriendsWishList(int id = 0, int profileId = 0, int friendsId =0)
+        public IActionResult DetailsForFriendsWishList(int id = 0, int profileId = 0, int friendsId = 0)
         {
             DetailsForFriendsWishListVM model = new DetailsForFriendsWishListVM();
             UserProfile currentProfile = _appDbContext.Profiles.Find(profileId);
             model.ProfileId = profileId;
+
+            // Retrieve Active Game
             model.ActiveGame = _appDbContext.Games.Find(id);
+
             model.CurrentUserPreference = _appDbContext.ProfilePreferencesList.FirstOrDefault(p => p.Id == currentProfile.CurrentPrefId);
             model.GameRecommendations = new List<Game>();
             model.FriendId = friendsId;
@@ -51,23 +54,24 @@ namespace PROG3050VideoGameStore.Controllers
             // Use a HashSet to track unique GameIds
             HashSet<int> uniqueGameIds = new HashSet<int>();
 
-            // Filter games based on user preferences and add them to recommendations
+            // Generate Game Recommendations
             foreach (var game in AllGames)
             {
                 if (model.GameRecommendations.Count < 8 &&
                     (game.Category == model.CurrentUserPreference.FavCategory || game.Platform == model.CurrentUserPreference.FavPlatform) &&
-                    uniqueGameIds.Add(game.Id))
+                    uniqueGameIds.Add(game.Id) &&
+                    game.Id != id) // Exclude the active game
                 {
                     model.GameRecommendations.Add(game);
                 }
             }
 
-            // If there are not enough recommendations, add more games
+            // Fallback Recommendations
             if (model.GameRecommendations.Count < 8)
             {
                 foreach (var game in AllGames)
                 {
-                    if (model.GameRecommendations.Count < 8 && uniqueGameIds.Add(game.Id))
+                    if (model.GameRecommendations.Count < 8 && uniqueGameIds.Add(game.Id) && game.Id != id) // Exclude the active game
                     {
                         model.GameRecommendations.Add(game);
                     }
@@ -82,15 +86,17 @@ namespace PROG3050VideoGameStore.Controllers
             return View("DetailsForFriendsWishList", model);
         }
 
+
         public IActionResult DetailsForWishList(int id = 0, int profileId = 0)
         {
             GameDetailsVM model = new GameDetailsVM();
             UserProfile currentProfile = _appDbContext.Profiles.Find(profileId);
             model.ProfileId = profileId;
+
+            // Retrieve Active Game
             model.ActiveGame = _appDbContext.Games.Find(id);
             model.CurrentUserPreference = _appDbContext.ProfilePreferencesList.FirstOrDefault(p => p.Id == currentProfile.CurrentPrefId);
             model.GameRecommendations = new List<Game>();
-         
 
             // Get all games and ratings
             List<Game> AllGames = _appDbContext.Games.ToList();
@@ -111,7 +117,8 @@ namespace PROG3050VideoGameStore.Controllers
             {
                 if (model.GameRecommendations.Count < 8 &&
                     (game.Category == model.CurrentUserPreference.FavCategory || game.Platform == model.CurrentUserPreference.FavPlatform) &&
-                    uniqueGameIds.Add(game.Id))
+                    uniqueGameIds.Add(game.Id) &&
+                    game.Id != id) // Exclude the active game
                 {
                     model.GameRecommendations.Add(game);
                 }
@@ -122,7 +129,7 @@ namespace PROG3050VideoGameStore.Controllers
             {
                 foreach (var game in AllGames)
                 {
-                    if (model.GameRecommendations.Count < 8 && uniqueGameIds.Add(game.Id))
+                    if (model.GameRecommendations.Count < 8 && uniqueGameIds.Add(game.Id) && game.Id != id) // Exclude the active game
                     {
                         model.GameRecommendations.Add(game);
                     }
@@ -136,12 +143,15 @@ namespace PROG3050VideoGameStore.Controllers
 
             return View("Details", model);
         }
+
 
         public IActionResult Details(int id = 0, int profileId = 0)
         {
             GameDetailsVM model = new GameDetailsVM();
             UserProfile currentProfile = _appDbContext.Profiles.Find(profileId);
             model.ProfileId = profileId;
+
+            // Retrieve Active Game
             model.ActiveGame = _appDbContext.Games.Find(id);
             model.CurrentUserPreference = _appDbContext.ProfilePreferencesList.FirstOrDefault(p => p.Id == currentProfile.CurrentPrefId);
             model.GameRecommendations = new List<Game>();
@@ -165,7 +175,8 @@ namespace PROG3050VideoGameStore.Controllers
             {
                 if (model.GameRecommendations.Count < 8 &&
                     (game.Category == model.CurrentUserPreference.FavCategory || game.Platform == model.CurrentUserPreference.FavPlatform) &&
-                    uniqueGameIds.Add(game.Id))
+                    uniqueGameIds.Add(game.Id) &&
+                    game.Id != id) // Exclude the active game
                 {
                     model.GameRecommendations.Add(game);
                 }
@@ -176,7 +187,7 @@ namespace PROG3050VideoGameStore.Controllers
             {
                 foreach (var game in AllGames)
                 {
-                    if (model.GameRecommendations.Count < 8 && uniqueGameIds.Add(game.Id))
+                    if (model.GameRecommendations.Count < 8 && uniqueGameIds.Add(game.Id) && game.Id != id) // Exclude the active game
                     {
                         model.GameRecommendations.Add(game);
                     }
@@ -190,6 +201,7 @@ namespace PROG3050VideoGameStore.Controllers
 
             return View("Details", model);
         }
+
 
 
 
@@ -201,6 +213,7 @@ namespace PROG3050VideoGameStore.Controllers
             model.ProfileId = profileId;
             model.NewRating = new Rating();
             model.GameId = id;
+            model.Game = _appDbContext.Games.Find(id);
             model.NewRating.UserProfileId = profileId;
             model.NewRating.GameId = id;
             model.RatingList = _appDbContext.Rating.ToList();
@@ -238,6 +251,7 @@ namespace PROG3050VideoGameStore.Controllers
                     rating.RatingValue = model.NewRating.RatingValue;
                     _appDbContext.Rating.Update(rating);
                     _appDbContext.SaveChanges();
+                    model.Game = _appDbContext.Games.Find(model.GameId);
                     ViewData["Message"] = "Rating has been updated successfully";
                     return View(model);
 
@@ -247,6 +261,7 @@ namespace PROG3050VideoGameStore.Controllers
                 {
                     _appDbContext.Rating.Add(model.NewRating);
                     _appDbContext.SaveChanges();
+                    model.Game = _appDbContext.Games.Find(model.GameId);
                     ViewData["Message"] = "Rating have been added successfully";
                     return View(model);
                 }
@@ -255,7 +270,7 @@ namespace PROG3050VideoGameStore.Controllers
 
             else
             {
-
+                model.Game = _appDbContext.Games.Find(model.GameId);
                 ViewData["Message"] = "";
                 return View(model);
             }
@@ -270,6 +285,7 @@ namespace PROG3050VideoGameStore.Controllers
             model.NewReview = new Review();
             model.NewReview.ReviewBy = _appDbContext.Profiles.Find(profileId).DisplayName;
             model.GameId = id;
+            model.Game = _appDbContext.Games.Find(model.GameId);
             model.NewReview.UserProfileId = profileId;
             model.NewReview.GameId = id;
             return View(model);
@@ -283,13 +299,14 @@ namespace PROG3050VideoGameStore.Controllers
             {
                 _appDbContext.Review.Add(model.NewReview);
                 _appDbContext.SaveChanges();
+                model.Game = _appDbContext.Games.Find(model.GameId);
                 ViewData["Message"] = "Review has been added successfully";
                 return RedirectToAction("Index", "Games", new { id = model.ProfileId });
             }
 
             else
             {
-
+                model.Game = _appDbContext.Games.Find(model.GameId);
                 ViewData["Message"] = "";
                 return View(model);
             }

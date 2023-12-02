@@ -17,7 +17,7 @@
         </div>
 
         <div class="form-group">
-
+            <p>Game: @Model.Game.Name</p>
             <div class="form-group">
                 @Html.LabelFor(model => model.NewRating.RatingValue)
                 <select id="RatingValue" name="NewRating.RatingValue" class="form-control" asp-for="@Model.NewRating.RatingValue">
