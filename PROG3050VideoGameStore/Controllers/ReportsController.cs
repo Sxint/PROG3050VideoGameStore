@@ -502,7 +502,7 @@ namespace PROG3050VideoGameStore.Controllers
                             Document document = new Document(pdf);
 
                             // Add a title to the PDF
-                            document.Add(new Paragraph($"Order and Order Item"));
+                            document.Add(new Paragraph($"Order and Order Item for every user"));
 
                             // Add order and game details to the PDF
                             foreach (var record in records)
