@@ -8,6 +8,8 @@ namespace PROG3050VideoGameStore.ViewModels
 
         public int ProfileId { get; set; }
 
+        public Game? Game { get; set; }
+
         public Rating NewRating { get; set; }
 
         public List<Rating>? RatingList { get; set; }

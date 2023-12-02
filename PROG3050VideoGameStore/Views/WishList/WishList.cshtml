@@ -101,14 +101,20 @@
             var gameDetails = "";
             var tableRows = document.querySelectorAll("#tableBody tr");
 
-            tableRows.forEach(function (row,index) {
+            tableRows.forEach(function (row, index) {
                 var serialNumber = index + 1;
                 var title = row.querySelector("td:first-child").textContent.trim();
                 var author = row.querySelector("td:nth-child(2)").textContent;
                 var price = row.querySelector("td:nth-child(3)").textContent;
                 var rating = row.querySelector("td:nth-child(4)").textContent;
-                gameDetails += `Game ${serialNumber}:\nTitle: ${title}\nAuthor: ${author}\nPrice: ${price}\nRating: ${rating}\n\n`;
+
+                gameDetails += `Game ${serialNumber}:\n`;
+                gameDetails += `   Title: ${title}\n`;
+                gameDetails += `   Author: ${author}\n`;
+                gameDetails += `   Price: ${price}\n`;
+                gameDetails += `   Rating: ${rating}\n`;
             });
+
 
             // Encode the game details for the Twitter share URL
             var tweetText1 = encodeURIComponent(`${gameDetails}`);

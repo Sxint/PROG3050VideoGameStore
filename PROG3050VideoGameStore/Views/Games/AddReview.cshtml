@@ -17,7 +17,7 @@
         </div>
 
         <div class="form-group">
-
+            <p>Game: @Model.Game.Name</p>
             <div class="form-group">
                 @Html.LabelFor(model => model.NewReview.ReviewText)
                 @Html.TextAreaFor(model => model.NewReview.ReviewText, new { @class = "form-control", @id = "reviewtext" })

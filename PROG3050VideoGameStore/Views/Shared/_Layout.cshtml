@@ -84,6 +84,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.ProfileId})">Back</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
+                        </li>
                     }
 
                         @if (isPurchasedGamesPage)
@@ -91,12 +94,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
+                        </li>
                     }
 
                         @if (isOrdersPage)
                     {
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("CartPage", "Cart", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
                         </li>
                     }
 
@@ -112,6 +121,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.ProfileId})">Back</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
+                        </li>
                     }
 
                      @if (isWishListForFriends)
@@ -119,11 +131,17 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("FriendsAndFamily", "FriendsAndFamily", new { id = Model.ProfileId})">Back</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
+                        </li>
                     }
                     @if (isDetailsForFriendsWishList)
                     {
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("WishListForFriends", "WishList", new { profileId = Model.FriendId, currentProfileId=Model.ProfileId})">Back</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
                         </li>
                     }
 
@@ -132,12 +150,19 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("WishList", "WishList", new { profileId = Model.ProfileId})">Back</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
+                        </li>
                     }
 
                      @if (isWishList)
                     {
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
                         </li>
                     }
 
@@ -146,6 +171,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
+                        </li>
                     }
 
                      @if (isFriendRequestsPage)
@@ -153,12 +181,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
+                        </li>
                     }
 
                      @if (isFriendsAndFamilyPage)
                     {
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
                         </li>
                     }
 
@@ -168,12 +202,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
+                        </li>
                     }
 
                     @if (isEventListPage)
                     {
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
                         </li>
                     }
 
@@ -183,6 +223,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("EventList", "Admin", new { id = Model.ProfileId})">Back</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
+                        </li>
                     }
 
                     @if (isDeletePreferencePage == true)
@@ -190,6 +233,9 @@
 
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
                         </li>
                     }
 
@@ -199,6 +245,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
+                        </li>
                     }
 
                     @if (isAddPreferencePage == true)
@@ -207,6 +256,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
+                        </li>
                     }
 
                     @if (isPreferencesListPage == true)
@@ -214,6 +266,9 @@
 
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
                         </li>
                     }
 
@@ -225,6 +280,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("Index", "Games", new { id = Model.ProfileId})">Back</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
+                        </li>
                     }
 
                     @if (isEveRegisterPage == true)
@@ -233,6 +291,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
+                        </li>
                     }
                     @if (isUnregisterPage == true)
                     {
@@ -240,12 +301,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
+                        </li>
                     }
                     @if (isEventRegisterPage == true)
                     {
 
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
                         </li>
                     }
 
@@ -255,12 +322,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.ProfileId})">Back</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
+                        </li>
                     }
                     @if (isReviewRejectPage == true)
                     {
 
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
                         </li>
                     }
 
@@ -270,6 +343,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.ProfileId})">Back</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
+                        </li>
                     }
 
                     @if (isViewReviewPage == true)
@@ -278,6 +354,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("Index", "Games", new { id = Model.ProfileId})">Back</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
+                        </li>
                     }
 
                     @if (isRatingEditPage == true)
@@ -285,6 +364,9 @@
 
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("Index", "Games", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
                         </li>
                     }
 
@@ -295,6 +377,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("Index", "Games", new { id = Model.ProfileId})">Back</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
+                        </li>
                     }
 
                     @if (isProfileGameListPage == true)
@@ -302,6 +387,9 @@
 
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
                         </li>
                     }
 
@@ -311,6 +399,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
+                        </li>
                     }
 
 
@@ -319,12 +410,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ListAddresses", "LoginRegister", new { id = Model.UserProfileId})">Back</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.UserProfileId})">Return to Home</a>
+                        </li>
                     }
 
                     @if (isAddressListPage || isChooseAddressPage)
                     {
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
                         </li>
                     }
 
@@ -335,12 +432,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.CurrentProfileId})">Back</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.CurrentProfileId})">Return to Home</a>
+                        </li>
                     }
 
                     @if (isGameEditPage)
                     {
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("List", "Admin", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
                         </li>
                     }
 
@@ -350,12 +453,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.ProfileId})">Back</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
+                        </li>
                     }
 
                     @if (isEventAddPage)
                     {
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
                         </li>
                     }
 
@@ -364,12 +473,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("Panel", "Admin", new { id = Model.ProfileId})">Back</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
+                        </li>
                     }
 
                     @if (isPanelPage)
                     {
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
                         </li>
                     }
 
@@ -378,12 +493,16 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("Login", "LoginRegister")">Back</a>
                         </li>
+                       
                     }
 
                     @if (isUpdatePreferencePage)
                     {
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("PreferencesList", "LoginRegister", new { id = Model.UserProfileId})">Back</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.UserProfileId})">Return to Home</a>
                         </li>
                     }
 
@@ -392,12 +511,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Back</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
+                        </li>
                     }
 
                     @if (isUpdateProfilePage)
                     {
                         <li class="nav-item">
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.Id})">Back</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.Id})">Return to Home</a>
                         </li>
                     }
 
@@ -489,11 +614,11 @@
                            
                             <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new {id = Model.ProfileId})">Back</a>
                         </li>
-
-
-                        <li>
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="index">Logout</a>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new { id = Model.ProfileId})">Return to Home</a>
                         </li>
+
+                        
                     }
 
                     @if (isLoginPage || isRegisterPage)
