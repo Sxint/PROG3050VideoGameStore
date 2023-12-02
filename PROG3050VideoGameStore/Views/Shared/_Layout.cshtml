@@ -486,8 +486,8 @@
                     @if (isProfilePage)
                     {
                         <li class="nav-item">
-                            @*I'm not sure how to fix it but this back button should return the user to the profileIndex page'*@
-                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister")">Back</a>
+                           
+                            <a class="nav-link text-light" href="@Url.Action("ProfileIndex", "LoginRegister", new {id = Model.ProfileId})">Back</a>
                         </li>
 
 
