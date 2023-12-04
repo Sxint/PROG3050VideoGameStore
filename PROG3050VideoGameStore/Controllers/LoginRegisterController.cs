@@ -11,13 +11,16 @@ using AspNetCore.ReCaptcha;
 using Newtonsoft.Json;
 using AspNetCore;
 
+
 namespace PROG3050VideoGameStore.Controllers
 {
   
     public class LoginRegisterController : Controller
     {
+        private AppDbContext _appDbContext;
         private readonly ILogger<LoginRegisterController> _logger;
         private readonly SignInManager<UserLoginInfo> _signInManager;
+
 
 
         public LoginRegisterController(ILogger<LoginRegisterController> logger, AppDbContext appDbContext)
@@ -132,7 +135,7 @@ namespace PROG3050VideoGameStore.Controllers
             AddressListVM list = new AddressListVM();
             list.ProfileId = id;
             list.AllAddresses = _appDbContext.UserAddresses.OrderBy(g => g.StreetAddress).Where(g=>g.UserProfileId==id).ToList();
-            return View(list);
+            return View("ListAddresses",list);
         }
 
 
@@ -280,8 +283,8 @@ namespace PROG3050VideoGameStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserProfile QueriedUserProfile = new UserProfile();
-                QueriedUserProfile = _appDbContext.Profiles.FirstOrDefault(p=>p.DisplayName==model.Username);
+                UserProfile QueriedUserProfile = _appDbContext.Profiles.FirstOrDefault(p => p.DisplayName == model.Username); 
+                 
                 if (QueriedUserProfile!=null)
                 {
                     if (QueriedUserProfile.EmailValidate == true)
@@ -302,7 +305,7 @@ namespace PROG3050VideoGameStore.Controllers
                                 _appDbContext.Profiles.Update(QueriedUserProfile);
                                 _appDbContext.SaveChanges();
                                 ViewData["Message"] = "Invalid Credentials";
-                                return View(model);
+                                return View("Login",model);
                             }
 
                         }
@@ -325,10 +328,9 @@ namespace PROG3050VideoGameStore.Controllers
                 else
                 {
                     ViewData["Message"] = "Profile doesnt exist";
-                    return View(model);
+                    return View("Login",model);
                 }
-                _appDbContext.SaveChanges();
-                return RedirectToAction("Register", "LoginRegister");
+               
             }
 
             else
@@ -590,6 +592,6 @@ namespace PROG3050VideoGameStore.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        private AppDbContext _appDbContext;
+       
     }
 }

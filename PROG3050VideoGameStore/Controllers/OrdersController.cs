@@ -143,7 +143,7 @@ namespace PROG3050VideoGameStore.Controllers
 
             model.ProfileId = id;
 
-            return View(model);
+            return View("PurchasedGames",model);
 
         }
 

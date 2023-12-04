@@ -225,7 +225,7 @@ namespace PROG3050VideoGameStore.Controllers
         public IActionResult AddRatings(RatingVM model)
         {
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && model.NewRating.RatingValue>=1 && model.NewRating.RatingValue<=5)
             {
                 model.RatingList = _appDbContext.Rating.ToList();
                 Boolean ratingExists = false;
@@ -263,7 +263,7 @@ namespace PROG3050VideoGameStore.Controllers
                     _appDbContext.SaveChanges();
                     model.Game = _appDbContext.Games.Find(model.GameId);
                     ViewData["Message"] = "Rating have been added successfully";
-                    return View(model);
+                    return View("AddRatings",model);
                 }
 
             }
@@ -272,7 +272,7 @@ namespace PROG3050VideoGameStore.Controllers
             {
                 model.Game = _appDbContext.Games.Find(model.GameId);
                 ViewData["Message"] = "";
-                return View(model);
+                return View("AddRatings",model);
             }
 
         }
@@ -295,7 +295,7 @@ namespace PROG3050VideoGameStore.Controllers
         [HttpPost] // Handle POST requests
         public IActionResult AddReview(ReviewVM model)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && model.NewReview.ReviewText != "")
             {
                 _appDbContext.Review.Add(model.NewReview);
                 _appDbContext.SaveChanges();
@@ -308,7 +308,7 @@ namespace PROG3050VideoGameStore.Controllers
             {
                 model.Game = _appDbContext.Games.Find(model.GameId);
                 ViewData["Message"] = "";
-                return View(model);
+                return View("AddReview",model);
             }
         }
 
