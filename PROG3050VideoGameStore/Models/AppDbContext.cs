@@ -12,6 +12,7 @@ namespace PROG3050VideoGameStore.Models
         {
         }
 
+     
         public DbSet<Event> Events { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<UserProfile> Profiles { get; set; }

@@ -60,7 +60,7 @@ namespace PROG3050VideoGameStore.Controllers
             Event newEvent = new Event();
             addEventVM.Event = newEvent;
             addEventVM.ProfileId = id;
-            return View(addEventVM);
+            return View("AddEvent",addEventVM);
         }
 
         [HttpGet]
