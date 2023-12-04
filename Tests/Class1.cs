@@ -1111,6 +1111,80 @@ namespace Tests.Class1
 
         }
 
+      
+
+        [Test]
+        public void UpdateProfile_InvalidModel_ReturnsViewWithoutMessage()
+        {
+            // Arrange
+            var controller = new LoginRegisterController(_logger,_mockDbContext);
+            var userProfile = new UserProfile
+            {
+                Id = 1,
+                DisplayName = "TestUser",
+                Password = "Test@Password1",
+                ActualName = "Deepak Nirmal",
+                Gender = "Male",
+                BirthDate = new DateTime(1990, 1, 1),
+                PromotionEmail = true,
+                Email = "deepak.nirmal@example.com",
+                EmailValidate = true,
+                IsEmployee = false,
+                RememberMe = true,
+                RepeatedInvalidCreds = 0,
+                CurrentPrefId = 1,
+                CurrentAddressId = 1,
+                Preferences = new ProfilePreferences
+                {
+                    Id = 1,
+                    FavCategory = "Action",
+                    FavPlatform = "PC",
+                    Language = "English"
+                },
+                Address = new UserAddress
+                {
+                    Id = 1,
+                    FirstName = "Deepak",
+                    LastName = "Nirmal",
+                    PhoneNumber = "1234567890",
+                    StreetAddress = "123 Main St",
+                    AptNumber = "Apt 456",
+                    City = "City",
+                    Province = "Ontario",
+                    PostalCode = "12345",
+                    DeliveryInstructions = "Leave at the door",
+                    StreetAddressShipping = "456 Shipping St",
+                    AptNumberShipping = "Apt 789",
+                    CityShipping = "Shipping City",
+                    ProvinceShipping = "Ontario",
+                    PostalCodeShipping = "54321",
+                    SameAsShipping = false
+                },
+                RatingItem = new Rating
+                {
+                    Id = 1,
+                    RatingValue = 5
+                },
+                ReviewItem = new Review
+                {
+                    Id = 1,
+                    ReviewText = "Great game!",
+                    IsReviewed = true,
+                    ReviewBy = "Deepak Nirmal",
+                }
+            };
+            controller.ModelState.AddModelError("DisplayName", "Display name is required"); 
+
+            // Act
+            var result = controller.UpdateProfile(userProfile) as ViewResult;
+            var model = result?.Model as UserProfile;
+
+            // Assert
+            Assert.IsInstanceOf<ViewResult>(result);
+            Assert.IsEmpty(result?.ViewData["Message"].ToString());
+            Assert.NotNull(model);
+   
+        }
 
     }
 }
